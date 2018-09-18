@@ -16,7 +16,7 @@ Output:
 """
 
 '''
-not correct
+time limit exceeded
 
 
 class Solution(object):
@@ -33,13 +33,37 @@ class Solution(object):
         return s == s[::-1]
 
     def helper(self, res, tmp, s, idx):
-        if idx > len(s) - 1: return
+        if idx == len(s)  and ''.join(tmp) == s:
+            res.append(tmp[:])
+            return
         for i in range(idx, len(s)):
             for j in range(len(s) - i):
                 if self.is_valid(s[i: i + j + 1]):
                     tmp.append(s[i: i + j + 1])
-                    if i + j + 1 == len(s):
-                        res.append(tmp[:])
-                        return
                     self.helper(res, tmp, s, i + j + 1)
+                    tmp.pop()
 '''
+
+
+class Solution(object):
+    def partition(self, s):
+        """
+        :type s: str
+        :rtype: List[List[str]]
+        """
+        res = []
+        self.helper(res, [], s)
+        return res
+
+    def is_valid(self, s):
+        return s == s[::-1]
+
+    def helper(self, res, tmp, s):
+        if not s:
+            res.append(tmp[:])
+            return
+        for i in range(1, len(s) + 1):
+            if self.is_valid(s[:i]):
+                tmp.append(s[:i])
+                self.helper(res, tmp, s[i:])
+                tmp.pop()
