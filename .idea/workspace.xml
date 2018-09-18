@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="113a5c8d-4d47-4d01-9211-89ca49daa17c" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/130. Surrounded Regions.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/131. Palindrome Partitioning.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,16 +57,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="106. Construct Binary Tree from Inorder and Postorder Traversal.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/106. Construct Binary Tree from Inorder and Postorder Traversal.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="16" column="7" lean-forward="false" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="109. Convert Sorted List to Binary Search Tree.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/109. Convert Sorted List to Binary Search Tree.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -97,11 +87,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="130. Surrounded Regions.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="130. Surrounded Regions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/130. Surrounded Regions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="79" column="31" lean-forward="false" selection-start-line="79" selection-start-column="31" selection-end-line="79" selection-end-column="31" />
+            <state relative-caret-position="178">
+              <caret line="73" column="16" lean-forward="true" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="131. Palindrome Partitioning.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/131. Palindrome Partitioning.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-38">
+              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -172,7 +172,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/31. NextPermutation.py" />
         <option value="$PROJECT_DIR$/33. SearchinRotatedSortedArray.py" />
         <option value="$PROJECT_DIR$/34. Find First and Last Position of Element in Sorted Array.py" />
         <option value="$PROJECT_DIR$/39. Combination Sum.py" />
@@ -223,6 +222,7 @@
         <option value="$PROJECT_DIR$/127. Word Ladder.py" />
         <option value="$PROJECT_DIR$/129. Sum Root to Leaf Numbers.py" />
         <option value="$PROJECT_DIR$/130. Surrounded Regions.py" />
+        <option value="$PROJECT_DIR$/131. Palindrome Partitioning.py" />
       </list>
     </option>
   </component>
@@ -233,10 +233,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="232" />
-    <option name="y" value="413" />
-    <option name="width" value="1378" />
-    <option name="height" value="773" />
+    <option name="x" value="-7" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -497,13 +496,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/34. Find First and Last Position of Element in Sorted Array.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="46" column="12" lean-forward="false" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/39. Combination Sum.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="846">
@@ -857,8 +849,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/130. Surrounded Regions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="79" column="31" lean-forward="false" selection-start-line="79" selection-start-column="31" selection-end-line="79" selection-end-column="31" />
+        <state relative-caret-position="178">
+          <caret line="73" column="16" lean-forward="true" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/131. Palindrome Partitioning.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-38">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
       </provider>
