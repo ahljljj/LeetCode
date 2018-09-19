@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="113a5c8d-4d47-4d01-9211-89ca49daa17c" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/133. Clone Graph.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/134. Gas Station.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -98,7 +98,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="133. Clone Graph.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="133. Clone Graph.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/133. Clone Graph.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="466">
@@ -108,11 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="114. Flatten Binary Tree to Linked List.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/114. Flatten Binary Tree to Linked List.py">
+      <file leaf-file-name="134. Gas Station.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/134. Gas Station.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state relative-caret-position="268">
+              <caret line="79" column="106" lean-forward="false" selection-start-line="79" selection-start-column="106" selection-end-line="79" selection-end-column="106" />
               <folding />
             </state>
           </provider>
@@ -173,7 +173,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/34. Find First and Last Position of Element in Sorted Array.py" />
         <option value="$PROJECT_DIR$/39. Combination Sum.py" />
         <option value="$PROJECT_DIR$/40. Combination Sum II.py" />
         <option value="$PROJECT_DIR$/46. Permutations.py" />
@@ -224,6 +223,7 @@
         <option value="$PROJECT_DIR$/130. Surrounded Regions.py" />
         <option value="$PROJECT_DIR$/131. Palindrome Partitioning.py" />
         <option value="$PROJECT_DIR$/133. Clone Graph.py" />
+        <option value="$PROJECT_DIR$/134. Gas Station.py" />
       </list>
     </option>
   </component>
@@ -497,13 +497,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/40. Combination Sum II.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="60" column="18" lean-forward="false" selection-start-line="60" selection-start-column="18" selection-end-line="60" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/47. Permutations II.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -855,6 +848,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="466">
           <caret line="62" column="24" lean-forward="false" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/134. Gas Station.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="79" column="106" lean-forward="false" selection-start-line="79" selection-start-column="106" selection-end-line="79" selection-end-column="106" />
           <folding />
         </state>
       </provider>
