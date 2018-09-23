@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="113a5c8d-4d47-4d01-9211-89ca49daa17c" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/144. Binary Tree Preorder Traversal.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/147. Insertion Sort List.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -69,16 +69,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="131. Palindrome Partitioning.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/131. Palindrome Partitioning.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="774">
-              <caret line="43" column="16" lean-forward="false" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="133. Clone Graph.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/133. Clone Graph.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -139,11 +129,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="144. Binary Tree Preorder Traversal.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="144. Binary Tree Preorder Traversal.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/144. Binary Tree Preorder Traversal.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="18">
               <caret line="1" column="35" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="147. Insertion Sort List.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/147. Insertion Sort List.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -174,7 +174,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/50. Pow(x, n).py" />
         <option value="$PROJECT_DIR$/55. Jump Game.py" />
         <option value="$PROJECT_DIR$/56. Merge Intervals.py" />
         <option value="$PROJECT_DIR$/60. Permutation Sequence.py" />
@@ -225,6 +224,7 @@
         <option value="$PROJECT_DIR$/142. Linked List Cycle II.py" />
         <option value="$PROJECT_DIR$/143. Reorder List.py" />
         <option value="$PROJECT_DIR$/144. Binary Tree Preorder Traversal.py" />
+        <option value="$PROJECT_DIR$/147. Insertion Sort List.py" />
       </list>
     </option>
   </component>
@@ -498,13 +498,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/31. NextPermutation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="31" column="16" lean-forward="false" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/60. Permutation Sequence.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1692">
@@ -861,6 +854,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="1" column="35" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/147. Insertion Sort List.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="24" />
           <folding />
         </state>
       </provider>
