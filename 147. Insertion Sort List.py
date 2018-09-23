@@ -70,3 +70,45 @@ class Solution(object):
         return head
 
 '''
+
+# too long
+
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def insertionSortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head == None: return
+        curr = head.next
+        prev = head
+        while curr:
+            if curr.val <= head.val:
+                tmp = curr.next
+                curr.next = head
+                prev.next = tmp
+                head = curr
+                curr = tmp
+                continue
+            search = head
+            while search and curr.val > search.val:
+                prev_tmp = search
+                search = search.next
+            if search == curr:
+                prev = curr
+                curr = curr.next
+                continue
+            if search == None: break
+            tmp = curr.next
+            prev.next = tmp
+            prev_tmp.next = curr
+            curr.next = search
+            curr = tmp
+        return head
