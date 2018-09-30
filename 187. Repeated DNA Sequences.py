@@ -43,3 +43,22 @@ class Solution(object):
         
 
 '''
+
+
+class Solution(object):
+    def findRepeatedDnaSequences(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        res = []
+        hashmap = {}
+        n = len(s)
+        for i in range(n - 9):
+            if s[i:i + 10] not in hashmap:
+                hashmap[s[i:i + 10]] = True
+            elif hashmap[s[i:i + 10]]:
+                hashmap[s[i:i + 10]] = False
+                res.append(s[i:i + 10])
+        return res
+
