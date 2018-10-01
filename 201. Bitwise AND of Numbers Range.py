@@ -34,3 +34,23 @@ class Solution(object):
         
 
 '''
+
+
+class Solution(object):
+    def rangeBitwiseAnd(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        if m == 0: return 0
+
+        if 2 * m > n:
+            res = m
+            for i in xrange(m + 1, n + 1):
+                if res == 0: return 0
+                res = res & i
+            return res
+        else:
+            return 0
+
