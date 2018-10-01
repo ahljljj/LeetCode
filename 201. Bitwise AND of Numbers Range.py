@@ -35,7 +35,7 @@ class Solution(object):
 
 '''
 
-
+'''
 class Solution(object):
     def rangeBitwiseAnd(self, m, n):
         """
@@ -53,4 +53,22 @@ class Solution(object):
             return res
         else:
             return 0
+'''
+
+# This tells us, the bitwise and of the range is keeping the common bits of m and n from left to right until the first bit that they are different, padding zeros for the rest
+
+class Solution(object):
+    def rangeBitwiseAnd(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        i = 0
+        while m != n:
+            m >>= 1
+            n >>= 1
+            i += 1
+        return n << i
+
 
