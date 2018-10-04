@@ -1,10 +1,8 @@
 package com.company;
 
-import com.sun.source.util.Trees;
-
 import java.util.TreeSet;
 
-public class Solution {
+public class ContainsDuplicateII {
 
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
 
@@ -31,5 +29,4 @@ public class Solution {
         }
         return false;
     }
-
 }
