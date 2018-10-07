@@ -57,3 +57,32 @@ class Solution(object):
             else:
                 length = C - E
         return (C - A) * (D - B) + (G - E) * (H - F) - length * width
+
+'''
+
+#concise solution
+
+class Solution(object):
+    def computeArea(self, A, B, C, D, E, F, G, H):
+        """
+        :type A: int
+        :type B: int
+        :type C: int
+        :type D: int
+        :type E: int
+        :type F: int
+        :type G: int
+        :type H: int
+        :rtype: int
+        """
+        area1 = (C - A) * (D - B)
+        area2 = (G - E) * (H - F)
+        width = min(G, C) - max(E, A)
+        height = min(D, H) - max(F, B)
+        if width <= 0 or height <= 0:
+            return area1 + area2
+        else:
+            return area1 + area2 - width * height
+        
+        
+'''
