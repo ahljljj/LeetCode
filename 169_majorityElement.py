@@ -33,6 +33,8 @@ class Solution(object):
 
 
 '''
+# majority vote solution
+
 class Solution:
     def majorityElement(self, nums):
         """
