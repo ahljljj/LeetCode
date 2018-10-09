@@ -30,3 +30,23 @@ class Solution(object):
         for num in unums:
             if nums.count(num) > nb // 2:
                 return num
+
+
+'''
+class Solution:
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        cnt, cand = 0, 0
+        for num in nums:
+            if num == cand:
+                cnt += 1
+            elif cnt == 0:
+                cand, cnt = num, 1
+            else:
+                cnt -= 1
+        return cand if nums.count(cand) > len(nums)//2 else None
+
+'''
