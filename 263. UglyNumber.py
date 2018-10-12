@@ -60,3 +60,22 @@ class Solution(object):
             return self.isUgly(num/3)
         if num % 5 ==0:
             return self.isUgly(num/5)
+
+'''
+# simpler solution
+
+class Solution:
+    def isUgly(self, num):
+        """
+        :type num: int
+        :rtype: bool
+        """
+        if num == 1:
+            return True
+        if num <= 0:
+            return False
+        for x in [2, 3, 5]:
+            while num % x == 0:
+                num /= x
+        return num == 1
+'''
