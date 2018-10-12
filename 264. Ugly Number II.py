@@ -73,3 +73,35 @@ class Solution:
             ugly.append(unext)
             n -= 1
         return ugly[-1]
+
+
+
+
+'''
+
+# this solution is not the most effecient one, but is very easy to come out with an interview and self-explaning.
+
+class Solution:
+    def nthUglyNumber(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        ugly = [1]
+        res = ugly[0]
+        last = None
+        while n > 0:
+            # pop the root node from heap
+            i = heapq.heappop(ugly)
+            # if the vertex have been used, skip to the next one
+            if i == last: continue
+            last = i
+            res = i
+            # push the three potential number into the heap
+            heapq.heappush(ugly, 2 * i)
+            heapq.heappush(ugly, 3 * i)
+            heapq.heappush(ugly, 5 * i)
+            n -= 1
+        return res
+
+'''
