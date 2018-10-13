@@ -97,6 +97,7 @@ class Solution:
         i = n-1
         while i >= 0:
             citeCount[i] += citeCount[i+1]
+            # return when we have enough number of papers, we don't need to keep going since we are looking for the largest possible i + 1
             if citeCount[i+1] >= i+1:
                 return i+1
             i -= 1
