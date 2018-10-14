@@ -115,3 +115,29 @@ class Solution:
                     tmp.add(x - y)
             queue = tmp
 
+
+'''
+
+class Solution:
+    def numSquares(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        squares = []
+        dp = [float("inf")] *(n + 1)
+        i = 1
+        while i**2 <= n:
+            squares.append(i ** 2)
+            dp[i**2] = 1
+            i += 1
+        for i in range(2, n + 1):
+            if dp[i] < float("inf"): continue
+            for square in squares:
+                if i < square:
+                    break
+                dp[i] = min(dp[i], 1 + dp[i - square])
+        return dp[-1]
+
+
+'''
