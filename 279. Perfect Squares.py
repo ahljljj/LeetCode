@@ -60,4 +60,58 @@ class Solution:
             return
         for i in range(1, 1 + int(math.sqrt(n))):
             self.helper(n - i**2, idx + 1)
+            
+# OR
+
+class Solution:
+    def numSquares(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        self.res = float("inf")
+        self.helper(n, 0)
+        return self.res
+    
+    def helper(self, n, idx):
+        if idx >= self.res:
+            return
+        if n == (int(math.sqrt(n)))**2:
+            if idx + 1 < self.res:
+                self.res = idx + 1
+            return
+        for i in range((int(math.sqrt(n))), 0, -1):
+            self.helper(n -  i**2, idx + 1)
 '''
+
+
+#BFS
+#time/space complicity: O(log(n)) similar to binary tree???
+
+class Solution:
+    def numSquares(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        # current level
+        queue = [n]
+        squares = []
+        i = 1
+        while i**2 <= n:
+            squares.append(i ** 2)
+            i += 1
+        level = 0
+        while queue:
+            level += 1
+            tmp = set()
+            # split the current level to get the next level
+            for x in queue:
+                for y in squares:
+                    if x == y:
+                        return level
+                    if x < y:
+                        break
+                    tmp.add(x - y)
+            queue = tmp
+
