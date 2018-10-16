@@ -27,6 +27,7 @@ Note: You may assume that the secret number and your friend's guess only contain
 
 """
 
+# time/space complexity: O(n)
 
 class Solution:
     def getHint(self, secret, guess):
