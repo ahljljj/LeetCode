@@ -48,3 +48,38 @@ class Solution:
             slow = nums[slow]
             fast = nums[fast]
         return slow
+
+
+# binary search: time complexity: O(nlg(n)
+'''
+intuition
+
+This solution is based on binary search.
+
+At first the search space is numbers between 1 to n. Each time I select a number mid (which is the one in the middle) and count all the numbers equal to or less than mid. Then if the count is more than mid, the search space will be [1 mid] otherwise [mid+1 n]. I do this until search space is only one number.
+
+
+'''
+
+class Solution:
+    def findDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums) - 1
+        lower = 1
+        upper = n
+        mid = upper
+        while lower < upper:
+            mid = (lower + upper) // 2
+            count = 0
+            for num in nums:
+                if num <= mid:
+                    count += 1
+            if count > mid:
+                upper = mid
+            else:
+                lower = mid + 1
+        return lower
+
