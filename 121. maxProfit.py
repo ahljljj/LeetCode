@@ -1,5 +1,4 @@
 '''
-122. Best Time to Buy and Sell Stock II
 
 Say you have an array for which the ith element is the price of a given stock on day i.
 
@@ -74,23 +73,5 @@ class Solution:
                 maxprofit=prices[i]-minprice
         return maxprofit
 
-#200 / 200 test cases passed. Runtime: 40 ms
-# your runtime beats 99.81% of python 3 submissions.
 
-'''
-
-class Solution:
-    def maxProfit(self, prices):
-        """
-        :type prices: List[int]
-        :rtype: int
-        """
-        profit = 0
-        for i in range(len(prices) - 1):
-            if prices[i + 1] > prices[i]:
-                profit += prices[i + 1] - prices[i]
-        return profit
-            
-
-'''
 
