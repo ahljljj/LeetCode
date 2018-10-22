@@ -47,3 +47,32 @@ class Solution:
             buy[i] = max(buy[i - 1], cool[i - 1] - prices[i])
         return sell[-1]
 
+
+'''
+
+class Solution:
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        # three states: buy, cool, and sell
+        # buy -> hold/cool -> ... -> hold/cool -> sell -> cool -> .... -> cool -> buy
+        # suppose we have infinite amount of money, we can buy anything, we are interested in the maximal profit
+        
+        if not prices:
+            return 0
+        n = len(prices)
+        buy = [0] * n
+        sell = [0] * n
+        cool = [0] * n
+        buy[0] = -prices[0]
+        for i in range(1, n):
+            cool[i] = max(cool[i - 1], sell[i - 1])
+            sell[i] = buy[i - 1] + prices[i]
+            buy[i] = max(buy[i - 1], cool[i - 1] - prices[i])
+        return max(sell[-1], cool[-1])
+            
+        
+'''
+
