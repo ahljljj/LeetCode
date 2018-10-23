@@ -129,3 +129,64 @@ class Solution:
                 return False
         return count == 1
 '''
+
+
+# TLE first, but change wordList to a set pass the test
+'''
+explanation
+
+Performance note:
+
+use set instead of list for dist
+the order in if nw in dict and nw not in dist: is important. for long distance between start and end, dist can become huge while dict is of constant size.
+Fun fact: when the size is small, list performs better.
+
+In [125]: s = set()
+
+In [126]: timeit s.add('1')
+10000000 loops, best of 3: 89.1 ns per loop
+
+In [127]: l = []
+
+In [128]: timeit l.append('1')
+10000000 loops, best of 3: 87.7 ns per loop
+
+In [129]: timeit '1' in s
+10000000 loops, best of 3: 44.9 ns per loop
+
+In [130]: timeit '1' in l
+10000000 loops, best of 3: 43.4 ns per loop
+
+'''
+
+class Solution:
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+        xyz = "abcdefghijklmnopqrstuvwxyz"
+        queue = set([beginWord])
+        wordList = set(wordList)
+        if beginWord in wordList:
+            wordList.remove(beginWord)
+        height = 1
+        while queue:
+            height += 1
+            tmp = set()
+            for cand in queue:
+                for i in range(len(cand)):
+                    for c in xyz:
+                        cand_copy = cand[:i] + c + cand[i + 1:]
+                        if cand_copy in wordList:
+                            if cand_copy == endWord:
+                                return height
+                            else:
+                                tmp.add(cand_copy)
+                                wordList.remove(cand_copy)
+            queue = tmp
+        return 0
+
+
