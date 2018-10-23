@@ -45,3 +45,31 @@ class Solution:
                     idx[j] += 1
         return ugly[-1]
 
+
+'''
+# python heap: TLE time complexity: O(nlgn)
+
+
+class Solution:
+    def nthSuperUglyNumber(self, n, primes):
+        """
+        :type n: int
+        :type primes: List[int]
+        :rtype: int
+        """
+        ugly = [1]
+        res = None
+        k = 0
+        while k < n:
+            i = heapq.heappop(ugly)
+            if i == res: continue
+            res = i
+            for prime in primes:
+                heapq.heappush(ugly, i * prime)
+            k += 1
+        return res
+                
+
+
+
+'''
