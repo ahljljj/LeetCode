@@ -64,3 +64,53 @@ class Solution(object):
                 heapq.heappop(min_heap)
                 heapq.heappush(min_heap, num)
         return min_heap[0]
+
+
+
+'''
+
+# quicksort
+
+class Solution:
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """        
+        return self.helper(nums, 0, len(nums) - 1, k)
+        
+   
+    def helper(self, nums, low, high, k):
+        left, right = low, high
+        pivot = nums[(low + high)//2]
+        i = left
+        while i <= right:
+            if nums[i] < pivot:
+                self.swap(nums, i, right)
+                right -= 1
+            elif nums[i] > pivot:
+                self.swap(nums, i, left)
+                left += 1
+                i += 1
+            else:
+                i += 1
+        if k  <= left: # k - 1 < left
+            return self.helper(nums, low, left - 1, k)
+        elif k - 1 > right:
+            return self.helper(nums, right + 1, high, k)
+        else:
+            return pivot
+        
+                
+                
+                
+    def swap(self, nums, i, j):
+        tmp = nums[i]
+        nums[i] = nums[j]
+        nums[j] = tmp
+        
+        
+
+
+'''
