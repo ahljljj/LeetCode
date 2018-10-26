@@ -53,20 +53,20 @@ class Solution:
         :rtype: int
         """
         self.res = 0
-        self.helper(root, 0, False)
+        self.map = {}
+        self.helper(root, False)
         return self.res
     
-    def helper(self, root, tmp, rob):
+    def helper(self, root, rob):
         if not root:
-            if tmp > self.res:
-                self.res = tmp
-            return tmp
-        if rob == False:
-            self.res = max(self.helper(root.left, tmp, False) + self.helper(root.right, tmp, False),
-                       root.val + self.helper(root.left, tmp, True) + self.helper(root.right, tmp, True))
+            return 0
+        if not rob :
+            self.res = max(self.helper(root.left, False) + self.helper(root.right,  False),
+                       root.val + self.helper(root.left, True) + self.helper(root.right, True))
         else:
-            self.res = self.helper(root.left, tmp, False) + self.helper(root.right, tmp, False)
+            self.res = self.helper(root.left, False) + self.helper(root.right, False)
         return self.res
+            
             
             
 '''
