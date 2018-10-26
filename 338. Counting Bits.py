@@ -41,3 +41,19 @@ class Solution:
                 count += 1
             n //= 2
         return count
+
+'''
+
+# An easy recurrence for this problem is f[i] = f[i / 2] + i % 2.
+
+class Solution:
+    def countBits(self, num):
+        """
+        :type num: int
+        :rtype: List[int]
+        """
+        res = [0] * (num + 1)
+        for n in range(1, num + 1):
+            res[n] = res[n >> 1] + (n & 1)
+        return res
+'''
