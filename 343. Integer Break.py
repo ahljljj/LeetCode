@@ -51,6 +51,5 @@ class Solution(object):
             for j in range(1, n//2 +2):
                 # j * (i - j) is used to classify the situation when j = 2 and j - j = 2
                 tmp = max(j, dp[j]) * max(i - j, dp[i - j])
-                if tmp > dp[i]:
-                    dp[i] = tmp
+                dp[i] = max(tmp, dp[i])
         return dp[-1]
