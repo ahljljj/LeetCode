@@ -70,3 +70,81 @@ class Solution:
             
             
 '''
+
+
+#leetcode solution(optimize)
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def rob(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.res = 0
+        self.map = {}
+
+        return self.helper(root)
+
+    def helper(self, root):
+        if not root:
+            return 0
+        if root in self.map:
+            return self.map[root]
+        val = 0
+        if root.left:
+            val += self.helper(root.left.left) + self.helper(root.left.right)
+        if root.right:
+            val += self.helper(root.right.left) + self.helper(root.right.right)
+        val = max(val + root.val, self.helper(root.left) + self.helper(root.right))
+        if root not in self.map:
+            self.map[root] = val
+        return val
+
+
+
+#my solution: optimized by Leetcode's idea
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def rob(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.res = 0
+        self.map0 = {}
+        self.map1 = {}
+        #        self.helper(root, False)
+        return self.helper(root, False)
+
+    def helper(self, root, rob):
+        if not root:
+            return 0
+        if rob == False and root in self.map0:
+            return self.map0[root]
+        elif rob == True and root in self.map1:
+            return self.map1[root]
+        if not rob:
+            val = max(self.helper(root.left, False) + self.helper(root.right, False),
+                      root.val + self.helper(root.left, True) + self.helper(root.right, True))
+        else:
+            val = self.helper(root.left, False) + self.helper(root.right, False)
+        if rob == True:
+            self.map1[root] = val
+        else:
+            self.map0[root] = val
+        return val
