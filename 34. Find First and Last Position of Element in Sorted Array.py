@@ -71,4 +71,51 @@ class Solution(object):
 
 
 
+# binary search correct
+
+class Solution:
+    def searchRange(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        idx = -1
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] == target:
+                idx = mid
+                break
+            elif nums[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        if idx == -1:
+            return [-1, -1]
+
+        right = idx
+        left = idx
+        upper = len(nums) - 1
+        lower = 0
+
+        while right <= upper:
+            mid = (upper + right) // 2
+            if nums[mid] == target:
+                right = mid + 1
+            else:
+                upper = mid - 1
+
+        while lower <= left:
+            mid = (lower + left) // 2
+            if nums[mid] == target:
+                left = mid - 1
+            else:
+                lower = mid + 1
+
+        return [lower, upper]
+
+
+
+
 
