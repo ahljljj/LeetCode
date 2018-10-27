@@ -82,6 +82,7 @@ class Solution:
         """
         idx = -1
         left, right = 0, len(nums) - 1
+        #first round: search target and return its index or -1 if not found
         while left <= right:
             mid = (left + right) // 2
             if nums[mid] == target:
@@ -99,6 +100,7 @@ class Solution:
         upper = len(nums) - 1
         lower = 0
 
+        #second round: search the upper index of the target
         while right <= upper:
             mid = (upper + right) // 2
             if nums[mid] == target:
@@ -106,6 +108,7 @@ class Solution:
             else:
                 upper = mid - 1
 
+        #third round: search the lower index of the target
         while lower <= left:
             mid = (lower + left) // 2
             if nums[mid] == target:
