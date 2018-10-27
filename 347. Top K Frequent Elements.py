@@ -71,3 +71,37 @@ class Solution:
             res.append(node[1])
         return res
 
+# bucket
+#time complexity: O(n) space complexity: O(n)
+
+
+class Solution:
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        # save nums and the corresponding frequency to hashmap
+        hashmap = {}
+        for num in nums:
+            if num not in hashmap:
+                hashmap[num] = 1
+            else:
+                hashmap[num] += 1
+        # use buckets to  put the numer with same frequency into the same bucket
+        buckets = {}
+        for num, frequency in hashmap.items():
+            if frequency not in buckets:
+                buckets[frequency] = [num]
+            else:
+                buckets[frequency].append(num)
+        # iterate over the buckets from the maximum possible maxfrequency unitl the accumulate frequency = k
+        maxfrequency = 0
+        res = []
+        for i in range(len(nums), -1, -1):
+            if i in buckets:
+                maxfrequency += len(buckets[i])
+                res.extend(buckets[i])
+            if maxfrequency == k:
+                return res
