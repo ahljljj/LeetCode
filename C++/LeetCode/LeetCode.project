@@ -98,6 +98,7 @@
     </Configuration>
   </Settings>
   <VirtualDirectory Name="src">
+    <File Name="2. Add Two Numbers.cpp"/>
     <File Name="twoSum.cpp"/>
     <File Name="twoSum.h"/>
     <File Name="main.cpp"/>
