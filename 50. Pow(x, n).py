@@ -24,7 +24,7 @@ n is a 32-bit signed integer, within the range [−231, 231 − 1]
 
 """
 
-"""
+'''
 time limit exceeded
 
 class Solution:
@@ -45,7 +45,59 @@ class Solution:
             return 1/pow(x,-n)
         else:
             return 1
-                
 
+'''
 
-"""
+#recursive
+
+class Solution:
+        def myPow(self, x, n):
+                """
+                :type x: float
+                :type n: int
+                :rtype: float
+                """
+                sign = 1
+                if n < 0:
+                        n = - n
+                        sign = 0
+                return self.power(x, n) if sign == 1 else 1. / self.power(x, n)
+
+        def power(self, x, n):
+                if n == 0:
+                        return 1
+                if n == 1:
+                        return x
+                if n % 2 == 1:
+                        return x * self.power(x * x, n // 2)
+                else:
+                        return self.power(x * x, n // 2)
+
+#iteration
+
+class Solution:
+        def myPow(self, x, n):
+                """
+                :type x: float
+                :type n: int
+                :rtype: float
+                """
+                sign = 1
+                if n < 0:
+                        n = -n
+                        sign = -1
+                return self.power(x, n) if sign == 1 else 1.0 / self.power(x, n)
+
+        def power(self, x, n):
+                if n == 0:
+                        return 1
+                if n == 1:
+                        return x
+                res = 1
+                num = x
+                while n > 1:
+                        if n % 2 == 1:
+                                res *= num
+                        num *= num
+                        n //= 2
+                return res * num
