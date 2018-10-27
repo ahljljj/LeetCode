@@ -110,7 +110,4 @@ class Solution:
         nums[i] = nums[j]
         nums[j] = tmp
         
-        
-
-
 '''

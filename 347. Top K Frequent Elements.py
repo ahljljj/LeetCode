@@ -20,6 +20,8 @@ Your algorithm's time complexity must be better than O(n log n), where n is the 
 
 
 # built-in function
+#20 / 20 test cases passed. Runtime: 60 ms
+#time complexity: O(nlgn)
 
 class Solution:
     def topKFrequent(self, nums, k):
@@ -40,3 +42,32 @@ class Solution:
             res.append(key)
 
         return res
+
+
+# hashmap + min heap: time complexity O(nlog(k)
+
+class Solution:
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        hashmap = {}
+        for num in nums:
+            if num not in hashmap:
+                hashmap[num] = 1
+            else:
+                hashmap[num] += 1
+        min_heap = [[-float('inf'), -float("inf")]] * k
+        heapq.heapify(min_heap)
+        # min_heap: (value, key), sort by the first entry
+        for key in hashmap:
+            if hashmap[key] >= min_heap[0][0]:
+                heapq.heappop(min_heap)
+                heapq.heappush(min_heap, [hashmap[key], key])
+        res = []
+        for node in min_heap:
+            res.append(node[1])
+        return res
+
