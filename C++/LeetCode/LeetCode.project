@@ -98,6 +98,7 @@
     </Configuration>
   </Settings>
   <VirtualDirectory Name="src">
+    <File Name="3. Longest Substring Without Repeating Characters.cpp"/>
     <File Name="34. Find First and Last Position of Element in Sorted Array.cpp"/>
     <File Name="2. Add Two Numbers.cpp"/>
     <File Name="twoSum.cpp"/>
