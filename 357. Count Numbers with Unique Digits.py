@@ -57,3 +57,43 @@ class Solution(object):
                 extra *= 10 - (i - 1)
             dp[i] = extra + dp[i - 1]
         return dp[n] if n < 11 else dp[10]
+
+
+'''
+# backtracking TLE
+
+
+class Solution(object):
+    def countNumbersWithUniqueDigits(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        
+        self.upper = min(10**n, 10**10)
+        used = [False] * 10 # record the digits have been used
+        count = 1
+        for i in range(1, 10): # the leading digit cann't be zero
+            used[i] = True
+            count += self.helper(i, used)
+            used[i] = False # back to the upper layer and release the digit i
+        return count
+    
+    def helper(self, prev, used):
+        # prev: use previous value to compute the current value
+        # used: use the length-10 array to lock and release the digits
+        count = 0
+        if prev < self.upper: # stopping criterion
+            count += 1
+        else:
+            return count
+        for i in range(10):
+            if not used[i]: # if digit i havn't been used
+                used[i] = True
+                curr = 10 * prev + i
+                count += self.helper(curr, used)
+                used[i] = False
+        return count
+                
+        
+'''
