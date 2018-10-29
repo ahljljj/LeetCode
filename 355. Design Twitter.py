@@ -175,7 +175,7 @@ class Twitter:
         self.maxnews = 10
         self.time = 0
         self.posts = {}  # key: userId, val: list of pairs (time, post)
-        self.friends = {}  # key: follower val: set of followee
+        self.friends = {}  # key: follower val: set of followees
 
     def postTweet(self, userId, tweetId):
         """
