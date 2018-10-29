@@ -54,3 +54,46 @@ class Solution(object):
             if y % num == 0:
                 res *= num
         return res
+
+
+# briefly modify, i think it should be correct
+
+class Solution(object):
+    def canMeasureWater(self, x, y, z):
+        """
+        :type x: int
+        :type y: int
+        :type z: int
+        :rtype: bool
+        """
+        if z == 0:
+            return True
+        if z > x + y or x * y == 0:
+            return False
+        if x > y:
+            x, y = y, x
+        if z % self.commonfactor(x, y) == 0:
+            return True
+        else:
+            return False
+
+    def commonfactor(self, x, y):
+        factx = set()
+        facty = set()
+
+        while x > 1:
+            for i in range(2, x + 1):
+                if x % i == 0:
+                    x /= i
+                    factx.add(i)
+                    break
+        while y > 1:
+            for i in range(2, y + 1):
+                if y % i == 0:
+                    y /= i
+                    facty.add(i)
+                    break
+        res = 1
+        for num in factx & facty:
+            res *= num
+        return res
