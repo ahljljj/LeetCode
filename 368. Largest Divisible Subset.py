@@ -63,3 +63,40 @@ class Solution:
 
 
 '''
+
+
+# hashtable time complexity O(n^2)
+
+
+
+class Solution:
+    def largestDivisibleSubset(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        if not nums:
+            return []
+        nums.sort()
+        hashmap = {}
+        res = 0
+        for num in nums:
+            if not hashmap:
+                hashmap[num] = [num]
+                res = 1
+                continue
+            tmp = hashmap.copy()
+            for key in tmp:
+                if num % key == 0:
+                    if num in hashmap:
+                        if len(hashmap[key] + [num]) >= res: # equality is essential due to sort
+                            hashmap[num] = hashmap[key] + [num]
+                            res = max(res, len(hashmap[num]))
+                    else:
+                        hashmap[num] = hashmap[key] + [num]
+                        res = max(res, len(hashmap[num]))
+            if num not in hashmap:
+                hashmap[num] = [num]
+        for key in hashmap:
+            if len(hashmap[key]) == res:
+                return hashmap[key]
