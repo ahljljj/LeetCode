@@ -30,6 +30,8 @@ Can you do it in O(n) time?
 # dfs time limit exceeded
 
 
+# not correct dfs but super fast
+
 class Solution:
     def wiggleMaxLength(self, nums):
         """
@@ -37,16 +39,21 @@ class Solution:
         :rtype: int
         """
         res = 0
+        self.memo = {}
         res = self.helper(nums, None, None)
         return res
 
     def helper(self, nums, prev, sign):
         if not nums:
             return 0
+        key = (nums[0], prev, sign)
+        if key in self.memo:
+            return self.memo[key]
         incr, decr = 0, 0
-        if prev == None:
+        if sign == None:
             incr = 1 + self.helper(nums[1:], nums[0], True)
             decr = 1 + self.helper(nums[1:], nums[0], False)
+            #            self.memo[key] = max(incr, decr)
             return max(incr, decr)
 
         if sign == True:
@@ -54,10 +61,66 @@ class Solution:
             for i in range(len(nums)):
                 if nums[i] < prev:
                     tmp = max(tmp, 1 + self.helper(nums[i + 1:], nums[i], False))
-            return tmp if tmp != -float("inf") else 0
+            tmp = tmp if tmp != -float("inf") else 0
+            self.memo[key] = tmp
+            return tmp
         else:
             tmp = - float("inf")
             for i in range(len(nums)):
                 if nums[i] > prev:
                     tmp = max(tmp, 1 + self.helper(nums[i + 1:], nums[i], True))
-            return tmp if tmp != -float("inf") else 0
+            tmp = tmp if tmp != -float("inf") else 0
+            self.memo[key] = tmp
+            return tmp
+
+
+# barely accepted dfs
+
+class Solution:
+    def wiggleMaxLength(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        res = 0
+        self.memo = {}
+        res = self.helper(nums, 0, None, None)
+        return res
+
+    # nums: array slice, we pass the unused array to the next state every time
+    # prev: previous number, we need this number in order to decide the next number
+    # sign: plus if the previous difference is positive, minus otherwise
+    # idx: the location of nums[0] in the original array
+    # we use (idx, prev, sign) as a key to save the computed result, this will reduce a lot of repeated work
+    def helper(self, nums, idx, prev, sign):
+        # stopping condition
+        if not nums:
+            return 0
+        # save the previous calculation to the memory
+        key = (idx, prev, sign)
+        if key in self.memo:
+            return self.memo[key]
+        incr, decr = 0, 0
+        # initial condition, the -1'th element could be infty or -infty, we choose the better of the two
+        if sign == None:
+            incr = 1 + self.helper(nums[1:], 1, nums[0], True)
+            decr = 1 + self.helper(nums[1:], 1, nums[0], False)
+            return max(incr, decr)
+        # if the previous difference is positive, the next number must less than the previous number
+        if sign == True:
+            tmp = -float("inf")
+            for i in range(len(nums)):
+                if nums[i] < prev:
+                    tmp = max(tmp, 1 + self.helper(nums[i + 1:], idx + i + 1, nums[i], False))
+            tmp = tmp if tmp != -float("inf") else 0
+            self.memo[key] = tmp
+            return tmp
+        # if the previous difference is negative, the next number must greater than the previous number
+        else:
+            tmp = - float("inf")
+            for i in range(len(nums)):
+                if nums[i] > prev:
+                    tmp = max(tmp, 1 + self.helper(nums[i + 1:], idx + i + 1, nums[i], True))
+            tmp = tmp if tmp != -float("inf") else 0
+            self.memo[key] = tmp
+            return tmp
