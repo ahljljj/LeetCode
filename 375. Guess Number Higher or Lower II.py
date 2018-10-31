@@ -95,7 +95,7 @@ class Solution(object):
         :rtype: int
         """
         res = 0
-        self.memo = {}
+        self.memo = {} # use dictionary to save the used result, you can also use a n X n matrix for this one
         res = self.helper(1, n)
         return res
 
