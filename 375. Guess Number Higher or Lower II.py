@@ -86,6 +86,7 @@ class Solution(object):
 # recursive
 # use memeory to save the itermedia result
 # break when the left > right, it looks like a parabola, the peaks at the turning point
+# time complexity O(n!)
 
 
 class Solution(object):
