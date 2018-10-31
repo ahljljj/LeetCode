@@ -57,3 +57,63 @@ class Solution:
                     for k in range(i + 1, j):
                         dp[i][j] = min(dp[i][j], max(dp[i][k - 1], dp[k + 1][j]) + k)
         return dp[1][n]
+
+
+# recursive solution TLE
+
+class Solution(object):
+    def getMoneyAmount(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        res = 0
+        nums = [i for i in range(1, n + 1)]
+        res = self.helper(nums)
+        return res
+
+    def helper(self, nums):
+        if len(nums) < 2:
+            return 0
+        elif len(nums) <= 3:
+            return nums[-2]
+        cost = float("inf")
+        for i in range(1, len(nums)):
+            cost = min(cost, nums[i] + max(self.helper(nums[:i]), self.helper(nums[i + 1:])))
+        return cost
+
+
+# recursive
+# use memeory to save the itermedia result
+# break when the left > right, it looks like a parabola, the peaks at the turning point
+
+
+class Solution(object):
+    def getMoneyAmount(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        res = 0
+        self.memo = {}
+        res = self.helper(1, n)
+        return res
+
+    def helper(self, lower, upper):
+        key = (lower, upper)
+        if key in self.memo:
+            return self.memo[key]
+        if upper == lower: # stopping condition 1: [i, i]: return 0 when the length is 1
+            return 0
+        elif upper - lower <= 2: # stopping condition 2: [i, i + 1] or [i, i + 1, i + 2]: return second last element when the length is 2 or 3
+            return upper - 1
+        cost = float("inf")
+        left, right = None, None
+        for i in range(lower + 1, upper):
+            left = self.helper(lower, i - 1)
+            right = self.helper(i + 1, upper)
+            cost = min(cost, i + max(left, right))
+            if left > right:
+                break
+        self.memo[key] = cost
+        return cost
