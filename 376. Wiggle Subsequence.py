@@ -124,3 +124,51 @@ class Solution:
             tmp = tmp if tmp != -float("inf") else 0
             self.memo[key] = tmp
             return tmp
+
+
+# dynamic programming
+# time complexity O(n) space complexity O(n)
+
+class Solution:
+    def wiggleMaxLength(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        up, down = [1] * len(nums), [1] * len(nums)
+        for i in  range(1, len(nums)):
+            if nums[i] > nums[i - 1]:
+                up[i] = max(up[i - 1], 1 + down[i - 1])
+                down[i] = down[i - 1]
+            elif nums[i] < nums[i - 1]:
+                down[i] = max(down[i - 1], 1 + up[i - 1])
+                up[i] = up[i - 1]
+            else:
+                up[i] = up[i - 1]
+                down[i] = down[i - 1]
+        return max(up[-1], down[-1])
+
+# dynamic programming
+# time complexity O(n^2)
+
+class Solution:
+    def wiggleMaxLength(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        up, down = [1] * len(nums), [1] * len(nums)
+        for i in  range(1, len(nums)):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    up[i] = max(up[i], 1 + down[j])
+                elif nums[i] < nums[j]:
+                    down[i] = max(down[i], 1 + up[j])
+ #               else:
+ #                   up[i] = up[i - 1]
+ #                   down[i] = down[i - 1]
+        return max(up[-1], down[-1])
