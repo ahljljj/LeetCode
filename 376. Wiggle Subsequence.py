@@ -172,3 +172,42 @@ class Solution:
  #                   up[i] = up[i - 1]
  #                   down[i] = down[i - 1]
         return max(up[-1], down[-1])
+
+
+
+# greedy approach
+# time complexity O(n) space complexity O(1)
+
+'''
+intuition
+
+find the number of turning points in this array
+1. the first element should be considered as a turning point
+2. turning point is the place where the array change from increasing to decreasing or from decreasng to increasing
+
+'''
+
+
+
+class Solution:
+    def wiggleMaxLength(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        prevdiff = None
+        currdiff = None
+        count = 1
+        for i in range(1, len(nums)):
+            currdiff = nums[i] - nums[i - 1]
+            if prevdiff == None:
+                if currdiff != 0:
+                    count += 1
+                    prevdiff = currdiff
+                continue
+            if prevdiff  * currdiff < 0:
+                count += 1
+                prevdiff = currdiff
+        return count
