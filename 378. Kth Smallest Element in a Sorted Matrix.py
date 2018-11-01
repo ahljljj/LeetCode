@@ -53,3 +53,32 @@ class Solution:
         return val
 
 
+# binary search
+# time complexity O(nlgn) it seems this runs faster than heap!!
+
+
+class Solution:
+    def kthSmallest(self, matrix, k):
+        """
+        :type matrix: List[List[int]]
+        :type k: int
+        :rtype: int
+        """
+        left, right = matrix[0][0], matrix[-1][-1]
+        n = len(matrix)
+        m = len(matrix[0])
+        while left < right:
+            mid = (left + right) >> 1
+            count, j = 0, m - 1
+            for i in range(n):
+                while j > -1 and matrix[i][j] > mid:
+                    j -= 1
+                count += j + 1
+            if count < k:
+                left = mid + 1
+            else:
+                right = mid  # important can not be mid - 1
+        return left
+
+
+
