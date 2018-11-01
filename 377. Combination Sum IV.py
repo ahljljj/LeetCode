@@ -26,7 +26,16 @@ What if negative numbers are allowed in the given array?
 How does it change the problem?
 What limitation we need to add to the question to allow negative numbers?
 
+
+In order to allow negative numbers, the size of the sequence must have a upperbound. Otherwise the result will INF.
+
+
 """
+# the Memoization is always worse than DP in performance but better in readability.
+
+
+
+
 
 # dfs tle
 # global count
