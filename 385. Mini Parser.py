@@ -341,4 +341,31 @@ class Solution:
 
 
 
+# recursion hard to understand, just for record
+
+
+class Solution(object):
+    def deserialize(self, s):
+        """
+        :type s: str
+        :rtype: NestedInteger
+        """
+        if s[0] != '[':
+            return NestedInteger(int(s))
+        nested = NestedInteger()
+        numP, start = 0, 1
+        for i in range(1, len(s)):
+            if (numP == 0 and s[i] == ',') or i == len(s) - 1:
+                # make sure it is not an empty string
+                if start < i:
+                    nested.add(self.deserialize(s[start:i]))
+                start = i + 1
+            elif s[i] == '[':
+                numP += 1
+            elif s[i] == ']':
+                numP -= 1
+        return nested
+
+
+
 
