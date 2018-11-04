@@ -45,3 +45,29 @@ class Solution:
                     curr //= 10
                 curr += 1
         return res
+
+
+# recursion
+
+# Just repeatedly try from 1 to 9, 1 -> 10 -> 100 first, and then plus 1 to the deepest number. Take 13 as example:
+# 1 -> 10 -> (100) -> 11 -> (110) -> 12 -> (120) -> 13 -> (130) -> (14) -> 2 -> (20) ... -> 9 -> (90)
+
+
+class Solution:
+    def lexicalOrder(self, n):
+        """
+        :type n: int
+        :rtype: List[int]
+        """
+        res = []
+        self.helper(res, 1, n)
+        return res
+
+    def helper(self, res, curr, n):
+        if curr > n:
+            return
+        res.append(curr)
+        self.helper(res, curr * 10, n)
+        if curr % 10 != 9:
+            self.helper(res, curr + 1, n)
+
