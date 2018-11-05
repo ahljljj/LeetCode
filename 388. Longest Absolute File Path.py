@@ -39,7 +39,7 @@ Notice that a/aa/aaa/file1.txt is not the longest file path, if there is another
 
 """
 
-# dynamic programming
+# dynamic programming time complexity O(n)
 # \n or \t should be considered as a single symbol
 
 
@@ -75,3 +75,15 @@ class Solution:
             isFile = False
             i += 1
         return res
+
+
+
+# exllent py solution
+
+class Solution(object):
+    def lengthLongestPath(self, input):
+        path, maxLen = [], 0
+        for s in input.split('\n'):
+            path[s.count('\t'):] = [len(s.strip('\t'))]
+            maxLen = max(maxLen, sum(path)+len(path)-1 if '.' in s else 0)
+        return maxLen
