@@ -103,3 +103,37 @@ class Solution:
             step *= 2
             count //= 2
         return head
+
+
+
+# josephus problem one line
+# time complexity O(lgn)
+
+'''
+recursive version
+for example:
+1,2,3,4,...n
+if you start from the left to right, the result is i
+then, if you start from right to left, the result is n+1-i
+for n numbers, after one pass, there are n/2 left, each number is two times of the original,
+1,2,3,4,5,6,7,8,9
+after one pass
+2,4,6,8
+assume the result of 1,2,3,4 from left to right is f(4)
+then the result of 1,2,3,4 from right to left is 5-f(4)
+then the result of 2,4,6,8 from right to left is 2*(5-f(4))
+this is the formula
+f(n)=2(1+n/2-f(n/2))* when n is 1, of course the result is 1
+
+
+
+'''
+
+class Solution:
+    def lastRemaining(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        return 1 if n == 1 else 2 * (1 + n // 2 - self.lastRemaining(n // 2))
+
