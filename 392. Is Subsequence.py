@@ -70,3 +70,42 @@ intuition
     //  i=2 ('c'): prev=? (return false)
 
 '''
+
+# binary search to follow up
+
+class Solution:
+    def isSubsequence(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        dictt = {}
+        idx = 0
+        for i, ch in enumerate(t):
+            if ch not in dictt:
+                dictt[ch] = [i]
+            else:
+                dictt[ch].append(i)
+        for ch in s:
+            if ch not in dictt:
+                return False
+            idx = self.bisearch(idx, dictt[ch])
+            if idx == -1:
+                return False
+        return True
+
+    def bisearch(self, target, nums):
+        if target > nums[-1]:
+            return -1
+        n = len(nums)
+        left, right = 0, n - 1
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid] > target:
+                right = mid
+            else:
+                left = mid + 1
+        return nums[right]
+
+
