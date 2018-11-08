@@ -32,6 +32,15 @@ So the maximum value of F(0), F(1), F(2), F(3) is F(3) = 26.
 # math + dynamic programming
 # time complexity O(n)
 
+'''
+derivation
+
+F(k) - F(k-1) = Bk[1] + Bk[2] + ... + Bk[n-1] + (1-n)Bk[0]
+              = (Bk[0] + ... + Bk[n-1]) - nBk[0]
+              = sum - nBk[0]
+
+'''
+
 
 class Solution:
     def maxRotateFunction(self, A):
