@@ -60,3 +60,47 @@ class Solution:
                 stack.append(encoded * num)
         return "".join(stack)
 
+
+# recursive
+
+'''
+intuition
+
+Every time we meet a '[', we treat it as a subproblem so call our recursive function to get the content in that '[' and ']'. After that, repeat that content for 'num' times.
+Every time we meet a ']', we know a subproblem finished and just return the 'word' we got in this subproblem.
+Please notice that the 'pos' is passed by reference, use it to record the position of the original string we are looking at.
+
+
+'''
+
+class Solution:
+    def decodeString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        self.pos = 0
+        res = self.helper(s)
+        return res
+
+    def helper(self, s):
+        num = 0
+        word = ""
+        while self.pos < len(s):
+            curr = s[self.pos]
+            if "0" <= curr <= "9":
+                num = num * 10 + int(curr)
+            elif curr == "[":
+                self.pos += 1
+                nextstr = self.helper(s)
+                word += nextstr * num
+                num = 0
+            elif curr == "]":
+                return word
+            else:
+                word += curr
+            self.pos += 1
+        return word
+
+
+
