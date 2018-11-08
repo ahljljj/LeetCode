@@ -27,6 +27,19 @@ The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated
 
 """
 
+# recursion
+# time complexity O(nlgn)??
+# hard to analyze: t(n) = n + kt(n/k)
+
+'''
+i don't think the following is correct
+
+I think the time complexity should be O(n^3) in worst case, notice there is substring() operation in while loop.
+I guess amortized complexity should be O(n^2*logn) because if every time the divide character in the middle, call stack height will be log n and in each call stack, there will be O(n^2) operations.
+Correct me if I'm wrong. Any suggestions?
+
+
+'''
 
 class Solution:
     def longestSubstring(self, s, k):
