@@ -73,3 +73,27 @@ class Solution:
             return self.integerReplacement(n // 2) + 1
         else:
             return 1 + min(self.integerReplacement(n + 1), self.integerReplacement(n - 1))
+
+
+# fast recursion: memorization
+
+class Solution:
+    def __init__(self):
+        self.memo = {}
+
+    def integerReplacement(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n in self.memo:
+            return self.memo[n]
+        if n == 1:
+            return 0
+        if n % 2 == 0:
+            tmp = self.integerReplacement(n // 2) + 1
+        else:
+            tmp = 1 + min(self.integerReplacement(n + 1), self.integerReplacement(n - 1))
+        self.memo[n] = tmp
+        return tmp
+
