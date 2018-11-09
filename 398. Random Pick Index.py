@@ -52,3 +52,35 @@ class Solution:
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(nums)
 # param_1 = obj.pick(target)
+
+
+
+# reservoir sampling
+# O(1) space complexity
+
+class Solution:
+
+    def __init__(self, nums):
+        """
+        :type nums: List[int]
+        """
+        self.nums = nums
+
+    def pick(self, target):
+        """
+        :type target: int
+        :rtype: int
+        """
+        count = 0
+        res = None
+        for i in range(len(self.nums)):
+            if self.nums[i] == target:
+                count += 1
+                idx = random.randint(0, count - 1)
+                if idx == count - 1:
+                    res = i
+        return res
+
+# Your Solution object will be instantiated and called as such:
+# obj = Solution(nums)
+# param_1 = obj.pick(target)
