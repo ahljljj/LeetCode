@@ -72,5 +72,48 @@ class Solution:
                     break
         return res if flag else -1
 
+# modified dfs
+
+class Solution:
+    def calcEquation(self, equations, values, queries):
+        """
+        :type equations: List[List[str]]
+        :type values: List[float]
+        :type queries: List[List[str]]
+        :rtype: List[float]
+        """
+        eqns = {}
+        for (eq, val) in zip(equations, values):
+            if eq[0] not in eqns:
+                eqns[eq[0]] = {eq[1]: val}
+            else:
+                eqns[eq[0]][eq[1]] = val
+            if eq[1] not in eqns:
+                eqns[eq[1]] = {eq[0]: 1 / val}
+            else:
+                eqns[eq[1]][eq[0]] = 1 / val
+        self.eqns = eqns
+        visited = set()
+        res = []
+        for query in queries:
+            res.append(self.helper(1, query[0], query[1], visited))
+            visited = set()
+        return res
+
+    def helper(self, res, start, end, visited):
+        if start not in self.eqns or end not in self.eqns:
+            return -1
+        if end in self.eqns[start]:
+            return self.eqns[start][end]
+        nxt = self.eqns[start]
+        visited.add(start)
+        for eq in nxt:
+            if eq not in visited:
+                tmp = self.helper(res, eq, end, visited)
+                if tmp != -1:
+                    res = nxt[eq] * tmp
+                    return res
+        return -1
+
 
 
