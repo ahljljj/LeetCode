@@ -156,4 +156,62 @@ class Solution:
         return -1
 
 
+# union find
+
+class Solution:
+    def calcEquation(self, equations, values, queries):
+        """
+        :type equations: List[List[str]]
+        :type values: List[float]
+        :type queries: List[List[str]]
+        :rtype: List[float]
+        """
+        self.parents = {}
+        self.weights = {}
+        self.rank = {}
+
+        for (numerator, denominator), val in zip(equations, values):
+            if numerator not in self.parents:
+                self.parents[numerator] = numerator
+                self.weights[numerator] = 1.0
+                self.rank[numerator] = 1
+            if denominator not in self.parents:
+                self.parents[denominator] = denominator
+                self.weights[denominator] = 1.0
+                self.rank[denominator] = 1
+            self.union(numerator, denominator, val)
+        res = []
+        for (u, v) in queries:
+            if u not in self.parents or v not in self.parents:
+                res.append(-1.0)
+            else:
+                p1, p2 = self.find(u), self.find(v)
+                if p1 != p2:
+                    res.append(-1.0)
+                else:
+                    res.append(self.weights[u] / self.weights[v])
+        return res
+
+    def find(self, node):  # rank donot need updated
+        if node != self.parents[node]:
+            p = self.parents[node]
+            self.parents[node] = self.find(p)
+            self.weights[node] *= self.weights[p]
+        return self.parents[node]
+
+    def union(self, u, v, val):
+        p1 = self.find(u)
+        p2 = self.find(v)
+        if self.rank[p1] > self.rank[p2]:  # parent is the denominator, weight is the corresponding fraction value
+            p1, p2 = p2, p1
+            val = 1 / val
+            u, v = v, u
+        if p1 != p2:
+            self.parents[p1] = p2
+            self.rank[p2] += self.rank[p1]
+            #            self.rank[p1] = 1 # p1 is not a root any more, the rank is not important
+            self.weights[p1] = self.weights[v] / self.weights[u] * val
+
+
+
 
