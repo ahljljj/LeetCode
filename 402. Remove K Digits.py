@@ -102,4 +102,42 @@ class Solution:
             i += 1
         return num[i:] if i < len(num) else "0"
 
+# stack
+
+'''
+intuition
+
+The above algorithm is a bit inefficient because it frequently remove a particular element from a string and has complexity O(k*n).
+
+One can simulate the above procedure by using a stack, and obtain a O(n) algorithm. Note, when the result stack (i.e. res) pop a digit, it is equivalent as remove that "peak" digit.
+
+
+'''
+
+class Solution:
+    def removeKdigits(self, num, k):
+        """
+        :type num: str
+        :type k: int
+        :rtype: str
+        """
+        if k >= len(num):
+            return "0"
+        stack = []
+        keep = len(num) - k
+        for i in range(len(num)):
+            while stack and k > 0 and num[i] < stack[-1]:
+                stack.pop()
+                k -= 1
+            stack.append(num[i])
+        stack = stack[:keep]
+
+        # trim leading zeros
+        i = 0
+        while i < len(stack) and stack[i] == "0":
+            i += 1
+        return "".join(stack[i:]) if i < len(stack) else "0"
+
+
+
 
