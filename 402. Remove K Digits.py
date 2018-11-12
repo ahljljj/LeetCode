@@ -67,3 +67,39 @@ class Solution:
             i += 1
         return res[i:] if i < len(res) else "0"
 '''
+
+
+# solve this in multiple pass
+# time complexity O(kn)
+'''
+intuition
+
+The first algorithm is straight-forward. Let's think about the simplest case: how to remove 1 digit from the number so that the new number is the smallest possible？ Well, one can simply scan from left to right, and remove the first "peak" digit; the peak digit is larger than its right neighbor. One can repeat this procedure k times, and obtain the first algorithm:
+
+
+'''
+
+class Solution:
+    def removeKdigits(self, num, k):
+        """
+        :type num: str
+        :type k: int
+        :rtype: str
+        """
+        if k >= len(num):
+            return "0"
+        while k > 0:
+            i = 0
+            while i < len(num) - 1 and num[i] <= num[i + 1]:
+                i += 1
+            if i == len(num) - 1:
+                num = num[:-1]
+            else:
+                num = num[:i] + num[i + 1:]
+            k -= 1
+        i = 0
+        while i < len(num) and num[i] == "0":
+            i += 1
+        return num[i:] if i < len(num) else "0"
+
+
