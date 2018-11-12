@@ -71,4 +71,40 @@ class Solution:
         return
 
 
+# standard backtracking
+
+class Solution:
+    def readBinaryWatch(self, num):
+        """
+        :type num: int
+        :rtype: List[str]
+        """
+        self.hours = [1, 2, 4, 8]
+        self.minutes = [1, 2, 4, 8, 16, 32]
+        self.n = len(self.hours) + len(self.minutes)
+
+        self.res = []
+        self.helper(0, 0, num, 0)
+        return self.res
+
+    def helper(self, h, m, num, idx):
+        if num == 0:
+            self.res.append(str(h) + (":0" if m < 10 else ":") + str(m))
+            return
+        for i in range(idx, self.n):
+            if i < len(self.hours):
+                h += self.hours[i]
+                if h < 12:
+                    self.helper(h, m, num - 1, i + 1)
+                h -= self.hours[i]
+            else:
+                m += self.minutes[i - len(self.hours)]
+                if m < 60:
+                    self.helper(h, m, num - 1, i + 1)
+                m -= self.minutes[i - len(self.hours)]
+
+
+
+
+
 
