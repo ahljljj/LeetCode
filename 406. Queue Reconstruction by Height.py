@@ -98,3 +98,11 @@ class Solution:
             return -1
         else:
             return 1
+
+'''
+As others have posted, we can sort the input by ascending heights. We start with the shortest people; their k must be the exact index in the queue. We mark these slots as "occupied", remaining slots as "free". Then, for the next shortest people, their k must be the exact index in the "free" slots. And so on.
+
+(We can also sort by descending heights, and do positional insertions. An insertion is only affected by insertions after it, therefore it would be better to process insertions from last to first, in which case, it transforms to the solution above.)
+
+
+'''
