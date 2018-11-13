@@ -40,7 +40,7 @@ class Solution:
         dic = "abcdef"
         res = ""
         if num < 0:
-            num = (2 ** 32 - 1) ^ ~num
+            num = (2 ** 32 - 1) ^ ~num # num = (-num ^ 0xffffffff) + 1
         while num > 0:
             r = num % 16
             if 0 <= r <= 9:
@@ -49,3 +49,22 @@ class Solution:
                 res += dic[r - 10]
             num //= 16
         return res[::-1]
+
+# fast bit
+
+class Solution:
+    def toHex(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+        if num == 0:
+            return "0"
+        dic = "0123456789abcdef"
+        res = ""
+        for i in range(8):
+            r = num & 15
+            res += dic[r]
+            num >>= 4
+        return res[::-1].lstrip("0")
+
