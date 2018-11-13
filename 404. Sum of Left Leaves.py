@@ -44,3 +44,35 @@ class Solution:
         self.dfs(root.left, True)
         self.dfs(root.right, False)
 
+# iterative
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def sumOfLeftLeaves(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
+        res = 0
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            if node.left:
+                if node.left.left == None and node.left.right == None:
+                    res += node.left.val
+                else:
+                    stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+        return res
+
+
+
