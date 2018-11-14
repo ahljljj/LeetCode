@@ -91,6 +91,8 @@ class Solution(object):
 '''
 intuitioon
 
+dp[i] the number of possible arithmetic slices endding at i
+
 nstead of going in the reverse order as in the recursive approach, we can start filling the dpdp in a forward manner. The intuition remains the same as in the last approach. For the i^{th}i 
 th
   element being considered, we check if this element satsfies the common difference criteria with the previous element. If so, we know the number of new arithmetic slices added will be 1+dp[i-1]1+dp[i−1] as discussed in the last approach. The sumsum is also updated by the same count to reflect the new arithmetic slices added.
