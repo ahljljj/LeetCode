@@ -59,4 +59,31 @@ class Solution(object):
             res += (l - 2) * (l - 1) / 2
         return res
 
+# dynamic programming
+
+'''
+intuitioon
+
+nstead of going in the reverse order as in the recursive approach, we can start filling the dpdp in a forward manner. The intuition remains the same as in the last approach. For the i^{th}i 
+th
+  element being considered, we check if this element satsfies the common difference criteria with the previous element. If so, we know the number of new arithmetic slices added will be 1+dp[i-1]1+dp[i−1] as discussed in the last approach. The sumsum is also updated by the same count to reflect the new arithmetic slices added.
+
+
+'''
+
+
+class Solution(object):
+    def numberOfArithmeticSlices(self, A):
+        """
+        :type A: List[int]
+        :rtype: int
+        """
+        res = 0
+        dp = [0] * len(A)
+        for i in range(1, len(A) - 1):
+            if A[i + 1] - A[i] == A[i] - A[i - 1]:
+                dp[i] = 1 + dp[i - 1]
+                res += dp[i]
+        return res
+
 
