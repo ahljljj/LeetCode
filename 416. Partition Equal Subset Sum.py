@@ -84,4 +84,34 @@ class Solution:
         self.memo[(target, idx)] = False
         return False
 
+# dp tle
+
+
+class Solution:
+    def canPartition(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        total = sum(nums)
+        if total & 1:
+            return False
+        mean = total // 2
+
+        dp = [[False] * (1 + mean) for i in range(1 + len(nums))]
+
+
+
+        for i in range(1, 1 + len(nums)):
+            if nums[i - 1] > mean:
+                return False
+            dp[i][nums[i - 1]] = True
+            for j in range(mean, 0, -1):
+                if not dp[i][j]:
+                    dp[i][j] |= dp[i - 1][j]
+                    if j > nums[i - 1]:
+                        dp[i][j] |= dp[i - 1][j - nums[i - 1]]
+
+        return dp[-1][mean]
+
 
