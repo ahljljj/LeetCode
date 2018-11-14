@@ -50,3 +50,38 @@ class Solution:
         return False
 
 
+# dfs + memorization (AC)
+# a little bit tricky here
+
+class Solution:
+    def canPartition(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        total = sum(nums)
+        if total % 2 == 1:
+            return False
+        mean = total / 2
+        nums.sort()
+        if nums[-1] > mean:
+            return False
+        self.memo = {}
+        return self.helper(nums, mean, 0)
+
+    def helper(self, nums, target, idx):
+        if (target, idx) in self.memo:
+            return self.memo[(target, idx)]
+        if target == 0:
+            return True
+        for i in range(idx, len(nums)):
+            if target >= nums[i] and self.helper(nums, target - nums[i], i + 1):
+                self.memo[(target, idx)] = True
+                return True
+            elif target < nums[i]:
+                self.memo[(target, idx)] = False
+                return False
+        self.memo[(target, idx)] = False
+        return False
+
+
