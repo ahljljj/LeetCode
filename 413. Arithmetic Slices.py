@@ -59,6 +59,33 @@ class Solution(object):
             res += (l - 2) * (l - 1) / 2
         return res
 
+
+# greedy, modified math
+
+
+class Solution(object):
+    def numberOfArithmeticSlices(self, A):
+        """
+        :type A: List[int]
+        :rtype: int
+        """
+        if len(A) < 3:
+            return 0
+        prev = A[1] - A[0]
+        res = 0
+        count = 0
+        for i in range(1, len(A) - 1):
+            curr = A[i + 1] - A[i]
+            if curr == prev:
+                count += 1
+            else:
+                res += count * (count + 1)/ 2
+                count = 0
+            prev = curr
+        if count:
+            res += count * (count + 1)/ 2
+        return res
+
 # dynamic programming
 
 '''
