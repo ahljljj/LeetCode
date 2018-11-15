@@ -125,3 +125,30 @@ class Solution:
 
 
 
+
+# 1d dynamic programming AC on python 3
+# different idea
+# dp[i]: whether the num i can be represented by a sum
+# time complexity O(sum * n), it looks like we have the same cost like the previous but it much faster.
+
+
+
+class Solution:
+    def canPartition(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        total = sum(nums)
+        if total & 1:
+            return False
+        mean = total // 2
+        dp = [False] * (1 + total)
+        dp[0] = True # important, num can always be represented by itself
+        for num in nums:
+            for i in range(total - num, -1, -1): # reverse since you do not want use num multiple times
+                if dp[i]:
+                    dp[i + num] = True
+                if dp[mean]:
+                    return True
+        return False
