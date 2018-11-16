@@ -32,6 +32,104 @@ Return:
 """
 
 '''
+wrong ans
+
+class Solution:
+    def pacificAtlantic(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        if not matrix:
+            return []
+        n = len(matrix)
+        m = len(matrix[0])
+        accessible = [[None]* m for _ in range(n)] 
+        self.memo = {}
+
+        for i in range(n):
+            accessible[i][0] = 1
+            accessible[i][m - 1] = 2
+        for i in range(m):
+            accessible[0][i] = 1
+            accessible[n - 1][i] = 2
+        accessible[0][m - 1] = accessible[n - 1][0] = 3
+        for i in range(1, n - 1):
+            for j in range(1, m - 1):
+                if accessible[i][j] == None:
+                    self.helper(matrix, accessible, i, j)
+
+#        for i in range(n):
+#            accessible[i][0] = self.helper2(matrix, accessible, i, 0)
+#            accessible[i][m - 1] = self.helper2(matrix, accessible, i, m - 1)
+
+#        for i in range(m):
+#            accessible[0][i] = self.helper2(matrix, accessible, 0, i)
+#            accessible[n - 1][i] = self.helper2(matrix, accessible, n - 1, i)
+
+#        print(accessible)
+        res = []
+        for i in range(n):
+            for j in range(m):
+                if accessible[i][j] >= 3:
+                    res.append([i, j])
+
+        return res
+
+
+    def helper(self, matrix, accessible, i, j):
+#        print("i, j", i, j, accessible[i][j])
+        if (i, j) in self.memo:
+            return self.memo[(i, j)]
+        if accessible[i][j] == 3:
+            return 3
+        n = len(matrix)
+        m = len(matrix[0])
+        curr =  0
+        if i - 1 >= 0 and matrix[i][j] >= matrix[i - 1][j]:
+#            print("1")
+            tmp = self.helper(matrix, accessible, i - 1, j)
+#            print(tmp)
+            if tmp != None:
+                if tmp == 3:
+                    self.memo[(i - 1, j)] = 3
+                    return 3
+                elif tmp != curr:
+                    curr += tmp
+
+        if i + 1 < n and matrix[i][j] >= matrix[i + 1][j]:
+            tmp = self.helper(matrix, accessible, i + 1, j)
+            if tmp != None:
+                if tmp == 3:
+                    self.memo[(i + 1, j)] = 3
+                    return 3
+                elif tmp != curr:
+                    curr += tmp  
+        if j - 1 >= 0 and matrix[i][j] >= matrix[i][j - 1]:
+            tmp = self.helper(matrix, accessible, i, j - 1)
+            if tmp != None:
+                if tmp == 3:
+                    self.memo[(i, j - 1)] = 3
+                    return 3
+                elif tmp != curr:
+                    curr += tmp  
+        if j + 1 < m and matrix[i][j] >= matrix[i][j + 1]:
+            tmp = self.helper(matrix, accessible, i, j + 1)
+            if tmp != None:
+                if tmp == 3:
+                    self.memo[(i, j + 1)] = 3
+                    return 3
+                elif tmp != curr:
+                    curr += tmp
+#        print("curr", curr)
+        self.memo[(i, j)] = curr
+        return curr
+
+
+'''
+
+
+'''
 intuition
 
 The DFS solution is straightforward. Starting from each point, and dfs its neighbor if the neighbor is equal or less than itself. And maintain two boolean matrix for two oceans, indicating an ocean can reach to that point or not. Finally go through all nodes again and see if it can be both reached by two oceans. The trick is if a node is already visited, no need to visited again. Otherwise it will reach the recursion limits.
