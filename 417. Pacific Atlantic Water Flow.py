@@ -76,6 +76,60 @@ class Solution:
                 self.dfs(matrix, m, n, visited, ni, nj)
 
 
+# standard bfs
+
+
+class Solution:
+    def pacificAtlantic(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        if not matrix:
+            return []
+        n = len(matrix)
+        m = len(matrix[0])
+
+        pacific = [[False] * m for _ in range(n)]
+        atlantic = [[False] * m for _ in range(n)]
+        self.directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+
+        # start from the four edge: (*, 0) (*, m - 1), (0, *), (n - 1, *)
+        for i in range(m):
+            queue = set([(0, i)])
+            self.bfs(matrix, m, n, pacific, queue)
+            queue = set([(n - 1, i)])
+            self.bfs(matrix, m, n, atlantic, queue)
+
+        for i in range(n):
+            queue = set([(i, 0)])
+            self.bfs(matrix, m, n, pacific, queue)
+            queue = set([(i, m - 1)])
+            self.bfs(matrix, m, n, atlantic, queue)
+
+        res = []
+        for i in range(n):
+            for j in range(m):
+                if pacific[i][j] and atlantic[i][j]:
+                    res.append([i, j])
+        return res
+
+    def bfs(self, matrix, m, n, visited, queue):
+        while queue:
+            tmp = set()
+            for (i, j) in queue:
+                visited[i][j] = True
+                for (x, y) in self.directions:
+                    ni, nj = i + x, j + y
+                    if 0 <= ni < n and 0 <= nj < m and not visited[ni][nj] and matrix[ni][nj] >= matrix[i][j]:
+                        tmp.add((ni, nj))
+            queue = tmp
+
+
+
+
+
+
 
 
 
