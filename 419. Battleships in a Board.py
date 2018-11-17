@@ -45,3 +45,37 @@ class Solution:
                         continue
                     count += 1
         return count
+
+
+# standard dfs
+# time complexity: hard to analyze O(n * ?) ? = 1
+# space complexity: O(n), maintain a matrix to record every visited node
+
+
+class Solution:
+    def countBattleships(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: int
+        """
+        if not len(board) or not len(board[0]):
+            return 0
+        n = len(board)
+        m = len(board[0])
+        visited = [[False] * m for _ in range(n)]
+        self.directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+        count = 0
+        for i in range(n):
+            for j in range(m):
+                # the node is X and hasn't been visited, we only count as we see X the first time
+                # we then start from X and walk vertically/horizontally to label every X be visited until we see a dot
+                if board[i][j] == 'X' and not visited[i][j]:
+                    count += 1
+                    self.dfs(board, visited, i, j, n, m)
+        return count
+
+    def dfs(self, board, visited, i, j, n, m):
+        if -1 < i < n and -1 < j < m and not visited[i][j] and board[i][j] == 'X':
+            visited[i][j] = True
+            for (x, y) in self.directions:
+                self.dfs(board, visited, i + x, j + y, n, m)
