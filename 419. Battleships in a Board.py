@@ -79,3 +79,41 @@ class Solution:
             visited[i][j] = True
             for (x, y) in self.directions:
                 self.dfs(board, visited, i + x, j + y, n, m)
+
+
+# standard bfs
+# time complexity: O(n)
+# extra space complexity: O(n)
+
+class Solution:
+    def countBattleships(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: int
+        """
+        if not len(board) or not len(board[0]):
+            return 0
+        n = len(board)
+        m = len(board[0])
+        visited = [[False] * m for _ in range(n)]
+        self.directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+        count = 0
+        for i in range(n):
+            for j in range(m):
+                if board[i][j] == 'X' and not visited[i][j]:
+                    count += 1
+                    queue = set([(i, j)])
+                    self.bfs(board, visited, queue, n, m)
+        return count
+
+    def bfs(self, board, visited, queue, n, m):
+        while queue:
+            tmp = set()
+            for (i, j) in queue:
+                visited[i][j] = True
+                for (x, y) in self.directions:
+                    ni, nj = i + x, j + y
+                    if -1 < ni < n and -1 < nj < m and board[ni][nj] == 'X' and not visited[ni][nj]:
+                        visited[ni][nj] = True
+                        tmp.add((ni, nj))
+            queue = tmp
