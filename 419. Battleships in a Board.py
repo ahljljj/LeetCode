@@ -209,4 +209,42 @@ class Solution:
         self.parents[p1] = p2
         self.rank[p2] += self.rank[p1]
 
+# more on union find
+
+class Solution:
+    def countBattleships(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: int
+        """
+        if not board or not board[0]:
+            return 0
+        self.parents = {}
+        self.rank = {}
+        n = len(board)
+        m = len(board[0])
+        self.directions = [(-1, 0), (0, -1)]
+        for i in range(n):
+            for j in range(m):
+                if board[i][j] == "X":
+                    self.parents[(i, j)] = (i, j)
+                    self.rank[(i, j)] = 1
+                    for (x, y) in self.directions:
+                        ni, nj = i + x, j + y
+                        if -1 < ni < n and -1 < nj < m and board[ni][nj] == 'X':
+                            self.union((i, j), (ni, nj))
+                            break
+        res = set()
+        for node in self.parents:
+            res.add(self.parents[node])
+        return len(res)
+
+    def union(self, node1, node2):
+        p1, p2 = self.parents[node1], self.parents[node2]  # do not need find function in this case
+        # do not need the comparison function since the old/visited node always has big rank
+        self.parents[p1] = p2
+        self.rank[p2] += self.rank[p1]
+
+
+
 
