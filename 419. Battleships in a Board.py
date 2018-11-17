@@ -165,3 +165,48 @@ class Solution:
         self.parents[p1] = p2
         self.rank[p2] += self.rank[p1]
 
+
+
+
+
+# modified union find
+# remove find method
+# use a counter to maintain the number of parents
+
+
+class Solution:
+    def countBattleships(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: int
+        """
+        if not board or not board[0]:
+            return 0
+        self.parents = {}
+        self.rank = {}
+        self.count = 0
+        n = len(board)
+        m = len(board[0])
+        self.directions = [(-1, 0), (0, -1)]
+        for i in range(n):
+            for j in range(m):
+                if board[i][j] == "X":
+                    self.parents[(i, j)] = (i, j)
+                    self.rank[(i, j)] = 1
+                    self.count += 1  # update counter when create a new parent
+                    for (x, y) in self.directions:
+                        ni, nj = i + x, j + y
+                        if -1 < ni < n and -1 < nj < m and board[ni][nj] == 'X':
+                            self.union((i, j), (ni, nj))
+                            self.count -= 1  # update counter when merge two nodes
+                            break
+        return self.count
+
+    def union(self, node1, node2):
+        p1, p2 = self.parents[node1], self.parents[node2]  # do not need find function in this case
+        if self.rank[p1] > self.rank[p2]:
+            p1, p2 = p2, p1
+        self.parents[p1] = p2
+        self.rank[p2] += self.rank[p1]
+
+
