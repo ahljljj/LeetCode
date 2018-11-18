@@ -33,6 +33,19 @@ so we only need to count the unique letter of each word, Coz the input is always
 
 '''
 
+'''
+The even digits all have a unique letter while the odd digits all don't:
+
+zero: Only digit with z
+two: Only digit with w
+four: Only digit with u
+six: Only digit with x
+eight: Only digit with g
+
+The odd ones for easy looking, each one's letters all also appear in other digit words:
+one, three, five, seven, nine
+'''
+
 
 class Solution:
     def originalDigits(self, s):
