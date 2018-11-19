@@ -79,4 +79,21 @@ class Solution:
                 res += str(i) * count[i]
         return res
 
+'''
+In general situation, it should be transformed into a problem to calculate A from AX=B, matrix X is formed as follows,
+         //                                             /// efghinorstuvwxz ///
+        // 0 z e r o        e         o  r            z    100000110000001      
+        // 1 o n e          e        no                    100001100000000                      
+        // 2 t w o                    o      t    w         000000100100100        
+        // 3 t h r e e      e    h       r   t              200100010100000            
+        // 4 f o u r          f       o  r     u             010000110010000   
+        // 5 f i v e        e f    i             v            110010000001000                   
+        // 6 s i x                 i       s        x          000010001000010           
+        // 7 s e v e n      e        n     s     v        200001001001000        
+        // 8 e i g h t      e  g h i         t              101110000100000   
+        // 9 n i n e        e      i n                       100012000000000
+				Then we can use math or back tarce method to figure A out.
+
+'''
+
 
