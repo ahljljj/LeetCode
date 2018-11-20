@@ -90,6 +90,53 @@ class Solution(object):
 
 
 
+# stack
+
+'''
+Pseudocode
+Initialize a current reference to the head of the list and an empty stack
+If our current reference is a Node, then see if it has a child.
+(case 1) If it does have a next, then push its next reference (if it has one) to the top of the Stack. 
+(case 2) If it does have a child, then push its child reference (if it has one) to the top of the Stack. After this operation, the child reference of the current reference should be the top of the Stack, and the top of the Stack's previous reference should be the current reference.
+Advance the current reference forward to its next reference.
+Repeat 2 and 3 until the current reference is None.
+
+'''
+
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val, prev, next, child):
+        self.val = val
+        self.prev = prev
+        self.next = next
+        self.child = child
+"""
+class Solution(object):
+    def flatten(self, head):
+        """
+        :type head: Node
+        :rtype: Node
+        """
+        if not head:
+            return head
+        prev = Node(None, None, head, None)
+        stack = [head]
+        while stack:
+            curr = stack.pop()
+            prev.next = curr
+            curr.prev = prev
+            if curr.next:
+                stack.append(curr.next)
+            if curr.child:
+                stack.append(curr.child)
+            curr.child = None
+            prev = curr
+        head.prev = None
+        return head
+
+
+
 
 
 
