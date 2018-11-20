@@ -74,6 +74,13 @@ class Solution:
 # greedy
 # time complexity O(nlgn) for sorting
 
+'''
+intuition
+
+Sort by start is my intuitive solution, but did not pass the last 2 test cases.
+needs to carefully handle the case when interval overlapps, e.g. [[1,5], [2, 3], [4, 5], [3, 4]], when we have [1, 5] and [2, 3] overlapps, we should discard the one with bigger range, since it's already sorted by start, we discard the one with bigger end.
+'''
+
 
 # Definition for an interval.
 # class Interval:
