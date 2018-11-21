@@ -90,5 +90,17 @@ class Solution:
                 update = (curr ** 2 + curr - 2 * n) // (2 * curr + 1)
             return curr - 1
 
+# math, quadratic formula
+
+class Solution:
+    def arrangeCoins(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+
+        return int((-1 + math.sqrt(1 + 8 * n)) / 2)
+
+
 
 
