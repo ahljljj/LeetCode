@@ -53,6 +53,8 @@ class Solution:
         return left - 1
 
 # newton method
+# f(x) = x(x + 1)/2 -n and f'(x) = x + 1/2
+# iteration formula: x_n+1 = x_n - (x_n^2 + x^n - 2*n)/(2*x + 1)
 
 class Solution:
     def arrangeCoins(self, n):
