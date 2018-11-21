@@ -32,6 +32,31 @@ Return 3. The paths that sum to 8 are:
 """
 
 # dfs: ridiculous slow
+#  traversing same elements multiple times
+
+'''
+intuition
+
+for each parent node in the tree, we have 2 choices:
+1. include it in the path to reach sum.
+2. not include it in the path to reach sum. 
+
+for each child node in the tree, we have 2 choices:
+1. take what your parent left you.
+2. start from yourself to form the path.
+
+one little thing to be careful:
+every node in the tree can only try to be the start point once.
+
+for example, When we try to start with node 1, node 3, as a child, could choose to start by itself.
+             Later when we try to start with 2, node 3, still as a child, 
+             could choose to start by itself again, but we don't want to add the count to result again.
+     1
+      \
+       2
+        \
+         3
+'''
 
 
 # Definition for a binary tree node.
