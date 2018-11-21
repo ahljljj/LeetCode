@@ -138,3 +138,51 @@ class Solution:
         if root.left: self.helper(root.left, sum)
         if root.right: self.helper(root.right, sum)
 
+
+# memo time complexity: O(n)
+
+'''
+
+Two Sum Method: Optimized Solution
+
+A more efficient implementation uses the Two Sum idea. It uses a hash table (extra memory of order N). With more space, it gives us an O(N) complexity.
+As we traverse down the tree, at an arbitrary node N, we store the sum until this node N (sum_so_far (prefix) + N.val). in hash-table. Note this sum is the sum from root to N.
+Now at a grand-child of N, say G, we can compute the sum from the root until G since we have the prefix_sum until this grandchild available.We pass in our recursive routine.
+How do we know if we have a path of target sum which ends at this grand-child G? Say there are multiple such paths that end at G and say they start at A, B, C where A,B,C are predecessors of G. Then sum(root->G) - sum(root->A) = target. Similarly sum(root->G)-sum(root>B) = target. Therefore we can compute the complement at G as sum_so_far+G.val-target and look up the hash-table for the number of paths which had this sum
+Now after we are done with a node and all its grandchildren, we remove it from the hash-table. This makes sure that the number of complement paths returned always correspond to paths that ended at a predecessor node.
+
+'''
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def pathSum(self, root, sum):
+        """
+        :type root: TreeNode
+        :type sum: int
+        :rtype: int
+        """
+        self.memo = {0: 1}
+        self.count = 0
+        self.dfs(root, 0, sum)
+        return self.count
+
+    def dfs(self, root, prev, sum):
+        if not root:
+            return
+        curr = prev + root.val
+        tmp = curr - sum
+        if tmp in self.memo:
+            self.count += self.memo[tmp]
+        self.memo[curr] = self.memo.get(curr, 0) + 1
+        self.dfs(root.left, curr, sum)
+        self.dfs(root.right, curr, sum)
+        # when move to a different branch, the currPathSum is no longer available, hence remove one.
+        # it works similar to backtracking, namely you are switching to a new path.
+        self.memo[curr] -= 1
+
