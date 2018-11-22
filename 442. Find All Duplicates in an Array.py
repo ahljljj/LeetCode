@@ -40,3 +40,26 @@ class Solution:
                     nums[i] = -1
         return res
 
+#
+
+'''
+when find a number i, flip the number at position i-1 to negative. 
+if the number at position i-1 is already negative, i is the number that occurs twice.
+
+'''
+
+class Solution:
+    def findDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        res = []
+        for num in nums:
+            if nums[abs(num) - 1] < 0:
+                res.append(abs(num))
+            else:
+                nums[abs(num) - 1] *= -1
+        return res
+
+
