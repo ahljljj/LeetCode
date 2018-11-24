@@ -15,6 +15,20 @@ Note: Do not use class member/global/static variables to store states. Your seri
 
 # dfs/ preorder
 
+'''
+
+Hi all, I think my solution is pretty straightforward and easy to understand, not that efficient though. And the serialized tree is compact.
+Pre order traversal of BST will output root node first, then left children, then right.
+
+root left1 left2 leftX right1 rightX
+If we look at the value of the pre-order traversal we get this:
+
+rootValue (<rootValue) (<rootValue) (<rootValue) |separate line| (>rootValue) (>rootValue)
+Because of BST's property: before the |separate line| all the node values are less than root value, all the node values after |separate line| are greater than root value. We will utilize this to build left and right tree.
+
+Pre-order traversal is BST's serialized string. I am doing it iteratively.
+To deserialized it, use a queue to recursively get root node, left subtree and right subtree.
+'''
 
 # Definition for a binary tree node.
 # class TreeNode(object):
