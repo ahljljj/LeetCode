@@ -156,6 +156,59 @@ class Solution:
             minKid.right = root.right
         return minKid
 
+# another iterative method, same idea
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def deleteNode(self, root, key):
+        """
+        :type root: TreeNode
+        :type key: int
+        :rtype: TreeNode
+        """
+        curr = root  # target, the node with the key and which should be deleted
+        prev = None
+        while curr and curr.val != key:
+            prev = curr
+            if key < curr.val:
+                curr = curr.left
+            else:
+                curr = curr.right
+        if not prev:
+            return self.deleteRootNode(curr)
+        if prev.left == curr:
+            prev.left = self.deleteRootNode(curr)
+        else:
+            prev.right = self.deleteRootNode(curr)
+        return root
+
+    def deleteRootNode(self, root):
+        # delete the target node and return the new root node
+        if not root:
+            return root
+        if not root.left:
+            return root.right
+        if not root.right:
+            return root.left
+            # maxKid: the max node of the left subtree
+        maxKid = root.left
+        # we need swap root and maxKid
+        # maxKid is the new root
+        while maxKid and maxKid.right:
+            parent = maxKid
+            maxKid = maxKid.right
+        maxKid.right = root.right
+        if root.left != maxKid:
+            parent.right = maxKid.left
+            maxKid.left = root.left
+        return maxKid
+
 
 
 
