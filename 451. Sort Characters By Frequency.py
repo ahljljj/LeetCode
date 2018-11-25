@@ -59,3 +59,28 @@ class Solution:
         for (key, val) in dic:
             res += key * val
         return res
+
+# hashmap + heap
+
+class Solution:
+    def frequencySort(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        dic = {}
+        for ch in s:
+            if ch not in dic:
+                dic[ch] = 1
+            else:
+                dic[ch] += 1
+        heap = []
+        heapq.heapify(heap)
+        for (key, val) in dic.items():
+            heapq.heappush(heap, [-val, key])
+        res = ''
+        while heap:
+            (freq, ch) = heapq.heappop(heap)
+            res += ch * (-freq)
+        return res
+
