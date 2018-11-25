@@ -22,6 +22,8 @@ One way is to shoot one arrow for example at x = 6 (bursting the balloons [2,8] 
 
 # sort/ customize comparison
 # time complexity O(nlgn)
+# greedy
+# find the least number of intervals without any overlap
 
 
 class Solution:
