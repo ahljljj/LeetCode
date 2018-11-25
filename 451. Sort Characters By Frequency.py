@@ -84,3 +84,37 @@ class Solution:
             res += ch * (-freq)
         return res
 
+
+
+# bucket
+# time complexity O(n)
+'''
+The logic is very similar to NO.347 and here we just use a map a count and according to the frequency to put it into the right bucket. Then we go through the bucket to get the most frequently character and append that to the final stringbuilder.
+
+'''
+
+class Solution:
+    def frequencySort(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        dic = {}
+        for ch in s:
+            if ch not in dic:
+                dic[ch] = 1
+            else:
+                dic[ch] += 1
+        buckets = {}
+        for (ch, freq) in dic.items():
+            if freq not in buckets:
+                buckets[freq] = ch * freq
+            else:
+                buckets[freq] += ch * freq
+        res = ''
+        for i in range(len(s), -1, -1):
+            if i in buckets:
+                res += buckets[i]
+        return res
+
+
