@@ -65,3 +65,37 @@ public:
 };
 
 '''
+
+# stack
+
+'''
+Time complexity : O(n). We travesre over the numsnums array of size nn once to fill the minmin array. After this, we traverse over numsnums to find the nums[k]. During this process, we also push and pop the elements on the stackstack. But, we can note that atmost nn elements can be pushed and popped off the stackstack in total. Thus, the second traversal requires only O(n) time.
+
+'''
+
+class Solution:
+    def find132pattern(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        if not nums:
+            return False
+        stack = []
+        minVals = [0] * len(nums)
+        minVals[0] = nums[0]
+        for i in range(1, len(nums)):
+            minVals[i] = min(nums[i], minVals[i - 1])
+        for i in range(len(nums) - 1, -1, -1):
+            if nums[i] == minVals[i]:
+                continue
+            if stack:
+                if minVals[i] < stack[-1] < nums[i]:
+                    return True
+                else:
+                    while stack and stack[-1] <= minVals[i]:
+                        stack.pop()
+                    if stack and minVals[i] < stack[-1] < nums[i]:
+                        return True
+            stack.append(nums[i])
+        return False
