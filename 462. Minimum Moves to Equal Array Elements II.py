@@ -119,3 +119,31 @@ class Solution:
                 res += num - target
         return res
 
+# modified math without hashtable
+# intuition: find the median
+
+class Solution:
+    def minMoves2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums.sort()
+
+        for i in range(1, len(nums)):
+            if nums[i] == nums[i - 1]: continue
+            if i << 1 > len(nums):
+                return self.cost(nums, nums[i - 1])
+        return self.cost(nums, nums[-1])
+
+    def cost(self, nums, target):
+        res = 0
+        for num in nums:
+            if num < target:
+                res += target - num
+            else:
+                res += num - target
+        return res
+
+
+
