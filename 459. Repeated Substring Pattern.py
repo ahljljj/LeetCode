@@ -45,3 +45,36 @@ class Solution:
                 return True
             find = True
         return False
+
+
+# kmp algorithm
+'''
+First, we build the KMP table.
+
+Roughly speaking, dp[i+1] stores the maximum number of characters that the string is repeating itself up to position i.
+Therefore, if a string repeats a length 5 substring 4 times, then the last entry would be of value 15.
+To check if the string is repeating itself, we just need the last entry to be non-zero and str.size() to divide (str.size()-last entry).
+
+'''
+
+
+class Solution:
+    def repeatedSubstringPattern(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        n = len(s)
+        kmp = [0] * (n + 1)
+        i, j = 1, 0
+        while i < n:
+            if s[i] == s[j]:
+                j += 1
+                i += 1
+                kmp[i] = j
+            elif j == 0:
+                i += 1
+            else:
+                j = kmp[j]
+        res = kmp[n] and kmp[n] % (len(s) - kmp[n]) == 0
+        return res == 1
