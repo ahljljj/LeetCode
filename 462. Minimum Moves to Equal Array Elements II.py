@@ -145,5 +145,49 @@ class Solution:
                 res += num - target
         return res
 
+# quick selection without sort
+# time complexity O(n)
+
+class Solution:
+    def minMoves2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        median = self.qSelect(nums, 0, n - 1, 1 + n >> 1)  # median = 1 + n >> 1 not affect the even length
+        return self.cost(nums, median)
+
+    def qSelect(self, nums, low, high, k):
+        left, right = 0, len(nums) - 1
+        pivot = nums[(left + right) >> 1]
+        i = left
+        while i <= right:
+            if nums[i] > pivot:
+                nums[i], nums[right] = nums[right], nums[i]
+                right -= 1
+            elif nums[i] < pivot:
+                nums[i], nums[left] = nums[left], nums[i]
+                i += 1
+                left += 1
+            else:
+                i += 1
+        if k <= left:
+            return self.qSelect(nums, low, left - 1, k)
+        elif k - 1 > right:
+            return self.qSelect(nums, right + 1, high, k)
+        else:
+            return pivot
+
+    def cost(self, nums, target):
+        res = 0
+        for num in nums:
+            if num < target:
+                res += target - num
+            else:
+                res += num - target
+        return res
+
+
 
 
