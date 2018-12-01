@@ -153,3 +153,40 @@ class Solution:
                     start -= 1
         return start // len(s)
 
+
+# dp?
+
+'''
+It's kind of like a jump game. I use a array to record for each word, how far it can jump.
+eg. dp[index] means if the row start at index then the start of next row is dp[index].
+dp[index] can be larger than the length of the sentence, in this case, one row can span multiple sentences.
+I comment the check whether a word is longer than the row since there is no such test case. But it's better to check it. And it make little difference to the speed.
+
+'''
+
+
+class Solution:
+    def wordsTyping(self, sentence, rows, cols):
+        """
+        :type sentence: List[str]
+        :type rows: int
+        :type cols: int
+        :rtype: int
+        """
+        n = len(sentence)
+        dp = [0] * n
+        prevLen = 0
+        for i in range(n):
+            k = i
+            while prevLen + len(sentence[i]) <= cols:
+                prevLen += len(sentence[i]) + 1
+                i = (i + 1) % n
+                dp[k] += 1
+            prevLen = 0
+        count, k = 0, 0
+        for i in range(rows):
+            count += dp[k]
+            k = (k + dp[k]) % n
+        return count // len(sentence)
+
+
