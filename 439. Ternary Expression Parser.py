@@ -116,3 +116,30 @@ class Solution:
             if s != ':':
                 stack.append(s)
         return stack[0]
+
+# dfs, brilliant
+
+
+class Solution:
+    def parseTernary(self, expression):
+        """
+        :type expression: str
+        :rtype: str
+        """
+
+        return self.dfs(expression)
+
+    def dfs(self, exp):
+        if len(exp) == 1:
+            return exp
+        count = 0
+        for i in range(len(exp)):
+            if exp[i] == '?':
+                count += 1
+            elif exp[i] == ':':
+                count -= 1
+                if count == 0:
+                    break
+        return self.dfs(exp[2: i]) if exp[0] == 'T' else self.dfs(exp[i + 1:])
+
+
