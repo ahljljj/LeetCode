@@ -46,3 +46,42 @@ class WordDistance:
 # Your WordDistance object will be instantiated and called as such:
 # obj = WordDistance(words)
 # param_1 = obj.shortest(word1,word2)
+
+
+
+
+# slight improvement O(n)
+class WordDistance:
+
+    def __init__(self, words):
+        """
+        :type words: List[str]
+        """
+        self.map = {}
+        for i, word in enumerate(words):
+            if word not in self.map:
+                self.map[word] = [i]
+            else:
+                self.map[word].append(i)
+
+    def shortest(self, word1, word2):
+        """
+        :type word1: str
+        :type word2: str
+        :rtype: int
+        """
+        l1 = self.map[word1]
+        l2 = self.map[word2]
+        idx1, idx2 = 0, 0
+        res = float('inf')
+        while idx1 < len(l1) and idx2 < len(l2):
+            res = min(res, abs(l2[idx2] - l1[idx1]))
+            if l1[idx1] < l2[idx2]:
+                idx1 += 1
+            else:
+                idx2 += 1
+        return res
+
+# Your WordDistance object will be instantiated and called as such:
+# obj = WordDistance(words)
+# param_1 = obj.shortest(word1,word2)
