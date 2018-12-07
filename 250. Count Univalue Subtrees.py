@@ -94,3 +94,32 @@ class Solution:
             return True
         return False
 
+# shorter
+
+class Solution:
+    def countUnivalSubtrees(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.count = 0
+        self.dfs(root)
+        return self.count
+
+    def dfs(self, root):
+        if not root:
+            return True
+        if not root.left and not root.right:
+            self.count += 1
+            return True
+        l = self.dfs(root.left)
+        r = self.dfs(root.right)
+        if l and r:
+            if root.left and root.left.val != root.val:
+                return False
+            if root.right and root.right.val != root.val:
+                return False
+            self.count += 1
+            return True
+        return False
+
