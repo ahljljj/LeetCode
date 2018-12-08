@@ -50,3 +50,35 @@ class Solution:
                 heapq.heappop(rooms)
             heapq.heappush(rooms, intervals[i].end)
         return len(rooms)
+
+# c++
+
+'''
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+class Solution {
+public:
+    int minMeetingRooms(vector<Interval>& intervals) {
+        sort(intervals.begin(), intervals.end(), cmp);
+        priority_queue<int, vector<int>, greater<int> > rooms;
+        for (auto time: intervals){
+            if(!rooms.empty() && rooms.top() <= time.start) rooms.pop();
+            rooms.push(time.end);
+        }
+        return rooms.size();
+        
+    }
+    
+    static bool cmp(Interval &a , Interval &b){
+        return a.start < b.start;
+    }
+};
+
+'''
