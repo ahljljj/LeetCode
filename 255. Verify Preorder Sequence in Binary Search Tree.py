@@ -52,3 +52,47 @@ class Solution:
             stack.append(node)
         return True
 
+
+# c++, stack
+'''
+class Solution {
+public:
+    bool verifyPreorder(vector<int>& preorder) {
+        stack<int> stk = {};
+        int low = INT_MIN;
+        for (auto node: preorder){
+            if (node < low) return false;
+            while(!stk.empty() && node > stk.top())
+            {
+                low = stk.top();
+                stk.pop();
+            }
+            stk.push(node);            
+        }
+        return true;
+        
+        
+    }
+};
+
+
+'''
+
+# c++, stack with O(1) space
+
+'''
+class Solution {
+public:
+    bool verifyPreorder(vector<int>& preorder) {
+        int low = INT_MIN, i = -1, j = preorder.size() - 1;
+        for (int node: preorder){
+            if (node < low) return false;
+            while(i >= 0 && node > preorder[i]) low = preorder[i--];
+            preorder[++i] = node;            
+        }
+        return true;
+        
+        
+    }
+};
+'''
