@@ -40,3 +40,36 @@ class Solution:
                     left += 1
         return res
 
+# c++, binary search O(n^2lgn)
+
+'''
+class Solution {
+public:
+    int threeSumSmaller(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        int res = 0, right;
+        for(int i = 0; i < nums.size(); i++){
+            for (int j = i + 1; j < nums.size(); j++){
+                right = binarySearch(nums, target - nums[i] - nums[j], j + 1);
+                res += right - j;                
+            }
+        }
+        return res;   
+    }
+    int binarySearch(vector<int>& nums, int target, int left){
+        int right = nums.size() - 1, mid;
+        while (left <= right){
+            mid = (left + right) >> 1;
+            if (nums[mid] >= target){
+                right = mid - 1;
+            }else{
+                left = mid + 1;
+            }        
+        }
+        return left - 1;    
+    }
+};
+
+
+'''
+
