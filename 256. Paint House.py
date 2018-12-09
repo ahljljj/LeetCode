@@ -40,3 +40,34 @@ class Solution:
             dpg[i] = costs[i][2] + min(dpb[i - 1], dpr[i - 1])
             res = min([dpr[i], dpb[i], dpg[i]])
         return res if res < float('inf') else 0
+
+# c++, rewrite
+
+'''
+class Solution {
+public:
+    int minCost(vector<vector<int>>& costs) {
+        if (costs.empty()) return 0;
+        int * dpr = new int[costs.size()], * dpb = new int[costs.size()], * dpg = new int[costs.size()];
+        int res = INT_MAX;
+        for (int i = 0; i < costs.size(); i++){
+            if (i == 0){
+                dpr[i] = costs[i][0];
+                dpb[i] = costs[i][1];
+                dpg[i] = costs[i][2];
+                res = min({dpr[i], dpb[i], dpg[i]});
+                continue;                
+            }
+            dpr[i] = costs[i][0] + min(dpb[i - 1], dpg[i - 1]);
+            dpb[i] = costs[i][1] + min(dpr[i - 1], dpg[i - 1]);
+            dpg[i] = costs[i][2] + min(dpb[i - 1], dpr[i - 1]);
+            res = min({dpr[i], dpb[i], dpg[i]});
+            
+            
+        }        
+        return res;
+        
+    }
+};
+
+'''
