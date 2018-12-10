@@ -43,3 +43,25 @@ class Solution:
             if count > 1:
                 return False
         return True
+
+# c++
+
+'''
+class Solution {
+public:
+    bool canPermutePalindrome(string s) {
+        unordered_map<char, int> freq;
+        for(auto ch : s) freq[ch]++;
+        int res = 0;
+        for (auto cnt: freq)
+        {
+            if (cnt.second % 2) res++;
+            if (res > 1) return false;
+        }
+        return true;
+        
+    }
+};
+
+
+'''
