@@ -51,3 +51,27 @@ class Solution:
                 queue.append(neighbor)
                 graph[neighbor].remove(node)
         return len(visited) == n
+
+# dfs, brilliant
+
+class Solution:
+    def validTree(self, n, edges):
+        """
+        :type n: int
+        :type edges: List[List[int]]
+        :rtype: bool
+        """
+        if len(edges) != n - 1: return False
+        graph = {i: set() for i in range(n)}
+        # initialization
+        for (x, y) in edges:
+            graph[x].add(y)
+            graph[y].add(x)
+        visited = set()
+        self.dfs(0, visited, graph)
+        return len(visited) == n
+
+    def dfs(self, node, visited, graph):
+        if node in visited: return
+        visited.add(node)
+        for curr in graph[node]: self.dfs(curr, visited, graph)
