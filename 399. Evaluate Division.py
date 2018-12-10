@@ -212,43 +212,6 @@ class Solution:
             #            self.rank[p1] = 1 # p1 is not a root any more, the rank is not important
             self.weights[p1] = self.weights[v] / self.weights[u] * val
 
-# union find
-
-class Solution:
-    def validTree(self, n, edges):
-        """
-        :type n: int
-        :type edges: List[List[int]]
-        :rtype: bool
-        """
-        if len(edges) != n - 1: return False
-        self.parents = {}
-        self.rank = {}
-        for (x, y) in edges:
-            if x not in self.parents:
-                self.parents[x] = x
-                self.rank[x] = 1
-            if y not in self.parents:
-                self.parents[y] = y
-                self.rank[y] = 1
-            if self.parents[x] == self.parents[y]:
-                return False
-            self.union(x, y)
-        return True
-
-    def find(self, node):
-        if node != self.parents[node]:
-            p = self.parents[node]
-            self.parents[node] = self.find(p)
-        return self.parents[node]
-
-    def union(self, x, y):
-        px, py = self.find(x), self.find(y)
-        if self.rank[px] > self.rank[py]:
-            px, py = py, px
-        if px != py:
-            self.parents[px] = py
-            self.rank[py] += self.rank[px]
 
 
 
