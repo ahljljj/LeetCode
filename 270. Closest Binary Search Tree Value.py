@@ -87,3 +87,29 @@ public:
 };
 
 '''
+
+# modified cpp, dfs
+
+'''
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int closestValue(TreeNode* root, double target) {
+        int curr = root->val;
+        auto kid = target < curr? root->left: root->right;
+        if(! kid) return curr;
+        int nxt = closestValue(kid, target);
+        return abs(target - curr) < abs(target - nxt) ? curr : nxt;
+        
+    }
+};
+
+'''
