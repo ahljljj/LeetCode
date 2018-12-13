@@ -44,3 +44,31 @@ public:
 };
 
 '''
+
+# c++, onepass, brilliant
+
+'''
+class Solution {
+public:
+    void wiggleSort(vector<int>& nums) {
+        if (nums.empty()) return;
+        bool less = true;
+        for (int i = 0; i < nums.size() - 1; i++) {
+            if (less){
+                if (nums[i] > nums[i + 1]) swap(nums, i, i + 1);   
+            }else {
+                if (nums[i] < nums[i + 1]) swap(nums, i, i + 1);
+            }
+            less = !less;
+        }
+        
+    }
+    
+    void swap(vector<int> & nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+};
+
+'''
