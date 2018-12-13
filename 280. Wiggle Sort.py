@@ -25,3 +25,22 @@ class Solution(object):
         while i < len(nums) - 1:
             nums[i], nums[i + 1] = nums[i + 1], nums[i]
             i += 2
+
+# c++, sort, brute force
+
+'''
+class Solution {
+public:
+    void wiggleSort(vector<int>& nums) {
+        if (nums.empty()) return;
+        sort(nums.begin(), nums.end());
+        for(int i = 1; i < nums.size() - 1; i += 2) swap(nums, i, i + 1);
+    }
+    void swap(vector<int>& nums, int i, int j){
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+};
+
+'''
