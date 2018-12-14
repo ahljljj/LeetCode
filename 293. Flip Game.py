@@ -35,3 +35,26 @@ class Solution:
                 res.append(s[0:i] + w + s[i + 2:])
         return res
 
+# C++, rewrite
+
+'''
+class Solution {
+public:
+    vector<string> generatePossibleNextMoves(string s) {
+        vector<string> res;
+        if (s.size() == 0) return res;
+        string tmp = s;
+        for(int i = 0; i < s.size() - 1; i++){
+            if (s.substr(i, 2) == "++") {
+                s[i] = '-'; s[i + 1] = '-';
+                res.push_back(s);
+                s[i] = '+'; s[i + 1] = '+';               
+            }
+        }
+        return res;
+        
+    }
+};
+
+'''
+
