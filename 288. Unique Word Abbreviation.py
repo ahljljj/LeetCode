@@ -73,3 +73,39 @@ class ValidWordAbbr:
 # Your ValidWordAbbr object will be instantiated and called as such:
 # obj = ValidWordAbbr(dictionary)
 # param_1 = obj.isUnique(word)
+
+# cpp, rewrite
+
+'''
+
+class ValidWordAbbr {
+    unordered_set<string> dict;
+    unordered_map<string, int> map;
+public:
+    ValidWordAbbr(vector<string> dictionary) {
+        for (auto word: dictionary) dict.insert(word);
+        for (auto word: dict) map[encode(word)] += 1;
+        
+    }
+    
+    bool isUnique(string word) {
+        string pw = encode(word);
+        if (dict.find(word) != dict.end()){
+            if (map[pw] > 1) return false;
+        }else if (map.find(pw) != map.end()) return false;
+        return true;
+        
+    }
+    string encode(string word){
+        if (word.size() < 3) return word;
+        return word[0] + to_string(word.size() - 2) + word[word.size() - 1];
+         
+    }
+};
+
+/**
+ * Your ValidWordAbbr object will be instantiated and called as such:
+ * ValidWordAbbr obj = new ValidWordAbbr(dictionary);
+ * bool param_1 = obj.isUnique(word);
+ */
+'''
