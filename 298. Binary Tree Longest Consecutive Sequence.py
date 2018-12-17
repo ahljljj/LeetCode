@@ -48,6 +48,17 @@ Explanation: Longest consecutive sequence path is 2-3, not 3-2-1, so return 2.
 #         self.left = None
 #         self.right = None
 
+'''
+A top down approach is similar to an in-order traversal. We use a variable length to store the current consecutive path length and pass it down the tree. As we traverse, we compare the current node with its parent node to determine if it is consecutive. If not, we reset the length.
+
+Complexity analysis
+
+Time complexity : O(n)O(n). The time complexity is the same as an in-order traversal of a binary tree with nn nodes.
+
+Space complexity : O(n)O(n). The extra space comes from implicit stack space due to recursion. For a skewed binary tree, the recursion could go up to nn levels deep.
+
+'''
+
 class Solution:
     def longestConsecutive(self, root):
         """
