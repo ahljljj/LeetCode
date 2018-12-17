@@ -124,3 +124,38 @@ public:
 
 '''
 
+# py, bottom up
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def longestConsecutive(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.res = 0
+        self.dfs(root)
+        return self.res
+
+    def dfs(self, root):
+        if not root: return 0
+        l = self.dfs(root.left)
+        r = self.dfs(root.right)
+        if root.left and root.val + 1 == root.left.val:
+            l += 1
+        else:
+            l = 1
+        if root.right and root.val + 1 == root.right.val:
+            r += 1
+        else:
+            r = 1
+        tmp = max(l, r)
+        self.res = max(self.res, tmp)
+        return tmp
+
