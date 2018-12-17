@@ -35,3 +35,30 @@ public:
 };
 
 '''
+
+# py AC, brute force with memorization
+
+class Solution:
+    def canWin(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        self.memo = {}
+        return self.dfs(s)
+
+    def dfs(self, s):
+        if len(s) < 2: return False
+        if s in self.memo:
+            return not self.memo[s]
+        for i in range(len(s) - 1):
+            if s[i: i + 2] == "++":
+                s = s[:i] + "--" + s[i + 2:]
+                if s in self.memo and not self.memo[s]:
+                    return True
+                if not self.dfs(s):
+                    self.memo[s] = True
+                    return True
+                s = s[:i] + "++" + s[i + 2:]
+        self.memo[s] = False
+        return False
