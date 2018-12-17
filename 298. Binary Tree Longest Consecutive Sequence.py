@@ -72,3 +72,44 @@ class Solution:
         self.dfs(root.left, root.val, tmp)
         self.dfs(root.right, root.val, tmp)
 
+# cpp, rewrite
+
+'''
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    int res = 0;
+public:
+    int longestConsecutive(TreeNode* root) {
+        if (!root) return 0;
+        dfs(root, NULL, 1);
+        return res;
+        
+    }
+    
+    void dfs(TreeNode* root, TreeNode* prev, int tmp){
+        if (!root){
+            res = max(res, tmp);
+            return;
+        }
+        if (prev){
+            if (root->val == prev->val + 1) 
+                tmp += 1;
+            else
+                tmp = 1;
+            res = max(res, tmp);
+        }
+        dfs(root->left, root, tmp);
+        dfs(root->right, root, tmp);
+    }
+};
+
+'''
+
