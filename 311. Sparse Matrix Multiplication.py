@@ -66,3 +66,38 @@ class Solution:
                     if r in vB[j]:
                         res[i][j] += vA[i][r] * vB[j][r]
         return res
+
+# cpp, rewrite
+
+'''
+class Solution {
+public:
+    vector<vector<int>> multiply(vector<vector<int>>& A, vector<vector<int>>& B) {
+        int n = A.size(), k = A[0].size(), m = B[0].size();
+        vector<unordered_map<int, int> > vA(n);
+        vector<unordered_map<int, int> > vB(m);
+        for (int i = 0; i < n; i ++){
+            for (int j = 0; j < k; j++){
+                if (A[i][j]) vA[i][j] = A[i][j];
+            }
+        }
+        for (int i = 0; i < k; i ++){
+            for (int j = 0; j < m; j++){
+                if (B[i][j]) vB[j][i] = B[i][j];
+            }
+        }
+        vector<vector<int>> res(n, vector<int>(m, 0));
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < m; j++){
+                for (auto r: vA[i]){
+                    if (vB[j].find(r.first) != vB[j].end())
+                        res[i][j] += vA[i][r.first] * vB[j][r.first];
+                }
+            }
+        }
+        return res;
+        
+    }
+};
+
+'''
