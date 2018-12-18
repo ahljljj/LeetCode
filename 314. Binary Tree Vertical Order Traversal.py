@@ -116,3 +116,47 @@ class Solution:
         for i in range(minIdx, maxIdx + 1):
             res.append(table[i])
         return res
+
+# cpp, rewrite
+
+'''
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> verticalOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if (!root) return res;
+        queue<pair<TreeNode*, int>> q;
+        q.push(make_pair(root, 0));
+        int minIdx = 0, maxIdx = 0;
+        unordered_map<int, vector<int> > table;
+        while (!q.empty()){
+            TreeNode* node = q.front().first;
+            int idx = q.front().second;
+            q.pop();
+            table[idx].push_back(node->val);
+            if (node->left){
+                minIdx = min(minIdx, idx - 1);
+                q.push(make_pair(node->left, idx - 1));
+            }
+            if (node->right){
+                maxIdx = max(maxIdx, idx + 1);
+                q.push(make_pair(node->right, idx + 1));
+            }            
+        }
+        for (int i = minIdx; i <= maxIdx; ++i) res.push_back(table[i]);
+        return res;
+        
+        
+    }
+};
+
+'''
