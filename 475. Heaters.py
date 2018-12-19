@@ -56,3 +56,43 @@ public:
 };
 
 '''
+
+# cpp, binary search
+
+'''
+class Solution {
+public:
+    int findRadius(vector<int>& houses, vector<int>& heaters) {
+        sort(heaters.begin(), heaters.end());
+        int res = INT_MIN, curr;
+        for (int i = 0; i < houses.size(); ++i){
+            int idx = helper(heaters, houses[i]); // the least upper bound
+//            cout << houses[i] << '\t' << idx << endl;
+            if (idx > 0)
+                curr = min(abs(heaters[idx] - houses[i]), abs(houses[i] - heaters[idx - 1]));
+            else
+                curr = abs(heaters[idx] - houses[i]);
+            res = max(res, curr);            
+        }
+        return res;        
+    }
+    
+    int helper(vector<int>& heaters, int target){
+        
+        if (target < heaters[0]) return 0;
+        if (target > heaters[heaters.size() - 1]) return heaters.size() - 1;
+        
+        int res, left = 0, right = heaters.size() - 1, mid;
+        while (left <= right){
+            mid = (left + right) >> 1;
+            if (heaters[mid] < target)
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+        return left;
+        
+    }
+};
+
+'''
