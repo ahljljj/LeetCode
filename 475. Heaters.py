@@ -60,6 +60,14 @@ public:
 # cpp, binary search
 
 '''
+
+The idea is to leverage decent Arrays.binarySearch() function provided by Java.
+
+For each house, find its position between those heaters (thus we need the heaters array to be sorted).
+Calculate the distances between this house and left heater and right heater, get a MIN value of those two values. Corner cases are there is no left or right heater.
+Get MAX value among distances in step 2. It's the answer.
+
+
 class Solution {
 public:
     int findRadius(vector<int>& houses, vector<int>& heaters) {
