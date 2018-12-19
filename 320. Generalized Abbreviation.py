@@ -44,3 +44,30 @@ public:
 };
 
 '''
+
+# cpp, dfs
+
+'''
+class Solution {
+public:
+    vector<string> generateAbbreviations(string word) {
+        vector<string> res;
+        dfs(res, word, 0, "", 0);
+        return res;
+        
+    }
+    
+    void dfs(vector<string> &res, string word, int idx, string curr, int count){
+        if (word.size() == idx) 
+            res.push_back( curr + (count > 0 ? to_string(count) : ""));
+        else{
+            dfs(res, word, idx + 1, curr, count + 1);
+            dfs(res, word, idx + 1, curr + (count > 0? to_string(count) : "") + word[idx],0);           
+        }
+            
+        
+        
+    }
+};
+
+'''
