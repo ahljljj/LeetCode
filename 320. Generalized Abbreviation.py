@@ -58,10 +58,13 @@ public:
     }
     
     void dfs(vector<string> &res, string word, int idx, string curr, int count){
+        // Once we reach the end, append current to the result
         if (word.size() == idx) 
             res.push_back( curr + (count > 0 ? to_string(count) : ""));
         else{
+            // Skip current position, and increment count
             dfs(res, word, idx + 1, curr, count + 1);
+            // Include current position, and zero-out count
             dfs(res, word, idx + 1, curr + (count > 0? to_string(count) : "") + word[idx],0);           
         }
             
