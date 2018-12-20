@@ -39,6 +39,19 @@ public:
     }
 };
 
+// cpp, unordered_set, optimize
+
+class Solution {
+public:
+    int distributeCandies(vector<int>& candies) {
+        int half = candies.size() >> 1;
+        unordered_set<int> S;
+        for (int candy : candies) S.insert(candy);
+        return min<int>(half, S.size());
+
+    }
+};
+
 // cpp, sort
 
 class Solution {
