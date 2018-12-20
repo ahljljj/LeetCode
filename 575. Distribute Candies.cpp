@@ -38,3 +38,22 @@ public:
 
     }
 };
+
+// cpp, sort
+
+class Solution {
+public:
+    int distributeCandies(vector<int>& candies) {
+        sort(candies.begin(), candies.end());
+        int count = 0;
+        for (int i = 0; i < candies.size(); ++i){
+            if (count == (candies.size() >> 1)) return count;
+            if (i == 0){
+                ++count;
+                continue;
+            }
+            if (candies[i] > candies[i - 1]) ++count;
+        }
+        return count;
+    }
+};
