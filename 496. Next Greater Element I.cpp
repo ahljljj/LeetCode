@@ -45,3 +45,23 @@ public:
         return res;
     }
 };
+
+// cpp, stack and unordered_map
+
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) {
+        stack<int> stack;
+        unordered_map<int, int> table;
+        for (int num: nums){
+            while (stack.size() && stack.top() < num){
+                table[stack.top()] = num;
+                stack.pop();
+            }
+            stack.push(num);
+        }
+        vector<int> res;
+        for (int n: findNums) res.push_back(table[n]? table[n]: -1);
+        return res;
+    }
+};
