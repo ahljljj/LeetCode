@@ -74,7 +74,8 @@ We can cut down the time and space complexities of shuffle with a bit of clevern
 
 Algorithm
 
-The Fisher-Yates algorithm is remarkably similar to the brute force solution. On each iteration of the algorithm, we generate a random integer between the current index and the last index of the array. Then, we swap the elements at the current index and the chosen index - this simulates drawing (and removing) the element from the hat, as the next range from which we select a random index will not include the most recently processed one. One small, yet important detail is that it is possible to swap an element with itself - otherwise, some array permutations would be more likely than others. 
+The Fisher-Yates algorithm is remarkably similar to the brute force solution. On each iteration of the algorithm, 
+we generate a random integer between the current index and the last index of the array. Then, we swap the elements at the current index and the chosen index - this simulates drawing (and removing) the element from the hat, as the next range from which we select a random index will not include the most recently processed one. One small, yet important detail is that it is possible to swap an element with 09itself - otherwise, some array permutations would be more likely than others. 
 
 
 
