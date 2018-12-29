@@ -28,3 +28,26 @@ public:
 
     }
 };
+
+// cpp, binary search
+
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        for (long i = 0; i * i <= c; ++i){
+            if (binarySearch(c - i * i)) return true;
+        }
+        return false;
+    }
+
+    bool binarySearch(long target){
+        long l = 0, r = target;
+        while (l <= r){
+            long m = (l + r) >> 1;
+            if (m * m == target) return true;
+            else if (m * m > target) r = m - 1;
+            else l = m + 1;
+        }
+        return false;
+    }
+};
