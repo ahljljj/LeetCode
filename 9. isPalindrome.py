@@ -47,3 +47,22 @@ class Solution:
             return True
         else:
             return False
+
+# cpp, rewrite
+
+'''
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0) return false;
+        int res = 0, dummy = x;
+        while (x){
+            res = res * 10 + x % 10;
+            x /= 10;
+        }
+        return res == dummy;
+        
+    }
+};
+
+'''
