@@ -94,3 +94,25 @@ class Solution:
                 if i > coin:
                     dp[i] = min(dp[i], 1 + dp[i - coin])
         return dp[-1] if dp[-1] != float("inf") else -1
+
+# cpp, rewrite
+
+'''
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        vector<long> dp(1 + amount, INT_MAX);
+        dp[0] = 0;
+        for (int i = 1; i < amount + 1; ++i){
+            for (int coin: coins){
+                if (coin <= i){
+                    dp[i] = min(dp[i], dp[i - coin] + 1);
+                }
+            }
+        }
+        return dp.back() < INT_MAX? dp.back() : -1;
+        
+    }
+};
+
+'''
