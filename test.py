@@ -1,55 +1,22 @@
-class Solution(object):
-    def fractionToDecimal(self, numerator, denominator):
-        """
-        :type numerator: int
-        :type denominator: int
-        :rtype: str
-        """
-        if numerator == 0: return str('0')
-        sign = ''
-        if numerator < 0 and denominator < 0:
-            numerator, denominator = -numerator, -denominator
-        elif numerator < 0 and denominator > 0:
-            numerator = -numerator
-            sign = '-'
-        elif numerator > 0 and denominator < 0:
-            denominator = -denominator
-            sign = '-'
+'''
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> table =  {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        vector<string> res;
+        for (char digit : digits){
+            cout << digit << endl;
+            int idx = digit - '0' - 2;
+            for (char ch: table[idx]){
+                if (!res.empty()){
+                    for (string s: res) s += ch;
+                } else res.push_back(ch);
+            }
+        }
+        return res;
 
-        res = '' if numerator >= denominator else '0.'
-        decimals = {}
-        if numerator >= denominator:
-            res += str(numerator / denominator)
-            numerator = numerator % denominator
-            if numerator > 0:
-                res += '.'
-            else:
-                return res
-        decimals[numerator] = len(res)
-        numerator *= 10
-        #       while numerator < denominator:
-        #           numerator *= 10
-        #          res += '0'
-        q = numerator
-        d = denominator
-        idx = len(res) + 1
-        while True:
-            tmp = q / d
-            res += str(tmp)
-            r = q % d
-            if r > 0:
-                if r not in decimals:
-                    decimals[r] = idx
-                else:
-                    return sign + res[:decimals[r]] + '(' + res[decimals[r]:] + ')'
-            else:
-                return sign + res
-            q = r * 10
-            idx += 1
+    }
+};c
 
 
-s = Solution()
-
-print(s.fractionToDecimal(-2147483648,1))
-
-
+'''

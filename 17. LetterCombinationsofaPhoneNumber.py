@@ -37,3 +37,26 @@ class Solution(object):
                     tmp.append(s)
             res = tmp
         return res
+
+# cpp, rewtrite
+'''
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        if (digits.empty()) return vector<string>();
+        vector<string> table =  {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        vector<string> res = {""};
+        for (char digit: digits){
+            int idx = digit - '0' - 2;
+            vector<string> tmp;
+            for (char ch: table[idx]) {
+                for (string s: res) tmp.push_back(s + ch);
+            }
+            res.swap(tmp);
+        }
+        return res;
+        
+    }
+};
+
+'''
