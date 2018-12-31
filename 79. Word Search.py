@@ -93,4 +93,34 @@ class Solution:
 
         board[row][col] = tmp
 
+# cpp, rewrite, matrix search with dfs
+
+'''
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        int n = board.size(), m = board[0].size();
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < m; ++j)
+                if (dfs(board, word, 0, i, j)) return true;
+        return false;   
+    }
+    
+    bool dfs(vector<vector<char>> & board, string word, int idx, int i, int j){
+        if (idx == word.length()) return true;
+        if (i < 0 || i > board.size() - 1 || j < 0 || j > board[0].size() - 1) return false;
+        if (word[idx] != board[i][j]) return false;
+        vector<vector<int>> dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        char tmp = board[i][j];
+        board[i][j] = '#';
+        for (vector<int> dir: dirs){
+            int ni = i + dir[0], nj = j + dir[1];
+            if (dfs(board, word, idx + 1, ni, nj)) return true;
+        }
+        board[i][j] = tmp;
+        return false;
+    }
+};
+'''
+
 
