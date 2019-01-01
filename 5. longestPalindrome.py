@@ -69,3 +69,66 @@ class Solution:
             if len(tmp) > len(res):
                 res = tmp
         return res
+
+# cpp, rewrite
+
+'''
+To improve over the brute force solution, we first observe how we can avoid unnecessary re-computation while validating palindromes. Consider the case "ababa". If we already knew that "bab" is a palindrome, it is obvious that "ababa" must be a palindrome since the two left and right end letters are the same.
+
+We define P(i,j)P(i,j) as following:
+
+P(i,j)={true,false,if the substring Si…Sj is a palindromeotherwise. 
+Therefore,
+
+P(i, j) = ( P(i+1, j-1) \text{ and } S_i == S_j )
+P(i,j)=(P(i+1,j−1) and S 
+i
+​	
+ ==S 
+j
+​	
+ )
+
+The base cases are:
+
+P(i, i) = true
+P(i,i)=true
+
+P(i, i+1) = ( S_i == S_{i+1} )
+P(i,i+1)=(S 
+i
+​	
+ ==S 
+i+1
+​	
+ )
+
+This yields a straight forward DP solution, which we first initialize the one and two letters palindromes, and work our way up finding all three letters palindromes, and so on...
+
+'''
+
+
+'''
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if (s.empty() || s.length() == 1) return s;
+        int maxLen = 1, start = 0;
+        for (int i = 0; i < s.length(); ++i){
+            int l = i, k = i;
+            while (k < s.length() - 1 && s[k] == s[k + 1]) ++k; // skip the duplicates
+            while (l > 0 && k < s.length() - 1 && s[l - 1] == s[k + 1]){
+                --l; ++k;
+            }
+            int currLen = k - l + 1;
+            if (currLen > maxLen){
+                start = l;
+                maxLen = currLen;
+            }
+        }
+        return s.substr(start, maxLen);
+        
+    }
+};
+
+'''
