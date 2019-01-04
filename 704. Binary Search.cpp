@@ -27,6 +27,13 @@ The value of each element in nums will be in the range [-9999, 9999].
 
 // cpp, binary search
 
+// modify int mid = left + (right  - left)/2;
+/*
+Good point, but in this specific case there will be no problem.
+Because if you look at the description, it's said that the size of the vector will never exceed 10000.
+The overflow you worried about will not happen here.
+*/
+
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
