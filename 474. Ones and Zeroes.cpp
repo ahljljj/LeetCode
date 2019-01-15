@@ -54,3 +54,30 @@ public:
         return res;
     }
 };
+
+
+// cpp, recursion, brute force, tle
+
+class Solution {
+public:
+    int findMaxForm(vector<string>& strs, int m, int n) {
+        return dfs(strs, 0, m, n);
+
+    }
+
+    int dfs(vector<string> & strs, int idx, int m , int n){
+        if (idx == strs.size()) return 0;
+        vector<int> counts = counting(strs[idx]);
+        int taken = -1;
+        if (m - counts[0] >= 0 && n - counts[1] >= 0)
+            taken = dfs(strs, idx + 1, m - counts[0], n - counts[1]) + 1;
+        int not_taken = dfs(strs, idx + 1, m, n);
+        return max(taken, not_taken);
+    }
+
+    vector<int> counting(string & str){
+        vector<int> res = {0, 0};
+        for (int i = 0; i < str.size(); ++i) ++res[str[i] - '0'];
+        return res;
+    }
+};
