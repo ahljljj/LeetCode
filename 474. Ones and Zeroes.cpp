@@ -81,3 +81,32 @@ public:
         return res;
     }
 };
+
+// cpp, recursion with memo AC
+
+class Solution {
+public:
+    int findMaxForm(vector<string>& strs, int m, int n) {
+        vector< vector< vector<int> > > memo(strs.size(), vector<vector<int>>(m + 1, vector<int> (n + 1, 0)));
+        return dfs(strs, 0, m, n, memo);
+
+    }
+
+    int dfs(vector<string> & strs, int idx, int m , int n, vector< vector< vector<int> > > & memo){
+        if (idx == strs.size()) return 0;
+        if (memo[idx][m][n] != 0) return memo[idx][m][n];
+        vector<int> counts = counting(strs[idx]);
+        int taken = -1;
+        if (m - counts[0] >= 0 && n - counts[1] >= 0)
+            taken = dfs(strs, idx + 1, m - counts[0], n - counts[1], memo) + 1;
+        int not_taken = dfs(strs, idx + 1, m, n, memo);
+        memo[idx][m][n] = max(taken, not_taken);
+        return memo[idx][m][n];
+    }
+
+    vector<int> counting(string & str){
+        vector<int> res = {0, 0};
+        for (int i = 0; i < str.size(); ++i) ++res[str[i] - '0'];
+        return res;
+    }
+};
