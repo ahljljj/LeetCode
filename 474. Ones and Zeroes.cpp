@@ -110,3 +110,30 @@ public:
         return res;
     }
 };
+
+// cpp, dynamic programming
+
+class Solution {
+public:
+    int findMaxForm(vector<string>& strs, int m, int n) {
+        int dp[m + 1][n + 1];
+        for (int i = 0; i < m + 1; ++i)
+            for (int j = 0; j < n + 1; ++j)
+                dp[i][j] = 0;
+        for (string str: strs){
+            int* counts = counting(str);
+//            cout << counts[0] << " " << counts[1] << endl;
+            for (int zeros = m; zeros >= counts[0]; --zeros)
+                for (int ones = n; ones >= counts[1]; --ones)
+                    dp[zeros][ones] = max(1 + dp[zeros - counts[0]][ones - counts[1]], dp[zeros][ones]);
+        }
+        return dp[m][n];
+
+    }
+
+    int* counting(string & str){
+        int* res = new int[2]{0};
+        for (int i = 0; i < str.size(); ++i) ++res[str[i] - '0'];
+        return res;
+    }
+};
