@@ -44,3 +44,21 @@ public:
 
     }
 };
+
+// cpp, follow up
+
+class Solution {
+public:
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+        int res = 0, k = 1;
+        queue<int> q;
+        for (int l = 0, r = 0; r < nums.size(); ++r){
+            if (nums[r] == 0) q.push(r);
+            while (q.size() > k){
+                l = q.front() + 1; q.pop();
+            }
+            res = max(res, r - l + 1);
+        }
+        return res;
+    }
+};
