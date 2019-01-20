@@ -19,6 +19,16 @@ What if the input numbers come in one by one as an infinite stream? In other wor
 
 // cpp, sliding window, two pointers
 
+/*
+explain
+
+The idea is to keep a window [l, h] that contains at most k zero
+
+The following solution does not handle follow-up, because nums[l] will need to access previous input stream
+Time: O(n) Space: O(1)
+
+*/
+
 class Solution {
 public:
     int findMaxConsecutiveOnes(vector<int>& nums) {
