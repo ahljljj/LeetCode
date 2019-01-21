@@ -70,3 +70,29 @@ public:
 
     }
 };
+
+// cpp, backtracking
+
+class Solution {
+public:
+    vector<vector<int>> findSubsequences(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> tmp;
+        dfs(res, tmp, nums, 0);
+        return res;
+
+    }
+
+    void dfs(vector<vector<int>> & res, vector<int> &tmp, vector<int>& nums, int idx){
+        if (tmp.size() > 1) res.push_back(tmp);
+        unordered_set<int> s;
+        for (int i = idx; i < nums.size(); ++i){
+            if ((tmp.empty() || nums[i] >= tmp.back()) && s.find(nums[i]) == s.end()){
+                tmp.push_back(nums[i]);
+                dfs(res, tmp, nums, i + 1);
+                tmp.pop_back();
+                s.insert(nums[i]);
+            }
+        }
+    }
+};
