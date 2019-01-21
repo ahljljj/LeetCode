@@ -84,3 +84,65 @@ public:
         return false;
     }
 };
+
+// cpp, dfs AC
+
+class Solution {
+public:
+    bool hasPath(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+        int r = maze.size(), c = maze[0].size();
+        vector<vector<bool> > visited(r, vector<bool>(c, false));
+        int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        return dfs(maze, visited, dirs, start, destination);
+
+
+    }
+
+    bool dfs(vector<vector<int>> & maze, vector<vector<bool>> & visited, int (&dirs)[4][2], vector<int> s, vector<int>& d){
+        if (visited[s[0]][s[1]]) return false;
+        if (s == d) return true;
+        visited[s[0]][s[1]] = true;
+        int r = maze.size(), c = maze[0].size();
+        bool res = false;
+        for (auto dir: dirs){
+            int x = s[0] + dir[0], y = s[1] + dir[1];
+            while ( x >= 0 && y >= 0 && x < r && y < c && maze[x][y] == 0){
+                x += dir[0]; y += dir[1];
+            }
+            res = res || dfs(maze, visited, dirs, {x - dir[0], y - dir[1]}, d);
+        }
+        return res;
+    }
+
+};
+
+// cpp, dfs AC, slight modification
+
+class Solution {
+public:
+    bool hasPath(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+        int r = maze.size(), c = maze[0].size();
+        vector<vector<bool> > visited(r, vector<bool>(c, false));
+        int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        return dfs(maze, visited, dirs, start, destination);
+
+
+    }
+
+    bool dfs(vector<vector<int>> & maze, vector<vector<bool>> & visited, int (&dirs)[4][2], vector<int> s, vector<int>& d){
+        if (visited[s[0]][s[1]]) return false;
+        if (s == d) return true;
+        visited[s[0]][s[1]] = true;
+        int r = maze.size(), c = maze[0].size();
+//        bool res = false;
+        for (auto dir: dirs){
+            int x = s[0] + dir[0], y = s[1] + dir[1];
+            while ( x >= 0 && y >= 0 && x < r && y < c && maze[x][y] == 0){
+                x += dir[0]; y += dir[1];
+            }
+            if (dfs(maze, visited, dirs, {x - dir[0], y - dir[1]}, d)) return true;
+        }
+        return false;
+    }
+
+};
