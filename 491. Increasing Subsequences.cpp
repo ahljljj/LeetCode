@@ -40,3 +40,33 @@ public:
 
     }
 };
+
+// cpp, set AC
+
+class Solution {
+public:
+    vector<vector<int>> findSubsequences(vector<int>& nums) {
+        set<vector<int>> resSet;
+        queue<vector<int>> q;
+        for (int i = 0; i < nums.size(); ++i){
+            if (i == 0 || nums[i] != nums[i - 1]) q.push({i});
+        }
+        while (!q.empty()){
+            vector<int> prev = q.front(); q.pop();
+            int i = prev.back();
+            for (int j = i + 1; j < nums.size(); ++j){
+                if (nums[j] >= nums[i] && (j == i + 1 || nums[j] != nums[j - 1])){
+                    vector<int> curr = prev; curr.push_back(j);
+                    q.push(curr);
+                    vector<int> tmp;
+                    for (auto node : curr) tmp.push_back(nums[node]);
+                    resSet.insert(tmp);
+                }
+            }
+        }
+        vector<vector<int>> res(resSet.begin(), resSet.end());
+
+        return res;
+
+    }
+};
