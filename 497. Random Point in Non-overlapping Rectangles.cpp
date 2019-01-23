@@ -32,7 +32,7 @@ The input is two lists: the subroutines called and their arguments. Solution's c
 
 */
 
-// cpp, cumulative density function
+// cpp, cumulative density function, O(n)
 
 class Solution {
     vector<vector<int>> rects;
