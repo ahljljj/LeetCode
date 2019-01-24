@@ -121,3 +121,32 @@ public:
         return res < INT_MAX ?res : -1;
     }
 };
+
+// cpp, dfs
+
+class Solution {
+public:
+    int shortestDistance(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+        int m = maze.size(), n = maze[0].size();
+        vector<vector<int>> d = vector<vector<int>>(m, vector<int>(n, INT_MAX));
+        d[start[0]][start[1]] = 0;
+        dfs(maze, m, n, d, start);
+        return d[destination[0]][destination[1]] < INT_MAX? d[destination[0]][destination[1]] : -1;
+    }
+
+    void dfs(vector<vector<int>>& maze, int r, int c, vector<vector<int>> &d, vector<int> s){
+        int dirs[4][2] = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+        for (auto dir: dirs){
+            int x = s[0] + dir[0], y = s[1] + dir[1], step = 0;
+            while (x >= 0 && x < r && y >= 0 && y < c && maze[x][y] == 0){
+                x += dir[0]; y += dir[1]; ++step;
+            }
+            if (d[s[0]][s[1]] + step < d[x - dir[0]][y - dir[1]]){
+                d[x - dir[0]][y - dir[1]] = d[s[0]][s[1]] + step;
+                dfs(maze, r, c, d, {x - dir[0], y - dir[1]});
+            }
+        }
+
+
+    }
+};
