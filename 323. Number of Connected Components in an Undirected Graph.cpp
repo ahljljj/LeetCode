@@ -28,6 +28,17 @@ You can assume that no duplicate edges will appear in edges. Since all edges are
 
 // cpp, union find
 
+/*
+This is 1D version of Number of Islands II. For more explanations, check out this 2D Solution.
+
+n points = n islands = n trees = n roots.
+With each edge added, check which island is e[0] or e[1] belonging to.
+If e[0] and e[1] are in same islands, do nothing.
+Otherwise, union two islands, and reduce islands count by 1.
+Bonus: path compression can reduce time by 50%.
+Hope it helps!
+*/
+
 class Solution {
 public:
     int countComponents(int n, vector<pair<int, int>>& edges) {
