@@ -23,6 +23,13 @@ Can you do it in O(n) time?
 
 // cpp, hashtable
 
+/*
+
+The HashMap stores the sum of all elements before index i as key, and i as value. For each i, check not only the current sum but also (currentSum - previousSum) to see if there is any that equals k, and update max length.
+
+PS: An "else" is added. Thanks to beckychiu1988 for comment.
+*/
+
 class Solution {
 public:
     int maxSubArrayLen(vector<int>& nums, int k) {
