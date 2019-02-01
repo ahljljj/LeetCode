@@ -60,4 +60,23 @@ class Solution:
                 i += 1
         return j + 1
 
+'''
+// cpp, rewrite
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int l = 0, r = 0;
+        while (r < nums.size()){
+            while (r + 1 < nums.size() && nums[r] == nums[r + 1]) ++r;
+            ++r;
+            ++l;
+            nums[l] = nums[r];
+        }
+        return l;
+        
+    }
+};
+'''
+
 
