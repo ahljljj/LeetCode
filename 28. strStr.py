@@ -29,3 +29,20 @@ class Solution:
         :rtype: int
         """
         return haystack.find(needle)
+
+
+'''
+// cpp, rewrite, still not a good solution
+
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        if (needle.empty()) return 0;
+        int n = needle.length();
+        for (int i = 0; i < haystack.length(); ++i){
+            if (haystack.substr(i, n) == needle) return i;
+        }
+        return -1;
+    }
+};
+'''
