@@ -60,3 +60,36 @@ public:
 };
 
 '''
+
+'''
+// cpp, backtracking
+
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        if (digits.empty()) return vector<string>();
+        unordered_map<char, string> m = {{'2', "abc"}, {'3', "def"}, {'4', "ghi"}, {'5', "jkl"}, {'6', "mno"}, {'7', "pqrs"}, {'8', "tuv"}, {'9', "wxyz"}};
+        vector<string> res; string tmp;
+        dfs(digits, m, tmp, res, 0);
+        return res;
+        
+    }
+    
+    void dfs(string digits, unordered_map<char, string> &m, string tmp, vector<string> &res, int idx){
+        if (tmp.length() == digits.length()) {
+            res.push_back(tmp);
+            return;
+        }
+        for (int i = idx; i < digits.length(); ++i){
+            for (auto s: m[digits[i]]) {
+                tmp += s;
+                dfs(digits, m, tmp, res, i + 1);
+                tmp.pop_back();
+            }
+            
+        }
+        
+    }
+};
+
+'''
