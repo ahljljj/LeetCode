@@ -37,3 +37,28 @@ class Solution(object):
 
         backtrack()
         return ans
+
+'''
+//cpp, rewrite
+
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> res;
+        string tmp;
+        dfs(res, tmp, n, 0, 0);
+        return res;
+        
+    }
+    void dfs (vector<string> &res, string tmp, int n, int l, int r){
+        if (tmp.length() == 2*n) {
+            res.push_back(tmp);
+            return;
+        }
+        if (l < n) dfs(res, tmp + '(', n, l + 1, r);
+        if (r < l) dfs(res, tmp + ')', n, l , r + 1);
+        
+    }
+};
+
+'''
