@@ -54,3 +54,26 @@ class Solution:
                     return comm
         return comm
 
+'''
+// cpp
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if (strs.empty()) return "";
+        string first = strs[0];
+        bool end = false;
+        int i;
+        for(i = 0; i < first.length(); ++i){
+            for (string str: strs){
+                if (i == str.length() || str[i] != first[i]){
+                    end = true; break;
+                }                
+            }
+            if (end) break;
+        }
+        return first.substr(0, i);
+    }
+};
+
+'''
