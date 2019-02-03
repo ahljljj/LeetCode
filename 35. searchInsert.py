@@ -17,7 +17,7 @@ Input: [1,3,5,6], 7
 Output: 4
 Example 4:
 
-Input: [1,3,5,6], 0
+Input: [1,3,5,6], 36. Valid Sudoku0
 Output: 0
 '''
 
