@@ -35,3 +35,20 @@ class Solution:
             if i > max_step: return False
             max_step = max(nums[i] + i, max_step)
         return True
+
+# python, dp TLE
+
+class Solution:
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        if len(nums) == 1: return True
+        dp = [0 for _ in range(len(nums))]
+        dp[0] = 1 if nums[0] > 0 else 0
+        for i in range(1, len(nums)):
+            for j in range(i):
+                if dp[j] > 0 and j + nums[j] >= i:
+                    dp[i] = 1
+        return dp[len(nums) - 1] > 0
