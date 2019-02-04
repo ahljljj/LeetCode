@@ -77,3 +77,24 @@ class Solution:
             else:
                 ans[tmp].append(s)
         return [l for l in ans.values()]
+
+
+# python, sorted tuple
+
+class Solution:
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        h = {}
+        for s in strs:
+            key = tuple(sorted(s))
+            if key not in h:
+                h[key] = [s]
+            else:
+                h[key].append(s)
+        res = []
+        for key, val in h.items():
+            res.append(val)
+        return res
