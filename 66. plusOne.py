@@ -38,3 +38,24 @@ class Solution:
                 digits.insert(0,1)
             i-=1
         return digits
+
+# cpp, rewrite
+
+'''
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int q = 0, carry = 1;
+        for (int i = digits.size() - 1; i >= 0; --i){
+            q = (digits[i] + carry) % 10; carry = (digits[i] + carry) / 10;
+            digits[i] = q;
+        }
+        if (carry == 0) return digits;
+        else{
+            digits.insert(digits.begin(), carry);
+            return digits;
+        }
+        
+    }
+};
+'''
