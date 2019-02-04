@@ -39,3 +39,26 @@ class Solution:
 
         dfs(nums, [])
         return res
+
+
+# python, backtracking
+
+class Solution:
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        self.dfs(nums, res, 0)
+        return res
+
+    def dfs(self, nums, res, idx):
+        if idx == len(nums):
+            res.append(nums[:])
+        for i in range(idx, len(nums)):
+            nums[idx], nums[i] = nums[i], nums[idx]
+            self.dfs(nums, res, idx + 1)
+            nums[idx], nums[i] = nums[i], nums[idx]
+
+
