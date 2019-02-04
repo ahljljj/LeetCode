@@ -52,3 +52,21 @@ class Solution:
                 if dp[j] > 0 and j + nums[j] >= i:
                     dp[i] = 1
         return dp[len(nums) - 1] > 0
+
+# c++, rewrite
+
+'''
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int maxStep = 0;
+        for (int i = 0; i < nums.size(); ++i){
+            if (maxStep < i) return false;
+            maxStep = max(nums[i] + i, maxStep);
+        }
+        return true;
+        
+    }
+};
+
+'''
