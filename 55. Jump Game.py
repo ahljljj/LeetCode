@@ -70,3 +70,25 @@ public:
 };
 
 '''
+
+# c++, dp AC
+
+'''
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        if (nums.size() == 1) return true;
+        vector<int> dp(nums.size());
+        if (nums[0] > 0) dp[0] = 1;
+        for (int i = 1; i < nums.size(); ++i){
+            for (int j = 0; j < i; ++j){
+                if (dp[j] > 0 && nums[j] + j >= i) {
+                    dp[i] = 1; break;
+                }
+            }
+        }
+        return dp.back() > 0;
+        
+    }
+};
+'''
