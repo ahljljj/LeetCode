@@ -50,3 +50,30 @@ class Solution:
             for j in range(1, m):
                 res[i][j] = res[i - 1][j] + res[i][j - 1]
         return res[n - 1][m - 1]
+
+# c++, dfs TLE
+
+'''
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        int res = 0; int s[2] = {0, 0};
+        dfs(res, s, m, n);
+        return res;
+        
+    }
+    
+    void dfs(int & res, int s[2], int m, int n){
+        if (s[0] == m - 1 && s[1] == n- 1){
+            ++res; return;
+        }
+        vector<vector<int>> dirs = {{1, 0}, {0, 1}};
+        for (auto &dir: dirs){
+            int x = s[0] + dir[0], y = s[1] + dir[1];
+            int ns[2] = {x, y};
+            if (x >= 0 && x < m && y >= 0 && y < n) dfs(res, ns, m, n);
+        }
+    }
+};
+
+'''
