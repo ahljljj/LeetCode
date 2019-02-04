@@ -101,3 +101,35 @@ class Solution:
                         num *= num
                         n //= 2
                 return res * num
+
+
+# python, rewrite
+
+class Solution:
+        def myPow(self, x, n):
+                """
+                :type x: float
+                :type n: int
+                :rtype: float
+                """
+                if n == 0: return 1
+                if n > 0:
+                        return self.pow(x, n)
+                else:
+                        return self.npow(x, n)
+
+        def pow(self, x, n):
+                if n == 1:
+                        return x
+                if n % 2 == 0:
+                        return self.pow(x, n // 2) ** 2
+                else:
+                        return x * self.pow(x, n // 2) ** 2
+
+        def npow(self, x, n):
+                if n == -1:
+                        return 1.0 / x
+                if n % 2 == 0:
+                        return self.npow(x, n // 2) ** 2
+                else:
+                        return 1 / x * self.npow(x, n // 2 + 1) ** 2
