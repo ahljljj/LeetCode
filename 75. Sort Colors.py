@@ -47,3 +47,31 @@ class Solution:
         nums[i] = nums[j]
         nums[j] = tmp
 
+
+# cpp, rewrite
+
+'''
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int l = 0, r = nums.size() - 1;
+        int idx = 0;
+        while (idx <= r){
+            if (nums[idx] == 1) ++idx;
+            else if (nums[idx] == 0){
+                swap(nums, l++, idx++);
+            } else{
+                swap(nums, r--, idx);
+            }
+        }
+        
+    }
+    
+    void swap (vector<int>& nums, int i, int j){
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+};
+
+'''
