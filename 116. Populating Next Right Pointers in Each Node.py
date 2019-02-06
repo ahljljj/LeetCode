@@ -69,6 +69,35 @@ class Solution:
         self.helper(root.left)
         self.helper(root.right)
 
+# python, bfs
+
+# Definition for binary tree with next pointer.
+# class TreeLinkNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+#         self.next = None
+
+class Solution:
+    # @param root, a tree link node
+    # @return nothing
+    def connect(self, root):
+        if not root: return
+        q = collections.deque([root])
+        while q:
+            breadth = len(q)
+            for i in range(breadth - 1):
+                curr = q.popleft()
+                if q: curr.next = q[0]
+                if curr.left: q.append(curr.left)
+                if curr.right: q.append(curr.right)
+            curr = q.popleft()
+            if curr.left: q.append(curr.left)
+            if curr.right: q.append(curr.right)
+
+
+
 
 
 
