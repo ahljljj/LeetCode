@@ -48,3 +48,41 @@ class Solution:
                 if node.right: tmp.append(node.right)
             queue = tmp
         return res
+
+
+# cpp, bfs, rewrite
+
+'''
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if (root == nullptr) return res;
+        queue<TreeNode*> q; q.push(root);
+        while (!q.empty()){
+            int breadth = q.size();
+            vector<int> tmp = {};
+            for (int i = 0; i < breadth; ++i){
+                TreeNode* curr = q.front(); q.pop();
+                if (curr->left)q.push(curr->left);
+                if(curr->right)q.push(curr->right);
+                tmp.push_back(curr->val);
+            }
+            res.push_back(tmp);
+        }
+        return res;
+        
+        
+    }
+};
+
+'''
