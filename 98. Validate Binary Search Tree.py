@@ -80,3 +80,30 @@ class Solution:
         if not root: return True
         if not lower < root.val < upper: return False
         return self.helper(root.left, lower, root.val) and self.helper(root.right, root.val, upper)
+
+# cpp, rewrite
+
+'''
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        return dfs(root, LONG_MIN, LONG_MAX);
+    }
+    
+    bool dfs(TreeNode* root, long lower, long upper){
+        if (root == nullptr) return true;
+        if (root->val <= lower || root->val >= upper) return false;
+        return dfs(root->left, lower, root->val) && dfs(root->right, root->val, upper);
+    }
+};
+
+'''
