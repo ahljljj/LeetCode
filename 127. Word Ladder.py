@@ -189,4 +189,37 @@ class Solution:
             queue = tmp
         return 0
 
+#python, standard bfs
+
+class Solution(object):
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+        q = collections.deque([beginWord])
+        cnt = 0
+        d = 'abcdefghijklmnopqrstuvwxyz'
+        wordList = set(wordList)
+        used = set()
+        while q:
+            length = len(q)
+            cnt += 1
+            for i in range(length):
+                curr = q.popleft()
+                used.add(curr)
+                for i in range(len(curr)):
+                    for ch in d:
+                        new = curr[:i] + ch + curr[i + 1:]
+                        if new not in wordList:
+                            continue
+                        if new == endWord:
+                            return cnt + 1
+                        if new not in used:
+                            used.add(new)
+                            q.append(new)
+        return 0
+
 
