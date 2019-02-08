@@ -67,3 +67,37 @@ class Solution(object):
                 tmp.append(s[:i])
                 self.helper(res, tmp, s[i:])
                 tmp.pop()
+
+# cpp, backtracking, rewrite
+
+'''
+class Solution {
+public:
+    vector<vector<string>> partition(string s) {
+        vector<vector<string>> res;
+        vector<string> tmp = {};
+        dfs(res, tmp, s, 0);
+        return res;
+        
+    }
+    
+    bool valid(string s){
+        int l = 0, r = s.length() - 1;
+        while (l < r){
+            if (s[l] != s[r]) return false;
+            ++l; --r;
+        }
+        return true;
+    }
+    void dfs(vector<vector<string>> &res, vector<string> tmp, string s, int idx){
+        if (s.length() == idx) res.push_back(tmp);
+        for (int i = idx; i < s.length(); ++i){
+            if (!valid(s.substr(idx, i - idx + 1)))
+                continue;
+            tmp.push_back(s.substr(idx, i - idx + 1));
+            dfs(res, tmp, s, i + 1);
+            tmp.pop_back();
+        }
+    }
+};
+'''
