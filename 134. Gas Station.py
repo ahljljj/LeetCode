@@ -105,3 +105,28 @@ class Solution(object):
         return -1
 
 
+    #cpp, iterative, rewrite
+
+    '''
+    class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        for (int i = 0; i < gas.size(); ++i){
+            if (check(gas, cost, 0, i)) return i;
+        }
+        return -1;
+        
+    }
+    
+    bool check(vector<int>& gas, vector<int>& cost, int curr, int s){
+        for (int i = 0; i < gas.size(); ++i){
+            curr += gas[s] - cost[s];
+            if (curr < 0) return false;
+            s = (s + 1) % gas.size();
+        }
+        return true;
+    }
+};
+    '''
+
+
