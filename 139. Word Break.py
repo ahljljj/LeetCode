@@ -47,5 +47,29 @@ class Solution(object):
 
         return breakable[len(s)]
 
+# cpp, dfs, tle
+
+'''
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        unordered_set<string> dict(wordDict.begin(), wordDict.end());
+        return dfs(s, dict, 0);
+        
+    }
+    
+    bool dfs(string s, unordered_set<string> dict, int idx){
+        if (idx == s.length()) return true;
+        for (int i = idx; i < s.length(); ++i){
+            string tmp = s.substr(idx, i - idx + 1);
+            if (dict.find(tmp) != dict.end() && dfs(s, dict, i + 1)){
+                return true;
+            }
+        }
+        return false;
+    }
+};
+'''
+
 
 
