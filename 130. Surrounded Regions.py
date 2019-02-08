@@ -108,3 +108,47 @@ class Solution(object):
             if nums[i][1] == 0 or nums[i][1] == y_max:
                 return False
         return True
+
+# cpp, rewrite, dfs
+
+'''
+class Solution {
+public:
+    void solve(vector<vector<char>>& board) {
+        if (board.empty()) return;
+        int m = board.size(), n = board[0].size();
+        set<pair<int,int>> visited;
+        for (int i = 0; i < m; ++i){
+            for (int j = 0; j < n; ++j){
+                if (i == 0 || j == 0 || i == m - 1 || j == n - 1)
+                {
+                    if (board[i][j] == 'O')
+                        find(board, visited, i, j);
+                }
+            }
+        }
+        for (int i = 0; i < m; ++i){
+            for (int j = 0; j < n; ++j){
+                if (board[i][j] == 'O' && visited.find(make_pair(i, j)) == visited.end())
+                    board[i][j] = 'X';
+            }
+        }
+        
+    }
+    
+    void find(vector<vector<char>>& board, set<pair<int,int>> &visited, int r, int c){
+        int m = board.size(), n = board[0].size();
+        visited.insert(make_pair(r, c));
+        vector<vector<int>> dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        for (auto dir: dirs){
+            int x = r + dir[0], y = c + dir[1];
+            if (x >= 0 && x < m && y >= 0 && y < n && board[x][y] == 'O'){
+                if (visited.find(make_pair(x, y)) != visited.end())
+                    continue;
+                find(board, visited, x, y);
+            }
+        }
+    }
+};
+
+'''
