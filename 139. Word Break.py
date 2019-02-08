@@ -71,5 +71,30 @@ public:
 };
 '''
 
+# cpp, dynamic programming
+
+'''
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        unordered_set<string> dict(wordDict.begin(), wordDict.end());
+        vector<bool> dp( s.length(), false);
+        for (int i = 0; i < s.length(); ++i){
+            if (dict.find(s.substr(0, i + 1)) != dict.end()){
+                dp[i] = true; 
+            }
+            for (int j = 0; j <= i; ++j){
+                string tmp = s.substr(j + 1, i - j);
+                if (dp[j] && dict.find(tmp) != dict.end()){
+                    dp[i] = true;
+                }
+            }
+        }
+        return dp.back();
+        
+    }
+};
+'''
+
 
 
