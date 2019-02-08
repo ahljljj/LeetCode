@@ -45,3 +45,30 @@ class Solution(object):
                 self.visited[node] = RandomListNode(node.label)
                 return self.visited[node]
         return None
+
+#cpp, rewrite, dfs
+
+'''
+/**
+ * Definition for singly-linked list with a random pointer.
+ * struct RandomListNode {
+ *     int label;
+ *     RandomListNode *next, *random;
+ *     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
+ * };
+ */
+class Solution {
+    unordered_map<RandomListNode*,RandomListNode*> m;
+public:
+    RandomListNode *copyRandomList(RandomListNode *head) {
+        if (head == nullptr) return head;
+        if (m.find(head) != m.end()) return m[head];
+        RandomListNode* node = new RandomListNode(head->label); 
+        m[head] = node;
+        node->next = copyRandomList(head->next);
+        node->random = copyRandomList(head->random);
+        return node;
+        
+    }
+};
+'''
