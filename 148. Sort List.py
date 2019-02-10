@@ -57,3 +57,56 @@ class Solution(object):
 
         node.next = head1 or head2
         return dummy.next
+
+# cpp, rewrite
+
+'''
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) return head;
+        ListNode * mid = findMid(head);
+        ListNode * rightHead = mid->next;
+        mid->next = nullptr;
+        return merge(sortList(head), sortList(rightHead));
+        
+    }
+    
+    ListNode* findMid(ListNode* head){
+        ListNode *slow = head, *fast = head;
+        while (fast && fast->next && fast->next->next){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+    ListNode* merge(ListNode* h1, ListNode* h2){
+        ListNode* head = new ListNode(-1);
+        ListNode* node = head;
+        while (h1 && h2){
+            if (h1->val < h2->val){
+                node->next = h1;
+                h1 = h1->next;
+            }else{
+                node->next = h2;
+                h2 = h2->next;
+            }
+            node = node->next;
+        }
+        if (h1) node->next = h1;
+        else node->next = h2;
+        return head->next;
+        
+    }
+    
+    
+};
+'''
