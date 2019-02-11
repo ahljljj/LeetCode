@@ -31,3 +31,21 @@ class Solution(object):
             neg = min(num, min(num * tmp1, num * tmp2))
             maxprod = max(maxprod, max(pos, neg))
         return maxprod
+
+# cpp, dynamic programming, rewrite
+
+'''
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        vector<int> dpMin(nums.size()), dpMax(nums.size());
+        dpMin[0] = dpMax[0] = nums[0];
+        for (int i = 1; i < nums.size(); ++i){
+            dpMax[i] = max(nums[i], max(dpMax[i - 1] * nums[i], dpMin[i - 1] * nums[i]));
+            dpMin[i] = min(nums[i], min(dpMax[i - 1] * nums[i], dpMin[i - 1] * nums[i]));
+        }
+        return *max_element(dpMax.begin(), dpMax.end());
+        
+    }
+};
+'''
