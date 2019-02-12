@@ -52,3 +52,19 @@ class Solution:
         return cand if nums.count(cand) > len(nums)//2 else None
 
 '''
+
+#cpp, extra space, rewrite
+
+'''
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        unordered_map<int, int> m;
+        for (int &num: nums) ++m[num];
+        for (auto itr = m.begin(); itr != m.end(); ++itr){
+            if (itr->second > nums.size() / 2) return itr->first;
+        }
+        return 0;
+    }
+};
+'''
