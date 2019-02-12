@@ -56,3 +56,40 @@ class Solution(object):
             neiX = row + i
             neiY = col + j
             self.helper(grid, neiX, neiY)
+
+
+# cpp, dfs, rewrite
+
+'''
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        if (grid.empty()) return 0;
+        int m = grid.size(), n = grid[0].size();
+        vector<vector<bool>> visited(m, vector<bool>(n, false));
+        int res = 0;
+        for (int i = 0; i < m; ++i){
+            for (int j = 0; j < n; ++j){
+                if (grid[i][j] == '1') {
+                    ++res;
+                    dfs(grid, visited, m, n, {i, j});
+                }
+            }
+        }        
+        return res;
+        
+    }
+    
+    void dfs(vector<vector<char>>& grid, vector<vector<bool>> &visited, int m, int n, vector<int> s){
+        vector<vector<int>> dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+        int x = s[0], y = s[1];
+        grid[x][y] = '0';
+        for(auto &dir: dirs){
+            int nx = s[0] + dir[0], ny = s[1] + dir[1];
+            if (nx >= 0 && nx < m && ny >= 0 && ny < n && grid[nx][ny] == '1')
+                dfs(grid, visited, m, n, {nx, ny});
+        }
+        
+    }
+};
+'''
