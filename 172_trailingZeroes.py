@@ -79,3 +79,20 @@ class Solution(object):
             pow_of_5 *= 5
 
         return num_zeros
+
+# cpp, rewrite
+
+'''
+class Solution {
+public:
+    int trailingZeroes(int n) {
+        int res = 0; long p = 5;
+        while (p <= n){
+            res += n / p;
+            p *= 5;
+        }
+        return res;
+        
+    }
+};
+'''
