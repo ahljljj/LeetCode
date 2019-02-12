@@ -51,3 +51,25 @@ class Solution(object):
         self.reverse(nums, 0, nb - 1)
         self.reverse(nums, 0, k - 1)
         self.reverse(nums, k, nb - 1)
+
+
+# cpp, brute force
+
+'''
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        for (int i = 0; i < k; ++i) shift1(nums);
+        
+    }
+    
+    void shift1(vector<int>& nums){
+        int prev = nums.back();
+        for (int i = 0; i < nums.size(); ++i){
+            int curr = nums[i];
+            nums[i] = prev;
+            prev = curr;            
+        }
+    }
+};
+'''
