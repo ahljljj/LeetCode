@@ -69,4 +69,36 @@ class Solution(object):
             q = r * 10
             idx += 1
 
+# cpp, rewrite
+
+'''
+class Solution {
+public:
+    string fractionToDecimal(int numerator, int denominator) {
+        string res;
+        long n = numerator, d = denominator;
+        if (n * d < 0){
+            res += "-";
+        }
+        n = abs(n); d = abs(d);
+        res += to_string(n / d);
+        long r = n % d;
+        if (r == 0) return res;
+        res += ".";
+        unordered_map<long, long> m;
+        while (r != 0){
+            if (m.find(r) != m.end()){
+                return res.insert(m[r], 1, '(') + ')';
+            } else m[r] = res.size();
+            long tmp = r * 10 / d;
+            res += to_string(tmp);
+            r = r * 10 % d;
+            
+        }
+        return res;
+        
+    }
+};
+'''
+
 
