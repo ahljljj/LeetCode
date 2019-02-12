@@ -44,3 +44,24 @@ class Solution(object):
             num = (ord(ss) - ord('A') + 1) * i + num
             i = i * 26
         return num
+
+
+# cpp, rewrite
+
+'''
+class Solution {
+public:
+    int titleToNumber(string s) {
+        unordered_map<char, int> m;
+        for(char c = 'A'; c <= 'Z'; ++c){
+            m[c] = c - 'A' + 1;
+        }
+        int res = 0;
+        for (char &c: s){
+            res = res * 26 + m[c];
+        }
+        return res;
+        
+    }
+};
+'''
