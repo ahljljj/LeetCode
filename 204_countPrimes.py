@@ -55,3 +55,20 @@ class Solution(object):
                 for j in range(2, (n - 1) // i + 1):
                     primes[i * j] = False
         return sum(primes)
+
+# cpp, rewrite
+
+'''
+class Solution {
+public:
+    int countPrimes(int n) {
+        vector<bool> p(1 + n, true);
+        p[0] = p[1] = p[n] = false;
+        for (int i = 2; i <= sqrt(n); ++i){
+            for (int j = 2; j <= n / i; ++j)
+                p[i * j] = false;
+        }
+        return accumulate(p.begin(), p.end(), 0);        
+    }
+};
+'''
