@@ -61,3 +61,32 @@ class Solution(object):
         head.next = None
         return prev
 
+#cpp, iterate, rewrite
+
+'''
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (head == nullptr) return head;
+        ListNode * prev = head, *curr = head;
+        while (curr){
+            ListNode *tmp = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = tmp;
+        }
+        head->next = nullptr;
+        return prev;
+        
+    }
+};
+'''
+
