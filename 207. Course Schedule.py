@@ -60,3 +60,34 @@ class Solution(object):
                 return False
         visit[course] = 1
         return True
+
+# cpp, backtracking, rewrite
+
+'''
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
+        vector<vector<int>> g(numCourses);
+        vector<int> visited(numCourses);
+        for (auto &p: prerequisites){
+            g[p.first].push_back(p.second);
+        }
+        for (int i = 0; i < numCourses; ++i){
+            if (!dfs(g, visited, i)) return false;
+        }
+        return true;
+        
+    }
+    
+    bool dfs(vector<vector<int>> &g, vector<int> &visited, int i){
+        if (visited[i] == -1) return false;
+        if (visited[i] == 1) return true;
+        visited[i] = -1;
+        for (int &n: g[i]){
+            if (!dfs(g, visited, n)) return false;
+        }
+        visited[i] = 1;
+        return true;
+    }
+};
+'''
