@@ -61,3 +61,35 @@ class Solution(object):
         visit[course] = 1
         res.append(course)
         return True
+
+# cpp, dfs, rewrite
+
+'''
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
+        vector<int> res;
+        vector<vector<int>> g(numCourses);
+        for(auto &p: prerequisites){
+            g[p.first].push_back(p.second);
+        }
+        vector<int> visited(numCourses);
+        for (int i = 0; i < numCourses; ++i){
+            if (dfs(g, i, visited, res) == false) return {};
+        }
+        return res;        
+    }
+    
+    bool dfs(vector<vector<int>> &g, int course, vector<int> &visited, vector<int> &res){
+        if (visited[course] == -1) return false;
+        if (visited[course] == 1) return true;
+        visited[course] = -1;
+        for (int &i: g[course]){
+            if (dfs(g, i, visited, res) == false) return false;
+        }
+        visited[course] = 1;
+        res.push_back(course);
+        return true;
+    } 
+};
+'''
