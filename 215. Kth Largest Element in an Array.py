@@ -1,4 +1,4 @@
-"""
+'''
 215. Kth Largest Element in an Array
 
 
@@ -15,8 +15,7 @@ Output: 4
 Note:
 You may assume k is always valid, 1 ≤ k ≤ array's length.
 
-
-"""
+'''
 
 
 '''
@@ -110,4 +109,24 @@ class Solution:
         nums[i] = nums[j]
         nums[j] = tmp
         
+'''
+
+# cpp, rewrite, priority queue
+
+'''
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int, vector<int>, greater<int>> pq(k, INT_MIN);
+        for(int &num: nums){
+            if (num > pq.top()){
+                pq.pop();
+                pq.push(num);
+            }
+            if (pq.size() > k) pq.pop();
+        }
+        return pq.top();
+        
+    }
+};
 '''
