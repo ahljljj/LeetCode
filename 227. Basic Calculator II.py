@@ -54,3 +54,46 @@ class Solution(object):
             i += 1
         return (res, i)
 
+
+# cpp, rewrite
+
+'''
+class Solution {
+public:
+    int calculate(string s) {
+        stack<int> stk;
+        long num = 0;
+        char sign = '+';
+        for (int i = 0; i < s.size(); ++i){
+            char ch = s[i];
+            if (ch >= '0' && ch <= '9'){
+                num = num * 10 + ch - '0';
+            } 
+            if (((ch < '0' || ch > '9') && ch != ' ') || i == s.size() - 1){
+                if (sign == '-') stk.push(-num);
+                else if (sign == '+') stk.push(num);
+                else if (sign == '*'){
+                    long tmp = stk.top();
+                    tmp *= num;
+                    stk.pop(); stk.push(tmp);                    
+                }else if (sign == '/'){
+                    long tmp = stk.top();
+                    tmp /= num;
+                    stk.pop(); stk.push(tmp);
+                }
+                num = 0;
+                sign = ch;
+            }            
+        }
+        int res = 0;
+        while (!stk.empty()){
+            int curr = stk.top();
+            res += curr;
+            stk.pop();
+        }
+        return res;
+        
+    }
+};
+'''
+
