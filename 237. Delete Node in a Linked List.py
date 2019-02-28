@@ -69,3 +69,31 @@ class Solution:
         node.val = node.next.val
         node.next = node.next.next
 '''
+
+# cpp, rewrite
+
+'''
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        ListNode* prev = new ListNode(-1);
+        prev->next = node;
+        ListNode* curr = node;
+        while (curr && curr->next){
+            curr->val = curr->next->val;
+            prev = curr;
+            curr = curr->next;
+        }
+        prev->next = nullptr;
+        
+    }
+};
+'''
