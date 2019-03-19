@@ -105,3 +105,42 @@ class Solution:
                 res.extend(buckets[i])
             if maxfrequency == k:
                 return res
+
+
+# cpp, rewrite
+
+'''
+
+class cmp
+{
+public:
+    bool operator()(pair<int,int> &p1,pair<int,int> &p2) {
+        return p1.second < p2.second;
+    }
+};
+
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int,int> m;
+        for (int &num: nums) ++m[num];
+        auto cmp = [](pair<int,int> p1,pair<int,int> p2){return p1.second > p2.second;};
+        priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(cmp)> pq(cmp);
+        while (pq.size() < k) pq.push(make_pair(INT_MIN, INT_MIN));
+        for (auto it = m.begin(); it != m.end(); ++it){
+            auto tp = pq.top();
+            if (it->second > tp.second) pq.push(make_pair(it->first, it->second));
+            if (pq.size() > k) pq.pop();
+        }
+        vector<int> res;
+        while(!pq.empty()) {
+            auto curr = pq.top();
+            res.push_back(curr.first);
+            pq.pop();
+        }
+        return res;
+        
+    }
+};
+'''
