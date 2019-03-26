@@ -120,5 +120,63 @@ class Solution:
 
 
 
+    # cpp, rewrite
+
+    '''
+    
+    class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {       
+        if (nums.empty() || target > nums.back() || target < nums[0]) return {-1, -1};
+        if (!exist(nums, target)) return {-1,-1};
+        int l = findLow(nums, target);
+        int r = findUp(nums, target) - 1;
+        return {l, r};
+        
+    }
+    
+    bool exist(vector<int>& nums, int target){
+        int l = 0, r = nums.size();
+        while (l <= r){
+            int m = (l + r) >> 1;
+            if (nums[m] == target)
+                return true;
+            else if (nums[m] < target)
+                l = m + 1;
+            else
+                r = m - 1;
+        }
+        return false;
+    }
+    
+    int findLow(vector<int> &nums, int target){
+        int l = 0, r = nums.size();
+        while (l < r){
+            int m = (l + r) >> 1;
+            if (nums[m] < target)
+                l = m + 1;
+            else
+                r = m;
+        }
+        return l;
+    }
+    
+       
+    int findUp(vector<int> &nums, int target){
+        int l = 0, r = nums.size();
+        while (l < r){
+            int m = (l + r) >> 1;
+            if (nums[m] <= target)
+                l = m + 1;
+            else
+                r = m;
+        }
+        return l;
+    }
+};
+    '''
+
+
+
 
 
