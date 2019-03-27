@@ -84,3 +84,31 @@ public:
     }
 };
 '''
+
+# cpp, slight modify
+
+'''
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> res;
+        vector<int> tmp;
+        dfs(res, candidates, tmp, target, 0);
+        return res;
+        
+    }
+    
+    void dfs(vector<vector<int>>& res, vector<int> & cand, vector<int> tmp, int target, int idx){
+        if (target == 0){
+            res.push_back(tmp); 
+            return;
+        }
+        for (int i = idx; i < cand.size(); ++i){
+            if (cand[i] > target) continue;
+            tmp.push_back(cand[i]);
+            dfs(res, cand, tmp, target - cand[i], i);
+            tmp.pop_back();
+        }
+    }
+};
+'''
