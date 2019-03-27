@@ -61,4 +61,32 @@ class Solution:
             self.dfs(nums, res, idx + 1)
             nums[idx], nums[i] = nums[i], nums[idx]
 
+# cpp, rewrite
+
+'''
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> res;
+        dfs(nums, res, 0);
+        return res;
+        
+    }
+    
+    void swap(vector<int> & nums, int i , int j){
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+    
+    void dfs(vector<int> &nums, vector<vector<int>> &res, int idx){
+        if (idx == nums.size()) res.push_back(nums);
+        for(int i = idx; i < nums.size(); ++i){
+            swap(nums, i, idx);
+            dfs(nums, res, idx + 1);
+            swap(nums, i, idx);
+        }
+    }
+};
+'''
 
