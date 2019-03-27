@@ -55,3 +55,32 @@ class Solution:
 
         helper(candidates, [], target, 0)
         return res
+
+
+# cpp, rewrite, backtrack
+
+'''
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> res;
+        vector<int> tmp;
+        dfs(res, candidates, tmp, target);
+        return res;
+        
+    }
+    
+    void dfs(vector<vector<int>>& res, vector<int> & cand, vector<int> tmp, int target){
+        if (target == 0){
+            res.push_back(tmp); 
+            return;
+        }
+        for (int & n: cand){
+            if (n > target || (!tmp.empty() && n < tmp.back())) continue;
+            tmp.push_back(n);
+            dfs(res, cand, tmp, target - n);
+            tmp.pop_back();
+        }
+    }
+};
+'''
