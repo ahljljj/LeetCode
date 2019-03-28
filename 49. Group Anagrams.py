@@ -77,7 +77,7 @@ class Solution:
             else:
                 ans[tmp].append(s)
         return [l for l in ans.values()]
-
++
 
 # python, sorted tuple
 
@@ -98,3 +98,26 @@ class Solution:
         for key, val in h.items():
             res.append(val)
         return res
+
+
+#cpp, rewrite
+
+'''
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        map<vector<int>, vector<string>> m;
+        for (string & str: strs){
+            vector<int> key(26);
+            for (char &ch: str) ++key[ch - 'a'];
+            m[key].push_back(str);
+        }
+        vector<vector<string>> res;
+        for (auto itr = m.begin(); itr != m.end(); ++itr){
+            res.push_back(itr->second);
+        }
+        return res;
+        
+    }
+};
+'''
