@@ -106,3 +106,34 @@ As others have posted, we can sort the input by ascending heights. We start with
 
 
 '''
+
+
+# cpp, rewrite
+
+'''
+class Solution {
+public:
+    vector<pair<int, int>> reconstructQueue(vector<pair<int, int>>& people) {
+        sort(people.begin(), people.end(), [](auto &p1, auto &p2){
+            return ((p1.first > p2.first) || (p1.first == p2.first && p1.second < p2.second));
+        });
+        for (int i = 0; i < people.size(); ++i){
+            int j = people[i].second;
+            int move = i - j;
+            int k = i;
+            while (move > 0){
+                swap(people, k, k - 1);
+                --k; --move;
+            }
+        }
+        return people;
+        
+    }
+    
+    void swap(vector<pair<int, int>>& people, int i, int j){
+        auto tmp = people[i];
+        people[i] = people[j];
+        people[j] = tmp;
+    }
+};
+'''
