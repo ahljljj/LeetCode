@@ -42,3 +42,17 @@ class Solution:
                             return list([i, i + 1 + nums[i + 1:len(nums)].index(nums[i])])
                     elif (target - nums[i] in nums):
                         return list([i, nums.index(target - nums[i])])
+
+'''
+11-03-2019
+Runtime: 60 ms, faster than 70.94% of Python3 online submissions for Two Sum.
+Memory Usage: 15.1 MB, less than 5.34% of Python3 online submissions for Two Sum.
+'''
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        dic = {}
+        for i, num in enumerate(nums):
+            if num in dic:
+                return [dic[num], i]
+            else:
+                dic[target - num] = i
