@@ -79,3 +79,34 @@ class Solution(object):
                     r -= 1
         return result
 
+'''
+11-03-2019
+
+Runtime: 96 ms, faster than 84.30% of C++ online submissions for 3Sum.
+Memory Usage: 14.7 MB, less than 94.12% of C++ online submissions for 3Sum.
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> res;
+        for (int i = 0; i < nums.size(); ++i){
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            int l = i + 1, r = nums.size() - 1;
+            while (l < r){
+                int s = nums[i] + nums[l] + nums[r];
+                if (s < 0) ++l;
+                else if (s > 0) --r;
+                else{
+                    res.push_back(vector<int>{nums[i], nums[l], nums[r]});
+                    while(l < r && nums[l] == nums[l + 1]) ++l;
+                    while(l < r && nums[r] == nums[r - 1]) --r;
+                    ++l; --r;
+                }
+            }
+        }
+        return res;
+        
+    }
+};
+'''
