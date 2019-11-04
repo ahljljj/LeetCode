@@ -41,3 +41,30 @@ class Solution(object):
                 else:
                     return tmp
         return result
+
+
+'''
+11-04-2019
+Runtime: 4 ms, faster than 99.32% of C++ online submissions for 3Sum Closest.
+Memory Usage: 8.5 MB, less than 100.00% of C++ online submissions for 3Sum Closest.
+
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        long res = INT_MAX;
+        for (int i = 0; i < nums.size(); ++i){
+            int l = i + 1, r = nums.size() - 1;
+            while (l < r){
+                int s = nums[i] + nums[l] + nums[r];
+                if (s == target) return target;
+                if (abs(s - target) < abs(res - target)) res = s;
+                if (s > target) --r;
+                else ++l;
+            }
+        }
+        return res;
+        
+    }
+};
+'''
