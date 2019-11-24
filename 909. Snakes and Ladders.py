@@ -87,3 +87,52 @@ class Solution:
         r0 = n - 1 - r
         d = c if r0 % 2 == 0 else n - 1 - c
         return r0 * n + d
+
+
+'''
+2019/11/24, python, correct auxiliary function
+
+Runtime: 152 ms, faster than 53.27% of Python3 online submissions for Snakes and Ladders.
+Memory Usage: 12.8 MB, less than 100.00% of Python3 online submissions for Snakes and Ladders.
+
+'''
+
+class Solution:
+    def snakesAndLadders(self, board: List[List[int]]) -> int:
+        if not board: return -1
+        n = len(board)
+        q = collections.deque([1])
+        visited = set([1])
+        d = 0
+        while q:
+            breadth = len(q)
+            # print(q, 'd = ' , d)
+            for i in range(breadth):
+                x = q.popleft()
+                if x == n * n: return d
+                for dest in range(x + 1, x + 6 + 1):
+                    if dest > n * n: continue
+                    nr, nc = self.getRowCol(dest, n)
+                    if board[nr][nc] != -1:
+                        dest = board[nr][nc]
+                    if dest not in visited:
+                        q.append(dest)
+                        visited.add(dest)
+            d += 1
+        return -1
+
+
+    # def getRowCol(self, x, n):
+    #     x -= 1
+    #     r0 = x // n
+    #     r = (n - 1) - r0
+    #     c = x % n if r0 % 2 == n%2 else n - 1 - (x % n)
+    #     return (r, c)
+
+
+    def getRowCol(self, s, N):
+        # Given a square num s, return board coordinates (r, c)
+        quot, rem = divmod(s - 1, N)
+        row = N - 1 - quot
+        col = rem if row % 2 != N % 2 else N - 1 - rem
+        return row, col
