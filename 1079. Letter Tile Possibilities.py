@@ -24,7 +24,7 @@ tiles consists of uppercase English letters.
 '''
 
 '''
-2019/11/26
+2019/11/26, c++, backtracking, fast speed
 
 Runtime: 8 ms, faster than 73.33% of C++ online submissions for Letter Tile Possibilities.
 Memory Usage: 8.3 MB, less than 100.00% of C++ online submissions for Letter Tile Possibilities.
@@ -48,6 +48,39 @@ public:
             count[i]++;   
         }
         return sum;
+    }
+};
+'''
+
+
+
+'''
+2019/11/26, c++, backtracking, simple idea but flow
+
+Runtime: 168 ms, faster than 7.51% of C++ online submissions for Letter Tile Possibilities.
+Memory Usage: 17.5 MB, less than 100.00% of C++ online submissions for Letter Tile Possibilities.
+
+class Solution {
+public:
+    int numTilePossibilities(string tiles) {
+        set<string> res;
+        string curr = "";
+        unordered_map<int, bool> visited;
+        backtracking(tiles, res, curr, visited);
+        return res.size() - 1;
+        
+    }
+    
+    void backtracking(string tiles, set<string> &res, string curr, unordered_map<int, bool> &visited){
+        res.insert(curr);
+        for (int i = 0; i < tiles.size(); ++i){
+            if (visited[i] == true) continue;
+            curr += tiles[i];
+            visited[i] = true;
+            backtracking(tiles, res, curr, visited);
+            curr.pop_back();
+            visited[i] = false;
+        }
     }
 };
 '''
