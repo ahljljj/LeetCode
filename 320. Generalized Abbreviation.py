@@ -74,3 +74,36 @@ public:
 };
 
 '''
+
+
+
+
+
+'''
+2019/12/08, c++, dfs
+
+Runtime: 52 ms, faster than 87.28% of C++ online submissions for Generalized Abbreviation.
+Memory Usage: 23.4 MB, less than 25.00% of C++ online submissions for Generalized Abbreviation.
+
+
+class Solution {
+public:
+    vector<string> generateAbbreviations(string word) {
+        vector<string> res;
+        string curr;
+        dfs(res, word, curr, 0, 0);
+        return res;        
+    }
+    
+    void dfs(vector<string> &res, string &word, string curr, int pos, int count){
+        if (pos == word.size()){
+            if (count > 0) curr += to_string(count);
+            res.push_back(curr);
+            return;
+        }
+        dfs(res, word, curr + (count > 0 ? to_string(count) : "") + word[pos], pos + 1, 0);
+        dfs(res, word, curr, pos + 1, count + 1);
+        //return;
+    }
+};
+'''

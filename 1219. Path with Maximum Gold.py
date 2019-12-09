@@ -48,7 +48,7 @@ Submissions
 '''
 
 '''
-2019/11/28, python, time limit exceeded
+2019/11/28, python,  wrong and time limit exceeded
 '''
 
 class Solution:
@@ -74,4 +74,37 @@ class Solution:
                 continue
             self.backtracking(grid, visited, n, m, ni, nj, curr)
         visited[i][j] = False
+
+'''
+2019/11/28, python, backtracking
+
+Runtime: 1548 ms, faster than 46.99% of Python3 online submissions for Path with Maximum Gold.
+Memory Usage: 12.8 MB, less than 100.00% of Python3 online submissions for Path with Maximum Gold.
+
+'''
+
+
+class Solution:
+
+    def getMaximumGold(self, grid: List[List[int]]) -> int:
+        n, m = len(grid), len(grid[0])
+        visited = [[False] * m for i in range(n)]
+        res = 0
+        # self.backtracking(grid, visited, n, m, 0, 0, 0)
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] > 0:
+                    res = max(res, self.backtracking(grid, visited, n, m, i, j))
+        return res
+
+    def backtracking(self, grid, visited, n, m, i, j):
+        curr = 0
+        visited[i][j] = True
+        dirs = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+        for x, y in dirs:
+            ni, nj = i + x, j + y
+            if ni >= 0 and ni < n and nj >= 0 and nj < m and not visited[ni][nj] and grid[i][j] > 0:
+                curr = max(curr, grid[i][j] + self.backtracking(grid, visited, n, m, ni, nj))
+        visited[i][j] = False
+        return curr
 
