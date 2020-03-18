@@ -94,6 +94,27 @@ class Solution(object):
                 count += self.helper(curr, used)
                 used[i] = False
         return count
-                
+                       
+'''
+
+
+
+'''
+2019/12/09, c++, dp
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Count Numbers with Unique Digits.
+Memory Usage: 8.1 MB, less than 100.00% of C++ online submissions for Count Numbers with Unique Digits.
+
+
+class Solution {
+public:
+    int countNumbersWithUniqueDigits(int n) {
+        int res = 0, curr = 9;
+        for (int i = 0; i < min(10, n); ++i){
+            res += curr;
+            curr *= 9 - i;            
+        }
+        return res + 1;
         
+    }
+};
 '''
