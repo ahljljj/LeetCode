@@ -56,3 +56,40 @@ class Solution:
                     dp[i] = max(dp[i], 1 + dp[j])
             res = max(res, dp[i])
         return res
+
+'''
+网上的思路：先建立一个数组dummy，把首元素放进去，然后比较之后的元素，如果遍历到的新元素比 ends 数组中的首元素小的话，替换首元素为此新元素，如果遍历到的新元素比 dummy数组中的末尾元素还大的话，将此新元素添加到 dummy数组末尾(注意不覆盖原末尾元素)。如果遍历到的新元素比 dummy数组首元素大，比尾元素小时，此时用二分查找法找到第一个不小于此新元素的位置，覆盖掉位置的原来的数字，以此类推直至遍历完整个 nums 数组，此时 dummy 数组的长度就是要求的LIS的长度.
+
+2020/03/22
+
+Runtime: 40 ms, faster than 88.16% of Python3 online submissions for Longest Increasing Subsequence.
+Memory Usage: 13.2 MB, less than 69.23% of Python3 online submissions for Longest Increasing Subsequence
+'''
+
+
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        if len(nums) == 0: return 0
+        dummy = [nums[0]]
+        for i in range(1, len(nums)):
+            if nums[i] == dummy[0] or nums[i] == dummy[-1]: continue
+            if nums[i] > dummy[-1]:
+                dummy.append(nums[i])
+            elif nums[i] < dummy[0]:
+                dummy[0] = nums[i]
+            else:
+                k = self.search(dummy, nums[i])
+                dummy[k] = nums[i]
+        return len(dummy)
+
+    def search(self, dummy, target):
+        # find the first element no less than target
+        l, r = 0, len(dummy) - 1
+        while l + 1 < r:
+            m = (l + r) // 2
+            if dummy[m] >= target:
+                r = m
+            else:
+                l = m
+        if dummy[r] >= target: return r
+        if dummy[l] >= target: return l

@@ -14,7 +14,7 @@ If you have figured out the O(n) solution, try coding another solution of which 
 
 
 """
-
+# sliding window approach
 
 class Solution(object):
     def minSubArrayLen(self, s, nums):
