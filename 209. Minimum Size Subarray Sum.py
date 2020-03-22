@@ -33,3 +33,37 @@ class Solution(object):
                 summation -= nums[left]
                 left += 1
         return res if res != float('inf') else 0
+
+'''
+binary search
+idea: Since all elements are positive, the cumulative sum must be strictly increasing. Then, a subarray sum can expressed as the difference between two cumulative sum. Hence, given a start index for the cumulative sum array, the other end index can be searched using binary search.
+'''
+
+
+class Solution:
+    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
+        # calculate the cumulative sum
+        cum_sum = [0] * (len(nums) + 1)
+        for i in range(1, len(nums) + 1):
+            cum_sum[i] = nums[i - 1]
+            cum_sum[i] += cum_sum[i - 1]
+        res = len(cum_sum) + 1
+        for l in range(len(cum_sum)):
+            r = self.find_right(cum_sum, l, s)
+            res = min(res, r - l)
+        return res if res <= len(cum_sum) else 0
+
+    def find_right(self, nums, i, target):
+        l, r = i, len(nums) - 1
+        while l + 1 < r:
+            m = (l + r) // 2
+            if nums[m] - nums[i] >= target:
+                r = m
+            else:
+                l = m
+        if nums[r] - nums[i] >= target:
+            return r
+        elif nums[l] - nums[i] >= target:
+            return l
+        else:
+            return float("inf")
