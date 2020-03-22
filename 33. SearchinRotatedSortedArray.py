@@ -51,3 +51,29 @@ class Solution(object):
                 else:
                     high = mid - 1
         return -1
+
+# 2020/03/22
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        if len(nums) == 0: return -1
+        l, r = 0, len(nums) - 1
+        while l + 1 < r:
+            m = (l + r) // 2
+            if nums[m] == target:
+                return m
+            elif nums[m] > nums[r]:
+                if nums[l] <= target and target < nums[m]:
+                    r = m
+                else:
+                    l = m
+            else:
+                if nums[m] < target and target <= nums[r]:
+                    l = m
+                else:
+                    r = m
+        if nums[l] == target: return l
+        if nums[r] == target: return r
+        return -1
+    '''Runtime: 36 ms, faster than 88.12% of Python3 online submissions for Search in Rotated Sorted Array.
+Memory Usage: 13.2 MB, less than 84.62% of Python3 online submissions for Search in Rotated Sorted Array.'''

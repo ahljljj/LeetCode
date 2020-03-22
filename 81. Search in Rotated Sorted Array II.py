@@ -89,3 +89,40 @@ class Solution:
         return False
 
 
+# brute force, 2020/03/22
+class Solution:
+    def search(self, nums: List[int], target: int) -> bool:
+        for num in nums:
+            if num == target:
+                return True
+        return False
+
+# binary search, 2020/03/22
+#Runtime: 56 ms, faster than 40.15% of Python3 online submissions for Search in Rotated Sorted Array II.
+#Memory Usage: 13.3 MB, less than 82.86% of Python3 online submissions for Search in Rotated Sorted Array II.
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> bool:
+        if len(nums) == 0: return False
+        l, r = 0, len(nums) - 1
+        while l + 1 < r:
+            m = (l + r) // 2
+            if nums[m] == target:
+                return True
+            if nums[l] == nums[m] and nums[m] == nums[r]:
+                l += 1
+                r -= 1
+                continue
+            elif nums[m] > nums[r]:
+                if nums[l] <= target < nums[m]:
+                    r = m
+                else:
+                    l = m
+            else:
+                if nums[m] < target <= nums[r]:
+                    l = m
+                else:
+                    r = m
+        if nums[l] == target: return True
+        if nums[r] == target: return True
+        return False
