@@ -69,3 +69,44 @@ class Solution(object):
                 left = mid + 1
         return itvs[left][1] if left < len(itvs) else -1
 
+
+'''
+2020/03/24, rewrite using binary search
+
+Runtime: 452 ms, faster than 20.65% of Python3 online submissions for Find Right Interval.
+Memory Usage: 18.3 MB, less than 33.33% of Python3 online submissions for Find Right Interval.
+'''
+
+
+class Solution:
+    def findRightInterval(self, intervals: List[List[int]]) -> List[int]:
+        itvs = []
+        # reorganize intervals so that the first position denote the position of the interval
+        # by doing this, it will remeber the position of each interveral in the origial list
+        for i, itv in enumerate(intervals):
+            itvs.append((i, itv))
+        # sort the intervals according to the starting point in order to apply binary search
+        itvs = sorted(itvs, key=lambda elem: elem[1][0])
+        res = [-1] * len(itvs)
+        for (i, itv) in itvs:
+            # find the right interval with smallest starting point >= ending point of the given interval
+            idx = self.find_right(itvs, itv[1])
+            res[i] = idx
+        return res
+
+    def find_right(self, itvs, target):
+        # search the right interval with smallest starting point >= target within itvs
+        l, r = 0, len(itvs) - 1
+        while l + 1 < r:
+            m = (l + r) >> 1
+            if itvs[m][1][0] == target:
+                return itvs[m][0]
+            elif itvs[m][1][0] > target:
+                r = m
+            else:
+                l = m
+        if itvs[l][1][0] >= target:
+            return itvs[l][0]
+        if itvs[r][1][0] >= target:
+            return itvs[r][0]
+        return -1
