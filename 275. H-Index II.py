@@ -56,3 +56,35 @@ class Solution:
             else:
                 right = mid - 1
         return n - (right + 1)
+
+
+'''
+2020/03/23, binary search
+idea: similar to copy books
+Runtime: 184 ms, faster than 7.37% of Python3 online submissions for H-Index II.
+Memory Usage: 19.6 MB, less than 50.00% of Python3 online submissions for H-Index II.
+'''
+
+
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        n = len(citations)
+        if n == 0: return 0
+        l, r = 0, citations[-1]
+        while l + 1 < r:
+            m = (l + r) // 2
+            if self.find_large(citations, m) <= m:
+                r = m
+            else:
+                l = m
+        if self.find_large(citations, r) >= r:
+            return min(n, r)
+        else:
+            return min(n, l)
+
+    def find_large(self, citations, target):
+        res = 0
+        for c in citations:
+            if c >= target:
+                res += 1
+        return res
