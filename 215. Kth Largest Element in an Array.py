@@ -112,6 +112,40 @@ class Solution:
         
 '''
 
+# 2020/03/26, similar to above
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        # kth larget = n - k th smallest
+        return self.partition(nums, 0, len(nums) - 1, len(nums) - k)
+
+    def partition(self, nums, start, end, k):
+        # find kth smallest element in nums, here k is representing the index, and it starts from 0
+        # only consider the index [start : end]
+        # the following if ... return is necessary
+        if start == end:
+            return nums[k]
+        l, r = start, end
+        p = nums[(l + r) // 2]
+        i = l
+        while i <= r:
+            if nums[i] > p:
+                nums[i], nums[r] = nums[r], nums[i]
+                r -= 1
+            elif nums[i] < p:
+                nums[i], nums[l] = nums[l], nums[i]
+                l += 1;
+                i += 1
+            else:
+                i += 1
+        if k <= l:
+            return self.partition(nums, start, l, k)
+        # i is larger than or equal to r
+        if k >= i:
+            return self.partition(nums, i, end, k)
+        return p
+
+
 # cpp, rewrite, priority queue
 
 '''
@@ -131,3 +165,41 @@ public:
     }
 };
 '''
+
+
+'''
+2020/03/26, two pointer, jiuzhang template
+
+Runtime: 68 ms, faster than 55.50% of Python3 online submissions for Kth Largest Element in an Array.
+Memory Usage: 13.7 MB, less than 60.00% of Python3 online submissions for Kth Largest Element in an Array.
+'''
+
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        # kth larget = n - k th smallest
+        return self.partition(nums, 0, len(nums) - 1, len(nums) - k)
+
+    def partition(self, nums, start, end, k):
+        # find kth smallest element in nums, here k is representing the index, and it starts from 0
+        # only consider the index [start : end]
+        # the following if ... return is not necessary
+        if start == end:
+            return nums[k]
+        l, r = start, end
+        p = nums[(l + r) // 2]
+        while l <= r:
+            while l <= r and nums[l] < p:
+                l += 1
+            while l <= r and nums[r] > p:
+                r -= 1
+            if l <= r:
+                nums[l], nums[r] = nums[r], nums[l]
+                l += 1;
+                r -= 1
+        # right <= left by stoping condition
+        if k <= r:
+            return self.partition(nums, start, r, k)
+        if k >= l:
+            return self.partition(nums, l, end, k)
+        return nums[k]
