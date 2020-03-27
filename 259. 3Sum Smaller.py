@@ -73,3 +73,30 @@ public:
 
 '''
 
+# 2020/03/27, two pointers
+'''Runtime: 120 ms, faster than 83.30% of Python3 online submissions for 3Sum Smaller.
+Memory Usage: 13.8 MB, less than 25.00% of Python3 online submissions for 3Sum Smaller.'''
+
+
+class Solution:
+    def threeSumSmaller(self, nums: List[int], target: int) -> int:
+        nums.sort()
+        res = 0
+        # assume nums[i] <= nums[j] <= nums[k]
+        for k in range(len(nums) - 1, -1, -1):
+            res += self.find_pairs(nums, k, target)
+        return res
+
+    def find_pairs(self, nums, k, target):
+        l, r = 0, k - 1
+        # find number of pairs such that nums[l] + nums[r] + nums[k] < target
+        target -= nums[k]
+        res = 0
+        while l <= r:
+            if nums[l] + nums[r] >= target:
+                r -= 1
+            else:
+                res += r - l
+                l += 1
+        return res
+
