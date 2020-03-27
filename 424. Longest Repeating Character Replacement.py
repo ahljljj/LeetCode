@@ -71,3 +71,28 @@ class Solution:
             res = max(res, end - start + 1)
         return res
 
+
+'''
+2020/03/27, sliding window
+
+Runtime: 120 ms, faster than 62.44% of Python3 online submissions for Longest Repeating Character Replacement.
+Memory Usage: 13.9 MB, less than 12.50% of Python3 online submissions for Longest Repeating Character Replacement.
+'''
+
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        l, r = 0, 0
+        m = {}
+        max_count = 0
+        res = 0
+        for r in range(len(s)):
+            if s[r] not in m:
+                m[s[r]] = 1
+            else:
+                m[s[r]] += 1
+            max_count = max(max_count, m[s[r]])
+            while l < r and  r - l + 1 - max_count > k:
+                m[s[l]] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+        return res
