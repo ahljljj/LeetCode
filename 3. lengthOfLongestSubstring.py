@@ -45,3 +45,28 @@ class Solution:
                 max_str_num = len(str2)
                 max_str = str2
         return max_str_num
+
+'''
+2020/03/27, sliding window
+
+Runtime: 72 ms, faster than 44.97% of Python3 online submissions for Longest Substring Without Repeating Characters.
+Memory Usage: 13 MB, less than 98.98% of Python3 online submissions for Longest Substring Without Repeating Characters.
+
+'''
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if len(s) < 2: return len(s)
+        l, r = 0, 0
+        res = 0
+        m = {}
+        for r in range(len(s)):
+            if s[r] not in m:
+                m[s[r]] = 1
+            else:
+                m[s[r]] += 1
+            while l <= r and m[s[r]] > 1:
+                m[s[l]] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+        return res
