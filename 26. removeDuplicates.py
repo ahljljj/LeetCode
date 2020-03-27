@@ -79,4 +79,25 @@ public:
 };
 '''
 
+# 2020/03/26
+'''
+Runtime: 88 ms, faster than 55.47% of Python3 online submissions for Remove Duplicates from Sorted Array.
+Memory Usage: 15.7 MB, less than 5.74% of Python3 online submissions for Remove Duplicates from Sorted Array.
+'''
+
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        i = 1
+        count = 1
+        while i < len(nums):
+            while i < len(nums) and nums[i] == nums[i - 1]:
+                i += 1
+            if i < len(nums):
+                target = nums[i]
+                nums[count] = nums[i]
+                count += 1; i += 1
+                while i < len(nums) and nums[i] == target:
+                    i += 1
+        return count
+
 
