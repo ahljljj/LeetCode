@@ -62,3 +62,23 @@ public:
         return res;
     }
 };
+
+// 2020/03/27, python rewrite
+
+/*
+Runtime: 452 ms, faster than 23.60% of Python3 online submissions for Max Consecutive Ones II.
+Memory Usage: 14.2 MB, less than 12.50% of Python3 online submissions for Max Consecutive Ones II.
+
+class Solution:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        l, r, zeros = 0, 0, 0
+        res = 0
+        while r < len(nums):
+            if nums[r] == 0: zeros += 1
+            while zeros > 1 and l < r:
+                if nums[l] == 0: zeros -= 1
+                l += 1
+            res = max(res, r - l + 1)
+            r += 1
+        return res
+*/
