@@ -46,3 +46,34 @@ class Solution:
             else:
                 c -= 1
         return False
+
+
+# 2020/03/28, divide and conquer
+
+
+class Solution:
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        if not matrix: return False
+        # index of first and last row
+        l, r = 0, len(matrix[0]) - 1
+        # index of first and last column
+        u, d = 0, len(matrix) - 1
+        return self.search(matrix, l, r, u, d, target)
+
+    def search(self, matrix, l, r, u, d, target):
+        if l > r or u > d:
+            return False
+        if target < matrix[u][l] or target > matrix[d][r]:
+            return False
+        i = u
+        m = (l + r) // 2
+        while i <= d and matrix[i][m] <= target:
+            if matrix[i][m] == target:
+                return True
+            i += 1
+        return self.search(matrix, l, m - 1, i, d, target) or self.search(matrix, m + 1, r, u, i - 1, target)
