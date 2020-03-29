@@ -76,3 +76,42 @@ class Solution:
                 p += 1
         self.quick_sort(nums, start, l)
         self.quick_sort(nums, p, end)
+
+# merge sort
+
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        self.merge_sort(nums, 0, len(nums) - 1, [0] * len(nums))
+        return nums
+
+    def merge_sort(self, nums, l, r, tmp):
+        if l >= r: return
+        m = (l + r) // 2
+        self.merge_sort(nums, l, m, tmp)
+        self.merge_sort(nums, m + 1, r, tmp)
+        self.merge(nums, l, m, r, tmp)
+
+    def merge(self, nums, l, m, r, tmp):
+        # two subarrays: [l, m] and [m + 1, r]
+        # use tmp to record the tempory array
+        i, j = l, m + 1
+        p = l
+        while i <= m and j <= r:
+            if nums[i] < nums[j]:
+                tmp[p] = nums[i]
+                i += 1;
+                p += 1
+            else:
+                tmp[p] = nums[j]
+                j += 1;
+                p += 1
+        while i <= m:
+            tmp[p] = nums[i]
+            i += 1;
+            p += 1
+        while j <= r:
+            tmp[p] = nums[j]
+            j += 1;
+            p += 1
+        for x in range(l, r + 1):
+            nums[x] = tmp[x]
