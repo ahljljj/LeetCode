@@ -49,3 +49,12 @@ public:
     }
 };
 '''
+
+# 2020/03/29
+
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        key = functools.cmp_to_key(lambda x, y: int(str(x) + str(y)) - int(str(y) + str(x)))
+        nums.sort(key = key, reverse = True)
+        res = "".join(map(str, nums)).lstrip('0')
+        return res or '0'
