@@ -86,5 +86,19 @@ public:
 '''
 
 
+# 2020/03/28
+
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort()
+        res = []
+        for itv in intervals:
+            if not res or itv[0] > res[-1][1]:
+                res.append(itv)
+            else:
+                res[-1][1] = max(res[-1][1], itv[1])
+        return res
+
+
 
 
