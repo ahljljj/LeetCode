@@ -50,3 +50,29 @@ class Solution:
                 r -= 1
         self.quick_sort(nums, start, r)
         self.quick_sort(nums, l, end)
+
+
+# three pointers
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        self.quick_sort(nums, 0, len(nums) - 1)
+        return nums
+
+    def quick_sort(self, nums, start, end):
+        if start >= end: return
+        l, r = start, end
+        m = (l + r) // 2
+        target = nums[m]
+        p = l
+        while p <= r:
+            if nums[p] > target:
+                nums[p], nums[r] = nums[r], nums[p]
+                r -= 1
+            elif nums[p] < target:
+                nums[p], nums[l] = nums[l], nums[p]
+                l += 1;
+                p += 1
+            else:
+                p += 1
+        self.quick_sort(nums, start, l)
+        self.quick_sort(nums, p, end)
