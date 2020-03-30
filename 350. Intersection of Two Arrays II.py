@@ -58,3 +58,23 @@ class Solution:
         return res
 
 #two pointers also works
+
+#2020/03/30
+#Runtime: 44 ms, faster than 80.99% of Python3 online submissions for Intersection of Two Arrays II.
+#Memory Usage: 14.1 MB, less than 5.72% of Python3 online submissions for Intersection of Two Arrays II.
+
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        res = []
+        nums1.sort()
+        nums2.sort()
+        i1, i2 = 0, 0
+        while i1 < len(nums1) and i2 < len(nums2):
+            if nums1[i1] < nums2[i2]:
+                i1 += 1
+            elif nums1[i1] > nums2[i2]:
+                i2 += 1
+            else:
+                res.append(nums1[i1])
+                i1 += 1; i2 += 1
+        return res
