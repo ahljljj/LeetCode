@@ -72,3 +72,31 @@ public:
 };
 
 '''
+
+# 2020/03/30 sort
+
+'''
+Runtime: 96 ms, faster than 73.67% of Python3 online submissions for Wiggle Sort.
+Memory Usage: 14.8 MB, less than 6.67% of Python3 online submissions for Wiggle Sort.
+'''
+
+class Solution:
+    def wiggleSort(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        nums.sort()
+        if len(nums) % 2 == 0:
+            self.even_sort(nums, 0, len(nums) - 1)
+        else:
+            m = len(nums) // 2
+            nums[m], nums[-1] = nums[-1], nums[m]
+            self.even_sort(nums, 0, 2 * m - 1)
+
+    def even_sort(self, nums, l, r):
+        l += 1;
+        r -= 1
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 2;
+            r -= 2
