@@ -55,3 +55,68 @@ class Solution:
                 if node.right: tmp.append(node.right)
             queue = tmp
         return res
+
+
+# 2020/03/31
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root: return []
+        q = collections.deque([root])
+        res = []
+        l_to_r = True
+        while q:
+            size = len(q)
+            if l_to_r:
+                R = range(size)
+            else:
+                R = range(size - 1, -1, -1)
+            l_to_r = not l_to_r
+            level = [0] * size
+            for i in R:
+                front = q.popleft()
+                level[i] = front.val
+                if front.left: q.append(front.left)
+                if front.right: q.append(front.right)
+            res.append(level)
+        return res
+
+#2020/03/31
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root: return []
+        q = collections.deque([root])
+        res = []
+        l_to_r = True
+        while q:
+            size = len(q)
+            level = collections.deque([])
+            for _ in range(size):
+                if l_to_r:
+                    front = q.popleft()
+                    level.append(front.val)
+                    if front.left: q.append(front.left)
+                    if front.right: q.append(front.right)
+                else:
+                    front = q.pop()
+                    level.append(front.val)
+                    if front.right: q.appendleft(front.right)
+                    if front.left: q.appendleft(front.left)
+            res.append(list(level))
+            l_to_r = not l_to_r
+        return res
