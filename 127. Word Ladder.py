@@ -253,8 +253,6 @@ class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         wordList = set(wordList)
         if endWord not in wordList: return 0
-        abc = "abcdefghijklmnopqrstuvwxyz"
-        n = len(beginWord)
         q = collections.deque([beginWord])
         res = 0
         while q:
