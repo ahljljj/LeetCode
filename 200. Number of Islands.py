@@ -124,3 +124,37 @@ class Solution:
             ni, nj = i + ii, j + jj
             self.dfs(grid, visited, n, m, ni, nj)
 
+
+# 2020/04/01, BFS
+
+'''
+
+Runtime: 140 ms, faster than 80.97% of Python3 online submissions for Number of Islands.
+Memory Usage: 17.8 MB, less than 5.13% of Python3 online submissions for Number of Islands.
+'''
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid: return 0
+        n, m = len(grid), len(grid[0])
+        res = 0
+        visited = set()
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == '1' and (i, j) not in visited:
+                    self.get_island(grid, n, m, i, j, visited)
+                    res += 1
+        return res
+
+    def get_island(self, grid, n, m, i, j, visited):
+        q = collections.deque([(i, j)])
+        dirs = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        visited.add((i, j))
+        while q:
+            (i, j) = q.popleft()
+            for (x, y) in dirs:
+                new_i, new_j = i + x, j + y
+                if new_i < 0 or new_i >= n or new_j < 0 or new_j >= m or \
+                        grid[new_i][new_j] == '0' or (new_i, new_j) in visited: continue
+                visited.add((new_i, new_j))
+                q.append((new_i, new_j))

@@ -67,8 +67,16 @@ class Solution:
 
 '''
 Runtime: 36 ms, faster than 67.96% of Python3 online submissions for Clone Graph.
-Memory Usage: 14 MB, less than 48.15% of Python3 online submissions for Clone Graph.
+Memory Usage: 14.2 MB, less than 11.11% of Python3 online submissions for Clone Graph.
 '''
+
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = []):
+        self.val = val
+        self.neighbors = neighbors
+"""
 
 
 class Solution:
@@ -93,11 +101,9 @@ class Solution:
         q = collections.deque([node])
         res = set()
         while q:
-            size = len(q)
-            for _ in range(size):
-                front = q.popleft()
-                if front in res: continue
-                res.add(front)
-                for nei in front.neighbors:
-                    q.append(nei)
+            front = q.popleft()
+            if front in res: continue
+            res.add(front)
+            for nei in front.neighbors:
+                q.append(nei)
         return res
