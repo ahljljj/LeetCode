@@ -247,4 +247,33 @@ class Solution:
                         q.append(new_word)
         return 0
 
+#2020/04/01, remove word from wordlist can speed the running time
+
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        wordList = set(wordList)
+        if endWord not in wordList: return 0
+        abc = "abcdefghijklmnopqrstuvwxyz"
+        n = len(beginWord)
+        q = collections.deque([beginWord])
+        res = 0
+        while q:
+            res += 1
+            size = len(q)
+            for _ in range(size):
+                front = q.popleft()
+                if front == endWord: return res
+                for new_word in self.get_next_word(front):
+                    if new_word not in wordList: continue
+                    wordList.remove(new_word)
+                    q.append(new_word)
+        return 0
+
+    def get_next_word(self, word):
+        res = []
+        for i in range(len(word)):
+            for c in "abcdefghijklmnopqrstuvwxyz":
+                res.append(word[:i] + c + word[i + 1:])
+        return res
+
 
