@@ -61,3 +61,43 @@ class Solution:
                     queue.append(nd)
 
         return dic[node]
+
+
+# 2020/04/01, BFS
+
+'''
+Runtime: 36 ms, faster than 67.96% of Python3 online submissions for Clone Graph.
+Memory Usage: 14 MB, less than 48.15% of Python3 online submissions for Clone Graph.
+'''
+
+
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node: return None
+        # get all nodes of the graph
+        nodes = self.get_nodes(node)
+        # deep copy all nodes
+        m = {}
+        for nd in nodes:
+            m[nd] = Node(nd.val)
+        # deep copy all neighbors/edges
+        for nd in nodes:
+            nd_copy = m[nd]
+            for nei in nd.neighbors:
+                nei_copy = m[nei]
+                nd_copy.neighbors.append(nei_copy)
+        return m[node]
+
+    def get_nodes(self, node: 'Node'):
+        if not node: return set()
+        q = collections.deque([node])
+        res = set()
+        while q:
+            size = len(q)
+            for _ in range(size):
+                front = q.popleft()
+                if front in res: continue
+                res.add(front)
+                for nei in front.neighbors:
+                    q.append(nei)
+        return res
