@@ -222,4 +222,29 @@ class Solution(object):
                             q.append(new)
         return 0
 
+# 2020/04/01, bfs, extreme slow
+
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        wordList = set(wordList)
+        if endWord not in wordList: return 0
+        abc = "abcdefghijklmnopqrstuvwxyz"
+        n = len(beginWord)
+        q = collections.deque([beginWord])
+        visited = set()
+        res = 0
+        while q:
+            res += 1
+            size = len(q)
+            for _ in range(size):
+                front = q.popleft()
+                visited.add(front)
+                if front == endWord: return res
+                for i in range(n):
+                    for c in abc:
+                        new_word = front[ : i] + c + front[i + 1: n]
+                        if new_word not in wordList or new_word in visited: continue
+                        q.append(new_word)
+        return 0
+
 
