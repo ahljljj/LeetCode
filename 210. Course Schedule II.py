@@ -93,3 +93,42 @@ public:
     } 
 };
 '''
+
+# 2020/04/01, topological sorting
+
+'''
+Runtime: 100 ms, faster than 84.38% of Python3 online submissions for Course Schedule II.
+Memory Usage: 15.3 MB, less than 60.71% of Python3 online submissions for Course Schedule II.
+'''
+
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        in_degree = self.get_in_degree(numCourses, prerequisites)
+        neighbors = self.get_neighbors(numCourses, prerequisites)
+        start = [x for x in range(numCourses) if in_degree[x] == 0]
+        res = []
+        q = collections.deque(start)
+        while q:
+            front = q.popleft()
+            res.append(front)
+            for nei in neighbors[front]:
+                in_degree[nei] -= 1
+                if in_degree[nei] == 0: q.append(nei)
+        return res if len(res) == numCourses else []
+
+    def get_in_degree(self, n, graph):
+        # course #: 0, 1,..., n - 1
+        # if (course, pre_course) in graph,
+        # then add 1 to the in degree of this course
+        m = [0] * n
+        for (course, _) in graph:
+            m[course] += 1
+        return m
+
+    def get_neighbors(self, n, graph):
+        # course #: 0, 1, ..., n - 1
+        # for each course, get all down stream courses
+        m = {x: [] for x in range(n)}
+        for (course, pre_course) in graph:
+            m[pre_course].append(course)
+        return m
