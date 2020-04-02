@@ -112,7 +112,7 @@ class Solution:
             res += 1
             for nei in neighbors[front]:
                 in_degree[nei] -= 1
-                if in_degree[nei] <= 0: q.append(nei)
+                if in_degree[nei] == 0: q.append(nei)
         return res == numCourses
 
     def get_in_degree(self, n, graph):
