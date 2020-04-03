@@ -113,3 +113,53 @@ class Solution:
         if px != py:
             self.parents[px] = py
             self.rank[py] += self.rank[px]
+
+
+# 2020/04/03, topological sorting
+
+#Runtime: 92 ms, faster than 85.49% of Python3 online submissions for Graph Valid Tree.
+#Memory Usage: 15.1 MB, less than 22.22% of Python3 online submissions for Graph Valid Tree.
+
+# not a good solution, don't know why it can pass
+
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        # write your code here
+        # edge case
+        if n == 1 and not edges: return True
+        if len(edges) != n - 1: return False
+        graph = self.get_graph(n, edges)
+        in_degree = self.get_inDegree(graph)
+        # start from vertex with in degree = 0
+        # since every edge count twice, if there is any
+        # in degree zero vertex, this graph is not connected
+        # except there is only one node in the graph
+        start = [x for x in graph if in_degree[x] == 1]
+        q = collections.deque(start)
+        count = 0
+        # topological sorting: detect cycle or single point
+        while q:
+            front = q.popleft()
+            count += 1
+            for v in graph[front]:
+                in_degree[v] -= 1
+                if in_degree[v] == 1: q.append(v)
+        # if there is a cycle or single point
+        # then the count cann't equal to n
+        return count == n
+
+    def get_graph(self, n, edges):
+        # initialize vertices
+        m = {x: set() for x in range(n)}
+        # get all edges
+        for (v1, v2) in edges:
+            m[v1].add(v2)
+            m[v2].add(v1)
+        return m
+
+    def get_inDegree(self, graph):
+        res = [0] * len(graph)
+        for v in graph:
+            for nei in graph[v]:
+                res[nei] += 1
+        return res
