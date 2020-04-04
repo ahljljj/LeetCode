@@ -163,3 +163,32 @@ class Solution:
             for nei in graph[v]:
                 res[nei] += 1
         return res
+
+
+# 2020/04/04, union find
+
+class UnionFind:
+    def __init__(self, n):
+        # array also works here, hashmap makes it more clearer.
+        self.parents = {i: i for i in range(n)}
+
+    def find(self, node):
+        while node != self.parents[node]:
+            node = self.parents[node]
+        return node
+
+    def union(self, A, B):
+        rootA = self.find(A)
+        rootB = self.find(B)
+        if rootA == rootB: return False
+        self.parents[rootA] = rootB
+        return True
+
+
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if len(edges) != n - 1: return False
+        union_find = UnionFind(n)
+        for (a, b) in edges:
+            if not union_find.union(a, b): return False
+        return True
