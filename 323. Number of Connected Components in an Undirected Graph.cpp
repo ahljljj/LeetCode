@@ -63,3 +63,46 @@ public:
         return node;
     }
 };
+
+
+/*
+# union find, 2020/04/04
+
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        union_find = UnionFind(n)
+        for (a, b) in edges:
+            union_find.union(a, b)
+        print(union_find.parents)
+        connected_set = set()
+        for i in range(n):
+            connected_set.add(union_find.find(i))
+        return len(connected_set)
+
+class UnionFind:
+    def __init__(self, n):
+        self.parents = {i: i for i in range(n)}
+        self.size = {i: 1 for i in range(n)}
+
+    def find(self, node):
+        root = node
+        while root != self.parents[root]:
+            root = self.parents[root]
+        while node != root:
+            old_root = self.parents[node]
+            self.parents[node] = root
+            node = old_root
+        return root
+
+    def union(self, a, b):
+        rootA = self.find(a)
+        rootB = self.find(b)
+        if rootA == rootB: return
+        if self.size[rootA] < self.size[rootB]:
+            self.parents[rootA] = rootB
+            self.size[rootB] += self.size[rootA]
+        else:
+            self.parents[rootB] = rootA
+            self.size[rootA] += self.size[rootB]
+
+*/
