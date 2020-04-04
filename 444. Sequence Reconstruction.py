@@ -95,3 +95,60 @@ class Solution:
                 if len(heads) > 1: return False
         return res == org
 
+
+# 2020/04/04, topological sorting
+
+'''Runtime: 468 ms, faster than 75.41% of Python3 online submissions for Sequence Reconstruction.
+Memory Usage: 18.9 MB, less than 100.00% of Python3 online submissions for Sequence Reconstruction.'''
+
+class Solution:
+    def sequenceReconstruction(self, org: List[int], seqs: List[List[int]]) -> bool:
+        graph = self.get_graph(seqs)
+        # edge case
+        for v in org:
+            if v not in graph: return False
+        if len(org) != len(graph): return False
+        in_degree = self.get_inDegree(graph)
+        start = [x for x in graph if in_degree[x] == 0]
+        q = collections.deque(start)
+        vertex_num = 0
+        while q:
+            size = len(q)
+            if size > 1: return False
+            front = q.popleft()
+            vertex_num += 1
+            for nei in graph[front]:
+                in_degree[nei] -= 1
+                if in_degree[nei] == 0: q.append(nei)
+        # if not all vertex be sorted during this process
+        # there must exist a cycle
+        return len(graph) == vertex_num
+
+    def get_graph(self, seqs):
+        graph = {}
+        # step 1 and 2 can be combined
+        # step 1: initialize the graph
+        for seq in seqs:
+            if not seq:
+                continue
+            elif len(seq) == 1:
+                graph[seq[0]] = set()
+            for i in range(len(seq) - 1):
+                a, b = seq[i], seq[i + 1]
+                if a not in graph: graph[a] = set()
+                if b not in graph: graph[b] = set()
+        # step 2: find all edges
+        for seq in seqs:
+            if len(seq) < 2: continue
+            for i in range(len(seq) - 1):
+                a, b = seq[i], seq[i + 1]
+                graph[a].add(b)
+        return graph
+
+    def get_inDegree(self, graph):
+        m = {v: 0 for v in graph}
+        for v in graph:
+            for nei in graph[v]:
+                m[nei] += 1
+        return m
+
