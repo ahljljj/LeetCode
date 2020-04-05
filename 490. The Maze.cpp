@@ -146,3 +146,69 @@ public:
     }
 
 };
+
+/*
+2020/04/04, python ugly codes
+
+Runtime: 404 ms, faster than 22.16% of Python3 online submissions for The Maze.
+Memory Usage: 14.3 MB, less than 15.38% of Python3 online submissions for The Maze.
+
+class Solution:
+    def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
+        n, m = len(maze), len(maze[0])
+        q = collections.deque([start])
+        visited = [[False] * m for _ in range(n)]
+        while q:
+            (x, y) = q.popleft()
+            if [x, y] == destination: return True
+            visited[x][y] = True
+            ny = y
+            while ny < m and maze[x][ny] != 1: ny += 1
+            if not visited[x][ny - 1]:
+                q.append([x, ny - 1])
+                visited[x][ny - 1] = True
+            ny = y
+            while ny > -1 and maze[x][ny] != 1: ny -= 1
+            if not visited[x][ny + 1]:
+                q.append([x, ny + 1])
+                visited[x][ny + 1] = True
+            nx = x
+            while nx < n and maze[nx][y] != 1: nx += 1
+            if not visited[nx - 1][y]:
+                q.append([nx - 1, y])
+                visited[nx - 1][y] = True
+            nx = x
+            while nx > -1 and maze[nx][y] != 1: nx -= 1
+            if not visited[nx + 1][y]:
+                q.append([nx + 1, y])
+                visited[nx + 1][y] = True
+        return False
+
+
+# better python code
+
+class Solution:
+    def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
+        n, m = len(maze), len(maze[0])
+        q = collections.deque([start])
+        visited = [[False] * m for _ in range(n)]
+        dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        while q:
+            (x, y) = q.popleft()
+            if [x, y] == destination: return True
+            visited[x][y] = True
+            for (deltaX, deltaY) in dirs:
+                nx, ny = x + deltaX, y + deltaY
+                # use while loop to find the stopping point
+                while -1 < nx < n and -1 < ny < m and maze[nx][ny] != 1:
+                    nx += deltaX; ny += deltaY
+                # back track to the previous state
+                # when the loop stops, only the following 3 cases happen:
+                # nx = n, -1; ny = m, -1 or maze[nx][ny] = = -1
+                nx -= deltaX; ny -= deltaY
+                if not visited[nx][ny]:
+                    q.append([nx, ny])
+                    visited[nx][ny] = True
+        return False
+
+*/
