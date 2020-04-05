@@ -68,3 +68,58 @@ class Solution:
                             q.append(new_code)
             level += 1
         return -1
+
+
+# simple modeification: faster
+
+class Solution:
+    def openLock(self, deadends: List[str], target: str) -> int:
+        deadends = list(deadends)
+        if "0000" in deadends: return -1
+        q = collections.deque(['0000'])
+        visited = set(q)
+        level = 0
+        dirs = [1, -1]
+        while q:
+            size = len(q)
+            for _ in range(size):
+                code = q.popleft()
+                if code == target: return level
+                if code in deadends: continue
+                for i in range(4):
+                    for d in dirs:
+                        ch = str((int(code[i]) + d) % 10)
+                        new_code = code[:i] + ch + code[i+1:]
+                        if new_code not in visited:
+                            visited.add(new_code)
+                            q.append(new_code)
+            level += 1
+        return -1
+
+    # modification
+
+    class Solution:
+        def openLock(self, deadends: List[str], target: str) -> int:
+            deadends = list(deadends)
+            q = collections.deque(['0000'])
+            visited = set(['0000'])
+            level = 0
+            while q:
+                size = len(q)
+                for _ in range(size):
+                    code = q.popleft()
+                    if code == target: return level
+                    if code in deadends: continue
+                    for nei in self.neighbors(code):
+                        if nei not in visited:
+                            visited.add(nei)
+                            q.append(nei)
+                level += 1
+            return -1
+
+        def neighbors(self, code):
+            for i in range(4):
+                x = int(code[i])
+                for d in (-1, 1):
+                    nx = (x + d) % 10
+                    yield code[:i] + str(nx) + code[i + 1:]
