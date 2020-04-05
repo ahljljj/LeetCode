@@ -82,3 +82,44 @@ class UnionFind:
         else:
             self.parents[rootY] = rootX
             self.size[rootX] += self.size[rootY]
+
+# simple modification
+
+class Solution:
+    def findCircleNum(self, M: List[List[int]]) -> int:
+        count = m = len(M)
+        union_find = UnionFind(m)
+        for i in range(m):
+            for j in range(m):
+                if i != j and M[i][j]:
+                    if union_find.union(i, j):
+                        count -= 1
+        return count
+
+
+class UnionFind:
+    def __init__(self, n):
+        self.parents = {i: i for i in range(n)}
+        self.size = {i: 1 for i in range(n)}
+
+    def find(self, A):
+        root = A
+        while root != self.parents[root]:
+            root = self.parents[root]
+        while A != root:
+            old_root = self.parents[A]
+            self.parents[A] = root
+            A = old_root
+        return root
+
+    def union(self, x, y):
+        rootX = self.find(x)
+        rootY = self.find(y)
+        if rootX == rootY: return False
+        if self.size[rootX] < self.size[rootY]:
+            self.parents[rootX] = rootY
+            self.size[rootY] += self.size[rootX]
+        else:
+            self.parents[rootY] = rootX
+            self.size[rootX] += self.size[rootY]
+        return True
