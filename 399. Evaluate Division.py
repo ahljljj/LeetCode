@@ -213,6 +213,68 @@ class Solution:
             self.weights[p1] = self.weights[v] / self.weights[u] * val
 
 
+'''
+2020/04/06, union find, too hard, a reorganziation of the old codes
+
+Runtime: 24 ms, faster than 90.87% of Python3 online submissions for Evaluate Division.
+Memory Usage: 13.9 MB, less than 9.09% of Python3 online submissions for Evaluate Division.
+
+'''
+
+
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        # initialize the nodes for the graph
+        nodes = set()
+        for eqn in equations:
+            for c in eqn:
+                nodes.add(c)
+        union_find = UnionFind(nodes)
+        for ((x, y), w) in zip(equations, values):
+            union_find.union(x, y, w)
+        res = []
+        for (x, y) in queries:
+            if x not in nodes or y not in nodes \
+                    or union_find.find(x) != union_find.find(y):
+                res.append(-1.0)
+                continue
+            res.append(union_find.weight[x] / union_find.weight[y])
+        return res
+
+
+class UnionFind:
+    def __init__(self, nodes):
+        # for a fraction, denominator is the farther of numerator
+        # for example, a / b ---> parents[a] = b
+        self.parents = {x: x for x in nodes}
+        # weight is distance between numerator and denominator
+        # for example, weight[a] = value (a / parents[a])
+        self.weight = {x: 1 for x in nodes}
+        # path compression
+        self.size = {x: 1 for x in nodes}
+
+    def find(self, A):
+        # use DFS to update the weights along the path
+        if A != self.parents[A]:
+            curr_root = self.parents[A]
+            self.parents[A] = self.find(curr_root)
+            self.weight[A] *= self.weight[curr_root]
+        return self.parents[A]
+
+    def union(self, x, y, w):
+        rootX = self.find(x)
+        rootY = self.find(y)
+        if self.size[rootX] < self.size[rootY]:
+            self.parents[rootX] = rootY
+            self.size[rootY] += self.size[rootX]
+            self.weight[rootX] = self.weight[y] / self.weight[x] * w
+        else:
+            self.parents[rootY] = rootX
+            self.size[rootX] += self.size[rootY]
+            self.weight[rootY] = self.weight[x] / self.weight[y] * (1 / w)
+
+
+
 
 
 
