@@ -82,3 +82,25 @@ class Solution:
         for path in right:
             res.append([root.val] + path)
         return res
+
+# slight modification
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root: return []
+        if not root.left and not root.right: return [str(root.val)]
+        paths = []
+        left = self.binaryTreePaths(root.left)
+        right = self.binaryTreePaths(root.right)
+        for path in left:
+            paths.append(str(root.val) + '->' + path)
+        for path in right:
+            paths.append(str(root.val) + '->' + path)
+        return paths
