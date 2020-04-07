@@ -46,3 +46,39 @@ class Solution:
             self.preOrder(root.left, path + str(root.val) + "->")
         if root.right != None:
             self.preOrder(root.right, path + str(root.val) + "->")
+
+
+'''
+# 2020/04/07, divide and conquer
+Runtime: 28 ms, faster than 82.85% of Python3 online submissions for Binary Tree Paths.
+Memory Usage: 14 MB, less than 9.52% of Python3 online submissions for Binary Tree Paths.
+'''
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        res = self.div_conq(root)
+        paths = []
+        for p in res:
+            paths.append('->'.join(map(str, p)))
+        return paths
+
+    def div_conq(self, root):
+        if not root: return []
+        if not root.left and not root.right: return [[root.val]]
+        res = []
+        left = self.div_conq(root.left)
+        right = self.div_conq(root.right)
+        for path in left:
+            res.append([root.val] + path)
+        for path in right:
+            res.append([root.val] + path)
+        return res
