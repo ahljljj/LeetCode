@@ -62,3 +62,24 @@ class Solution:
             return right
         if not right:
             return left
+
+# 2020/04/07, divide and conquer, rewrite
+
+Runtime: 64 ms, faster than 96.40% of Python3 online submissions for Lowest Common Ancestor of a Binary Tree.
+Memory Usage: 24 MB, less than 91.67% of Python3 online submissions for Lowest Common Ancestor of a Binary Tree.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if not root or root == p or root == q: return root
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+        if not left: return right
+        if not right: return left
+        return root
