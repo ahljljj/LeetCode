@@ -113,3 +113,19 @@ public:
 };
 
 '''
+
+# 2020/04/04, iterative
+
+class Solution:
+    def closestValue(self, root: TreeNode, target: float) -> int:
+        res = float("inf")
+        while root:
+            if abs(root.val - target) < abs(res - target):
+                res = root.val
+            if target < root.val:
+                root = root.left
+            elif target > root.val:
+                root = root.right
+            else:
+                return root.val
+        return res

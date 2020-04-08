@@ -84,3 +84,24 @@ class Solution:
                     top = top.left
             if node == p and stack: return stack[-1]
         return None
+
+# variation 1
+
+class Solution:
+    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+        if not root: return root
+        left = self.inorderSuccessor(root.left, p)
+        right = self.inorderSuccessor(root.right, p)
+        if root.val <= p.val:
+            return right
+        return left if left else root
+
+# variation 2, rewrite of old codes
+
+class Solution:
+    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+        if not root: return root
+        if root.val <= p.val:
+            return self.inorderSuccessor(root.right, p)
+        left = self.inorderSuccessor(root.left, p)
+        return left if left else root

@@ -143,3 +143,33 @@ class Solution:
         curr_min = min([left_min, right_min, root.val])
         curr_max = max([left_max, right_max, root.val])
         return (curr_min, curr_max, True)
+
+# 2020/04/08, iterative of inorder traversal
+
+'''
+Runtime: 44 ms, faster than 63.41% of Python3 online submissions for Validate Binary Search Tree.
+Memory Usage: 16.2 MB, less than 21.84% of Python3 online submissions for Validate Binary Search Tree.
+'''
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        dummy = TreeNode(-float("inf"))
+        dummy.right = root
+        stack = [dummy]
+        while stack:
+            top = stack.pop()
+            prev = top
+            if top.right:
+                top = top.right
+                while top:
+                    stack.append(top)
+                    top = top.left
+            if stack and prev.val >= stack[-1].val: return False
+        return True
