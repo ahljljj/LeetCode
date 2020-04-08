@@ -59,3 +59,28 @@ class Solution(object):
         else:
             l = self.inorderSuccessor(root.left, p)
             return l if l != None else root
+
+# iterative inorder 2020/04/08
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+        dummy = TreeNode(None)
+        dummy.right = root
+        stack = [dummy]
+        while stack:
+            top = stack.pop()
+            node = top
+            if top.right:
+                top = top.right
+                while top:
+                    stack.append(top)
+                    top = top.left
+            if node == p and stack: return stack[-1]
+        return None
