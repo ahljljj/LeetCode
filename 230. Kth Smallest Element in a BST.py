@@ -170,3 +170,27 @@ class Solution:
             res.append(root.val)
             return
         self.dfs(root.right, res, k)
+
+# iterative of inorder
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        dummy = TreeNode(None)
+        dummy.right = root
+        stack = [dummy]
+        for i in range(k):
+            top = stack.pop()
+            if top.right:
+                top = top.right
+                while top:
+                    stack.append(top)
+                    top = top.left
+            if not stack: return None
+        return stack[-1].val
