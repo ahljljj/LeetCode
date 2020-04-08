@@ -71,3 +71,28 @@ class Solution:
         curr.append(root.val)
         for val in right: curr.append(val)
         return curr
+
+# iterative way
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        dummy = TreeNode(None)
+        dummy.right = root
+        stack = [dummy]
+        res = []
+        while stack:
+            top = stack.pop()
+            if top.right:
+                top = top.right
+                while top:
+                    stack.append(top)
+                    top = top.left
+            if stack: res.append(stack[-1].val)
+        return res
