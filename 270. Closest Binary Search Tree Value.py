@@ -161,5 +161,5 @@ class Solution:
         left = self.up_bound(root.left, target)
         right = self.up_bound(root.right, target)
         if target > root.val:
-            return self.up_bound(root.right, target)
+            return right
         return left if left else root
