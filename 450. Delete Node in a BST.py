@@ -210,6 +210,35 @@ class Solution:
         return maxKid
 
 
+# 2020/04/04, divide and conquer? leetcode's solution
+
+class Solution:
+    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+        if not root: return root
+        if root.val < key:
+            root.right = self.deleteNode(root.right, key)
+        elif root.val > key:
+            root.left = self.deleteNode(root.left, key)
+        else:
+            if not root.left and not root.right:
+                root = None
+            elif root.right:
+                root.val = self.find_min(root.right)
+                root.right = self.deleteNode(root.right, root.val)
+            else:
+                root.val = self.find_max(root.left)
+                root.left = self.deleteNode(root.left, root.val)
+        return root
+
+    def find_min(self, root):
+        while root.left: root = root.left
+        return root.val
+
+    def find_max(self, root):
+        while root.right: root = root.right
+        return root.val
+
+
 
 
 
