@@ -129,3 +129,37 @@ class Solution:
             else:
                 return root.val
         return res
+
+# divide and conquer
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def closestValue(self, root: TreeNode, target: float) -> int:
+        low = self.low_bound(root, target)
+        up = self.up_bound(root, target)
+        if not low: return up.val
+        if not up: return low.val
+        if target - low.val < up.val - target: return low.val
+        return up.val
+
+    def low_bound(self, root, target):
+        if not root: return root
+        left = self.low_bound(root.left, target)
+        right = self.low_bound(root.right, target)
+        if target < root.val:
+            return left
+        return right if right else root
+
+    def up_bound(self, root, target):
+        if not root: return root
+        left = self.up_bound(root.left, target)
+        right = self.up_bound(root.right, target)
+        if target > root.val:
+            return self.up_bound(root.right, target)
+        return left if left else root
