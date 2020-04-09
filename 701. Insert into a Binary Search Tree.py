@@ -68,6 +68,11 @@ class Solution:
 
 # recursion
 
+'''
+Runtime: 136 ms, faster than 85.93% of Python3 online submissions for Insert into a Binary Search Tree.
+Memory Usage: 15.8 MB, less than 8.00% of Python3 online submissions for Insert into a Binary Search Tree.
+'''
+
 class Solution:
     def insertIntoBST(self, root: TreeNode, val: int) -> TreeNode:
         if not root: return TreeNode(val)
