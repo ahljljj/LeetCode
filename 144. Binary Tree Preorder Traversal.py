@@ -87,3 +87,31 @@ class Solution:
             if top.right: stack.append(top.right)
             if top.left: stack.append(top.left)
         return res
+
+
+# morris transversal
+'''
+Runtime: 28 ms, faster than 67.50% of Python3 online submissions for Binary Tree Preorder Traversal.
+Memory Usage: 13.7 MB, less than 6.52% of Python3 online submissions for Binary Tree Preorder Traversal.
+'''
+
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        res = []
+        while root:
+            if not root.left:
+                res.append(root.val)
+                root = root.right
+            else:
+                curr = root
+                root = root.left
+                while root.right and root.right != curr:
+                    root = root.right
+                if not root.right:
+                    res.append(curr.val)
+                    root.right = curr
+                    root = curr.left
+                else:
+                    root.right = None
+                    root = curr.right
+        return res
