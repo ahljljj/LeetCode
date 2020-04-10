@@ -96,3 +96,40 @@ class Solution:
                     top = top.left
             if stack: res.append(stack[-1].val)
         return res
+
+
+# Morris traversal, too hard
+
+'''
+Runtime: 28 ms, faster than 66.29% of Python3 online submissions for Binary Tree Inorder Traversal.
+Memory Usage: 13.9 MB, less than 6.56% of Python3 online submissions for Binary Tree Inorder Traversal.
+'''
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        res = []
+        while root:
+            if not root.left:
+                res.append(root.val)
+                root = root.right
+            else:
+                curr = root
+                root = root.left
+                while root.right and root.right != curr:
+                    root = root.right
+                if not root.right:
+                    root.right = curr
+                    root = curr.left
+                else:
+                    root.right = None
+                    res.append(curr.val)
+                    root = curr.right
+        return res
