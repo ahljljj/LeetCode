@@ -238,6 +238,62 @@ class Solution:
         while root.right: root = root.right
         return root.val
 
+# iterative implementation of the above algorithm
+
+class Solution:
+    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+        if not root: return root
+        prev, target = self.find_node(root, key)
+        if not target: return root
+        if not prev:
+            return self.delete_rootNode(target)
+        if prev.left == target:
+            prev.left = self.delete_rootNode(target)
+        else:
+            prev.right = self.delete_rootNode(target)
+        return root
+
+    def find_node(self, root, key):
+        prev = None
+        while root and root.val != key:
+            prev = root
+            if root.val < key:
+                root = root.right
+            else:
+                root = root.left
+        return prev, root
+
+    def find_min(self, node):
+        parent = None
+        while node.left:
+            parent = node
+            node = node.left
+        return parent, node
+
+    def find_max(self, node):
+        parent = None
+        while node.right:
+            parent = node
+            node = node.right
+        return parent, node
+
+    def delete_rootNode(self, node):
+        if not node.left and not node.right:
+            return None
+        elif node.right:
+            parent, dummy = self.find_min(node.right)
+            dummy.left = node.left
+            if dummy != node.right:
+                parent.left = dummy.right
+                dummy.right = node.right
+            return dummy
+        else:
+            parent, dummy = self.find_max(node.left)
+            dummy.right = node.right
+            if dummy != node.left:
+                parent.right = dummy.left
+                dummy.left = node.left
+            return dummy
 
 
 
