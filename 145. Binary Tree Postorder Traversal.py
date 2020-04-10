@@ -43,3 +43,25 @@ class Solution:
         self.dfs(root.left, res)
         self.dfs(root.right, res)
         res.append(root.val)
+
+# iterative, too hard
+
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        last_visited = None
+        stack = []
+        res = []
+        while root or stack:
+            if root:
+                stack.append(root)
+                root = root.left
+            else:
+                top = stack[-1]
+                if not top.right or top.right == last_visited:
+                    stack.pop()
+                    res.append(top.val)
+                    last_visited = top
+                    root = None
+                else:
+                    root = top.right
+        return res
