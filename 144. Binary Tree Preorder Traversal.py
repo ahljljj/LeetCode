@@ -73,3 +73,17 @@ class Solution(object):
                 stack.append(node.right)
                 stack.append(node.left)
         return res
+
+# 2020/04/10, iterative
+
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root: return []
+        res = []
+        stack = [root]
+        while stack:
+            top = stack.pop()
+            res.append(top.val)
+            if top.right: stack.append(top.right)
+            if top.left: stack.append(top.left)
+        return res
