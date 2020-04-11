@@ -39,3 +39,22 @@ class Solution:
         root.left = self.sortedArrayToBST(nums[:mid_idx])
         root.right = self.sortedArrayToBST(nums[mid_idx+1:])
         return root
+
+# 2020/04/11, dfs rewrite
+
+'''
+Runtime: 72 ms, faster than 75.45% of Python3 online submissions for Convert Sorted Array to Binary Search Tree.
+Memory Usage: 16.1 MB, less than 6.45% of Python3 online submissions for Convert Sorted Array to Binary Search Tree.
+'''
+
+class Solution:
+    def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
+        return self.dfs(nums, 0, len(nums) - 1)
+
+    def dfs(self, nums, l, r):
+        if not nums or l > r: return None
+        m = (l + r) >> 1
+        root = TreeNode(nums[m])
+        root.left = self.dfs(nums, l, m - 1)
+        root.right = self.dfs(nums, m + 1, r)
+        return root

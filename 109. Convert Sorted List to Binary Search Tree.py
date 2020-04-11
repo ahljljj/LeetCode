@@ -60,3 +60,26 @@ class Solution:
             fast = fast.next.next
         prev.next = None
         return slow
+
+
+# 2020/04/11, rewrite
+
+class Solution:
+    def sortedListToBST(self, head: ListNode) -> TreeNode:
+        if not head: return None
+        mid = self.find_mid(head)
+        root = TreeNode(mid.val)
+        if head == mid: return root
+        root.left = self.sortedListToBST(head)
+        root.right = self.sortedListToBST(mid.next)
+        return root
+
+    def find_mid(self, head):
+        slow, fast = head, head
+        prev = None
+        while fast and fast.next:
+            prev = slow
+            slow = slow.next
+            fast = fast.next.next
+        if prev: prev.next = None
+        return slow
