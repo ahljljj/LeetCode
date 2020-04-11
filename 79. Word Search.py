@@ -124,3 +124,29 @@ public:
 '''
 
 
+# 2020/04/11， wrong
+
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        n, m = len(board), len(board[0])
+        dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        self.res = False
+        for i in range(n):
+            for j in range(m):
+                visited = [[False] * m for _ in range(n)]
+                self.backtracking(board, visited, n, m, i, j, dirs, 0, word)
+                if self.res: return True
+        return False
+
+    def backtracking(self, board, visited, n, m, x, y, dirs, i, word):
+        if i == len(word) or board[x][y] == word:
+            self.res = True
+            return
+        for deltaX, deltaY in dirs:
+            nx, ny = x + deltaX, y + deltaY
+            if -1 < nx < n and -1 < ny < m and board[nx][ny] == word[i] \
+                    and not visited[nx][ny]:
+                visited[nx][ny] = True
+                self.backtracking(board, visited, n, m, nx, ny, dirs, i + 1, word)
+                visited[nx][ny] = False
+
