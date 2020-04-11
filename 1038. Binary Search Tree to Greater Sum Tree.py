@@ -40,7 +40,6 @@ Note: This question is the same as 538: https://leetcode.com/problems/convert-bs
 class Solution:
     def bstToGst(self, root: TreeNode) -> TreeNode:
         self.sum = self.get_sum(root)
-        # print(self.sum)
         self.dfs(root)
         return root
 
