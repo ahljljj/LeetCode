@@ -156,3 +156,30 @@ class Solution:
         else:
             self.map0[root] = val
         return val
+
+
+# 2020/04/11, divide and conquer
+
+'''
+Runtime: 48 ms, faster than 69.18% of Python3 online submissions for House Robber III.
+Memory Usage: 15.8 MB, less than 33.33% of Python3 online submissions for House Robber III.
+'''
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def rob(self, root: TreeNode) -> int:
+        _, res = self.div_conq(root)
+        return res
+
+    def div_conq(self, root):
+        if not root: return 0, 0
+        prev_left, left = self.div_conq(root.left)
+        prev_right, right = self.div_conq(root.right)
+        curr_max = max(root.val + prev_left + prev_right, left + right)
+        return left + right, curr_max
