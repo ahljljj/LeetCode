@@ -66,3 +66,18 @@ public:
     }
 };
 '''
+
+# 2020/04/10
+
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        self.dfs(nums, res, 0, [])
+        return res
+
+    def dfs(self, nums, res, l, tmp):
+        res.append(tmp[:])
+        for i in range(l, len(nums)):
+            tmp.append(nums[i])
+            self.dfs(nums, res, i + 1, tmp)
+            tmp.pop()
