@@ -21,6 +21,23 @@ Return the following binary tree:
 """
 
 
+'''
+comments on 2020/04/11
+
+pre: root left right
+in: left root right
+
+root <- pre[0]
+idx of root in inorder
+this idx tells us the size of left subtree, we are not really interested in the index itself.
+
+therefor, we have
+root.left = dfs(pre[1: 1 + idx - 1 + 1], in[:idx])
+root.right = dfs(pre[idx+1:], in[idx+1:])
+
+'''
+
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
