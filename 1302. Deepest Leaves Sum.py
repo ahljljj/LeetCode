@@ -59,3 +59,36 @@ class Solution:
                 if front.left: q.append(front.left)
                 if front.right: q.append(front.right)
         return res
+
+
+# dfs
+
+'''
+Runtime: 108 ms, faster than 30.18% of Python3 online submissions for Deepest Leaves Sum.
+Memory Usage: 17.3 MB, less than 100.00% of Python3 online submissions for Deepest Leaves Sum
+'''
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def deepestLeavesSum(self, root: TreeNode) -> int:
+        self.depth = -1
+        self.sum = 0
+        self.dfs(root, 0)
+        return self.sum
+
+    def dfs(self, root, depth):
+        if not root: return
+        if not root.left and not root.right:
+            if depth > self.depth:
+                self.depth = depth
+                self.sum = root.val
+            elif depth == self.depth:
+                self.sum += root.val
+        self.dfs(root.left, depth + 1)
+        self.dfs(root.right, depth + 1)
