@@ -112,3 +112,26 @@ public:
     }
 };
 '''
+# 2020/04/14, dfs subset, simple and brute force
+
+'''
+Runtime: 92 ms, faster than 45.39% of Python3 online submissions for Combination Sum.
+Memory Usage: 13.9 MB, less than 6.06% of Python3 online submissions for Combination Sum.
+'''
+
+
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        self.dfs(candidates, res, [], 0, target)
+        return res
+
+    def dfs(self, candidates, res, subset, pos, target):
+        if not candidates or sum(subset) > target: return
+        if sum(subset) == target:
+            res.append(subset[:])
+            return
+        for i in range(pos, len(candidates)):
+            subset.append(candidates[i])
+            self.dfs(candidates, res, subset, i, target)
+            subset.pop()
