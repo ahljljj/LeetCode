@@ -73,3 +73,29 @@ public:
     }
 };
 '''
+
+
+# 2020/04/14, backtracking + duplicates
+
+'''
+Runtime: 40 ms, faster than 39.29% of Python3 online submissions for Subsets II.
+Memory Usage: 14.1 MB, less than 6.38% of Python3 online submissions for Subsets II.
+'''
+
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        nums.sort()
+        self.dfs(nums, res, [], 0)
+        return res
+
+    def dfs(self, nums, res, subset, pos):
+        if not nums: return
+        res.append(subset[:])
+        for i in range(pos, len(nums)):
+            # only accept the first num if duplication happen
+            if i > pos and nums[i] == nums[i - 1]:
+                continue
+            subset.append(nums[i])
+            self.dfs(nums, res, subset, i + 1)
+            subset.pop()
