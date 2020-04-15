@@ -97,4 +97,34 @@ public:
 '''
 
 
+# 2020/04/15, memoization
+
+'''
+Runtime: 32 ms, faster than 89.85% of Python3 online submissions for Word Break.
+Memory Usage: 13.9 MB, less than 5.55% of Python3 online submissions for Word Break.
+'''
+
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        memo = {}
+        wordDict = set(wordDict)
+        self.dfs(s, wordDict, 0, memo)
+        return memo[0]
+
+    def dfs(self, source, wordDict, pos, memo):
+        if pos in memo: return memo[pos]
+        if pos == len(source):
+            memo[pos] = True
+            return True
+        for i in range(pos, len(source)):
+            prefix = source[pos: i + 1]
+            if prefix not in wordDict: continue
+            if self.dfs(source, wordDict, i + 1, memo):
+                memo[pos] = True
+                return memo[pos]
+        memo[pos] = False
+        return memo[pos]
+
+
 
