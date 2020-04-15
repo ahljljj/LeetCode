@@ -127,4 +127,28 @@ class Solution:
         return memo[pos]
 
 
+# 2020/04/15, bfs
+
+'''
+Runtime: 36 ms, faster than 73.24% of Python3 online submissions for Word Break.
+Memory Usage: 14 MB, less than 5.55% of Python3 online submissions for Word Break.
+'''
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        q = collections.deque([0])
+        visited = set([0])
+        wordDict = set(wordDict)
+        while q:
+            front = q.pop()
+            for i in range(front, len(s)):
+                prefix = s[front: i + 1]
+                if prefix not in wordDict: continue
+                if i + 1 == len(s): return True
+                if i + 1 not in visited:
+                    q.append(i + 1)
+                    visited.add(i + 1)
+        return False
+
+
 
