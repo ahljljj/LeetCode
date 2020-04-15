@@ -129,3 +129,34 @@ class Solution:
 
     def is_valid(self, s):
         return s == s[::-1]
+
+# 2020/04/15, memoization
+
+'''
+Runtime: 60 ms, faster than 95.31% of Python3 online submissions for Palindrome Partitioning.
+Memory Usage: 16.1 MB, less than 5.88% of Python3 online submissions for Palindrome Partitioning.
+'''
+
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        res, memo = [], {}
+        return self.dfs(s, res, 0, memo)
+
+    def dfs(self, s, res, pos, memo):
+        if not s: return []
+        if pos == len(s):
+            memo[pos] = [[]]
+            return memo[pos]
+        if pos in memo: return memo[pos]
+        subset = []
+        for i in range(pos, len(s)):
+            prefix = s[pos: i + 1]
+            if not self.is_valid(prefix): continue
+            sub_partitions = self.dfs(s, res, i + 1, memo)
+            for par in sub_partitions:
+                subset.append([prefix] + par)
+        memo[pos] = subset
+        return memo[pos]
+
+    def is_valid(self, s):
+        return s == s[::-1]
