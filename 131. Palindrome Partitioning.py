@@ -101,3 +101,31 @@ public:
     }
 };
 '''
+
+
+# 2020/04/14, subset
+
+'''
+Runtime: 92 ms, faster than 25.94% of Python3 online submissions for Palindrome Partitioning.
+Memory Usage: 14.1 MB, less than 5.88% of Python3 online submissions for Palindrome Partitioning.
+'''
+
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        res = []
+        self.dfs(s, res, [], 0)
+        return res
+
+    def dfs(self, s, res, subset, pos):
+        if not s: return
+        if pos == len(s):
+            res.append(subset[:])
+        for i in range(pos, len(s)):
+            prefix = s[pos: i + 1]
+            if not self.is_valid(prefix): continue
+            subset.append(prefix)
+            self.dfs(s, res, subset, i + 1)
+            subset.pop()
+
+    def is_valid(self, s):
+        return s == s[::-1]
