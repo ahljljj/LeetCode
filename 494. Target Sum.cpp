@@ -66,3 +66,24 @@ public:
 
     }
 };
+
+
+
+/*
+time limit exceeded
+
+class Solution:
+    def findTargetSumWays(self, nums: List[int], S: int) -> int:
+        self.res = 0
+        self.dfs(nums, S, 0, 0)
+        return self.res
+
+    def dfs(self, nums, target, calculation, pos):
+        if pos == len(nums):
+            if calculation == target:
+                self.res += 1
+            return
+        self.dfs(nums, target, calculation + nums[pos], pos + 1)
+        self.dfs(nums, target, calculation - nums[pos], pos + 1)
+
+*/
