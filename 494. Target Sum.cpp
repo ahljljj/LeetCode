@@ -70,7 +70,7 @@ public:
 
 
 /*
-time limit exceeded
+brute force DFS, time limit exceeded
 
 class Solution:
     def findTargetSumWays(self, nums: List[int], S: int) -> int:
