@@ -59,3 +59,29 @@ class Solution:
                 i += 1
         helper(candidates, [], target, 0)
         return res
+
+# 2020/04/16, subsets
+
+'''
+Runtime: 100 ms, faster than 37.42% of Python3 online submissions for Combination Sum II.
+Memory Usage: 13.6 MB, less than 6.52% of Python3 online submissions for Combination Sum II.
+'''
+
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        if not candidates: return []
+        res = []
+        candidates.sort()
+        self.dfs(candidates, target, res, [], 0)
+        return res
+
+    def dfs(self, candidates, target, subsets, subset, pos):
+        if target == 0:
+            subsets.append(subset[:])
+            return
+        if pos == len(candidates) or target < 0: return
+        for i in range(pos, len(candidates)):
+            if i > pos and candidates[i] == candidates[i - 1]: continue
+            subset.append(candidates[i])
+            self.dfs(candidates, target - candidates[i], subsets, subset, i + 1)
+            subset.pop()
