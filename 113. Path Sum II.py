@@ -59,6 +59,38 @@ class Solution:
             self.helper(res, tmp, root.right, target)
             tmp.pop()
 
+# 2020/04/16, DFS traversal
+
+'''
+Runtime: 36 ms, faster than 97.07% of Python3 online submissions for Path Sum II.
+Memory Usage: 14.8 MB, less than 75.86% of Python3 online submissions for Path Sum II.
+'''
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        self.paths = []
+        self.dfs(root, [], sum)
+        return self.paths
+
+    def dfs(self, root, path, target):
+        if not root:
+            return
+        path.append(root.val)
+        if not root.left and not root.right:
+            if target == root.val:
+                self.paths.append(path[:])
+        self.dfs(root.left, path, target - root.val)
+        self.dfs(root.right, path, target - root.val)
+        path.pop()
+
 
 
 
