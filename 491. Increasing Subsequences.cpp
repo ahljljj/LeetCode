@@ -101,6 +101,8 @@ public:
 /*
 2020/04/16, subsets, unorder duplicates
 
+Runtime: 224 ms, faster than 84.29% of Python3 online submissions for Increasing Subsequences.
+Memory Usage: 21.4 MB, less than 50.00% of Python3 online submissions for Increasing Subsequences.
 
 class Solution:
     def findSubsequences(self, nums: List[int]) -> List[List[int]]:
