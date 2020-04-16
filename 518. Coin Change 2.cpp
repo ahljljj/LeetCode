@@ -64,3 +64,35 @@ public:
 
     }
 };
+
+
+/*
+# 2020/04/16， DFS + memo, barely AC
+
+Runtime: 1988 ms, faster than 7.36% of Python3 online submissions for Coin Change 2.
+Memory Usage: 37.3 MB, less than 16.67% of Python3 online submissions for Coin Change 2.
+
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        memo = {}
+        coins.sort()
+        self.dfs(coins, amount, 0, 0, memo)
+        return memo[(0,0)]
+
+    def dfs(self, coins, target, current, pos, memo):
+        if (current, pos) in memo: return memo[(current, pos)]
+        if current > target:
+            memo[(current, pos)] = 0
+            return memo[(current, pos)]
+        if current == target:
+            memo[(current, pos)] = 1
+            return memo[(current, pos)]
+        calculation = 0
+        for i in range(pos, len(coins)):
+            if current + coins[i] > target: break
+            calculation += self.dfs(coins, target, current + coins[i], i, memo)
+        memo[(current, pos)] = calculation
+        return memo[(current, pos)]
+
+
+*/
