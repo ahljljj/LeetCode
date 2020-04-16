@@ -86,4 +86,23 @@ class Solution:
         self.dfs(nums, target, calculation + nums[pos], pos + 1)
         self.dfs(nums, target, calculation - nums[pos], pos + 1)
 
+# better DFS, still time limit exceeded
+
+class Solution:
+    def findTargetSumWays(self, nums: List[int], S: int) -> int:
+        memo = {}
+        self.dfs(nums, S, 0, memo)
+        return sum([x == S for x in memo[0]])
+
+    def dfs(self, nums, target, pos, memo):
+        if pos == len(nums):
+            memo[pos] = [0]
+            return memo[pos]
+        calculations = []
+        for num in self.dfs(nums, target, pos + 1, memo):
+            calculations.append(nums[pos] + num)
+            calculations.append(-nums[pos] + num)
+        memo[pos] = calculations
+        return memo[pos]
+
 */
