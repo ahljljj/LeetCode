@@ -96,3 +96,30 @@ public:
         }
     }
 };
+
+
+/*
+2020/04/16, subsets, unorder duplicates
+
+
+class Solution:
+    def findSubsequences(self, nums: List[int]) -> List[List[int]]:
+        if len(nums) < 2: return []
+        subsets = []
+        self.dfs(nums, subsets, [], 0)
+        return subsets
+
+    def dfs(self, nums, subsets, subset, pos):
+        if len(subset) > 1: subsets.append(subset[:])
+        if pos == len(nums): return
+        visited = set()
+        for i in range(pos, len(nums)):
+            if nums[i] in visited: continue
+            if subset and nums[i] < subset[-1]: continue
+            subset.append(nums[i])
+            self.dfs(nums,subsets, subset, i + 1)
+            subset.pop()
+            visited.add(nums[i])
+
+
+*/
