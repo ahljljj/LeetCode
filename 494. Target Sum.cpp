@@ -105,4 +105,23 @@ class Solution:
         memo[pos] = calculations
         return memo[pos]
 
+# 2020/04/16, AC, DFS with memo, too hard
+
+class Solution:
+    def findTargetSumWays(self, nums: List[int], S: int) -> int:
+        memo = {}
+        self.dfs(nums, S, 0, 0, memo)
+        return memo[(0,0)]
+
+    def dfs(self, nums, target, calculation, pos, memo):
+        if (calculation, pos) in memo: return memo[(calculation, pos)]
+        if pos == len(nums):
+            if calculation == target:
+                return 1
+            return 0
+        add = self.dfs(nums, target, calculation + nums[pos], pos + 1, memo)
+        substract = self.dfs(nums, target, calculation - nums[pos], pos + 1, memo)
+        memo[(calculation, pos)] = add + substract
+        return memo[(calculation, pos)]
+
 */
