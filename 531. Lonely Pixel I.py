@@ -41,12 +41,14 @@ class Solution:
         dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         for i in range(n):
             for j in range(m):
-                if picture[i][j] == 'B' and self.helper(picture, n, m, dirs, i, j):
+                if picture[i][j] == 'B' and self.helper(picture, n, m, dirs, i, j, visited):
                     res += 1
+                    visited.add(i)
                     break
         return res
 
-    def helper(self, matrix, n, m, dirs, i, j):
+    def helper(self, matrix, n, m, dirs, i, j, visited):
+        if i in visited: return False
         for deltaI, deltaJ in dirs:
             x, y = i + deltaI, j + deltaJ
             while -1 < x < n and -1 < y < m and matrix[x][y] != 'B':
