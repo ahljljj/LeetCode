@@ -83,3 +83,46 @@ public:
         return h;
     }
 };
+
+
+/*
+2020/04/17, divide and conquer
+
+Runtime: 32 ms, faster than 36.17% of Python3 online submissions for Find Leaves of Binary Tree.
+Memory Usage: 13.8 MB, less than 20.00% of Python3 online submissions for Find Leaves of Binary Tree.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def findLeaves(self, root: TreeNode) -> List[List[int]]:
+        memo= {}
+        res = []
+        self.dfs(root, memo)
+        for i in range(len(memo)):
+            res.append(memo[i])
+        return res
+
+    def dfs(self, root, memo):
+        if not root: return -1
+        if not root.left and not root.right:
+            if 0 not in memo:
+                memo[0] = [root.val]
+            else:
+                memo[0].append(root.val)
+            return 0
+        left = self.dfs(root.left, memo)
+        right = self.dfs(root.right, memo)
+        height = 1 + max(left, right)
+        if height not in memo:
+            memo[height] = [root.val]
+        else:
+            memo[height].append(root.val)
+        return height
+
+
+*/
