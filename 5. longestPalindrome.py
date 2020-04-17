@@ -132,3 +132,36 @@ public:
 };
 
 '''
+
+
+'''
+TLE, 2020/04/17, passed 102/103
+
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        self.res = None
+        memo = {}
+        self.dfs(s, 0, memo)
+        #print(memo)
+        return memo[0]
+    
+    def dfs(self, s, pos, memo):
+        if not s:
+            memo[pos] = ""
+            return memo[pos]
+        if pos in memo: return memo[pos]
+        if pos == len(s): return ""
+        curr = ""
+        for i in range(pos, len(s)):
+            prefix = s[pos: i + 1]
+            if not self.is_valid(prefix): continue
+            calculated =  self.dfs(s, i + 1, memo)
+            max_sub = prefix if len(prefix) > len(calculated) else calculated
+            curr = curr if len(curr) > len(max_sub) else max_sub
+        memo[pos] = curr
+        return memo[pos]
+    
+    def is_valid(self, s):
+        return s == s[::-1]
+
+'''
