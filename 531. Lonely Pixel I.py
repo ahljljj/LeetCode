@@ -37,18 +37,15 @@ class Solution:
     def findLonelyPixel(self, picture: List[List[str]]) -> int:
         n, m = len(picture), len(picture[0])
         res = 0
-        visited = set()
         dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         for i in range(n):
             for j in range(m):
-                if picture[i][j] == 'B' and self.helper(picture, n, m, dirs, i, j, visited):
+                if picture[i][j] == 'B' and self.helper(picture, n, m, dirs, i, j):
                     res += 1
-                    visited.add(i)
                     break
         return res
 
-    def helper(self, matrix, n, m, dirs, i, j, visited):
-        if i in visited: return False
+    def helper(self, matrix, n, m, dirs, i, j):
         for deltaI, deltaJ in dirs:
             x, y = i + deltaI, j + deltaJ
             while -1 < x < n and -1 < y < m and matrix[x][y] != 'B':
