@@ -150,3 +150,33 @@ public:
 
     }
 };
+
+
+/*
+
+2020/04/18, BFS, genius determine visited state
+
+Runtime: 384 ms, faster than 35.79% of Python3 online submissions for The Maze II.
+Memory Usage: 14.1 MB, less than 50.00% of Python3 online submissions for The Maze II.
+
+
+class Solution:
+    def shortestDistance(self, maze: List[List[int]], start: List[int], destination: List[int]) -> int:
+        q = collections.deque([(start[0], start[1], 0)])
+        n, m = len(maze), len(maze[0])
+        dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        distances = [[float("inf")] * m for _ in range(n)]
+        res = float("inf")
+        while q:
+            i, j, depth = q.popleft()
+            for deltaI, deltaJ in dirs:
+                x, y, steps = i, j, 0
+                while -1 < x < n and -1 < y < m and maze[x][y] != 1:
+                    x += deltaI; y += deltaJ; steps += 1
+                x -= deltaI; y -= deltaJ; steps -= 1
+                if depth + steps < distances[x][y]:
+                    distances[x][y] = depth + steps
+                    q.append((x, y, depth + steps))
+        res = min(res, distances[destination[0]][destination[1]])
+        return res if res != float("inf") else -1
+*/
