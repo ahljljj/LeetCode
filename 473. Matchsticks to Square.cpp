@@ -71,7 +71,7 @@ class Solution:
 
     def dfs(self, nums, size, subset, pos, visited):
         if size == 0:
-            # intersection is not none
+            # intersection is none
             if not subset & visited:
                 # union
                 visited |= subset
