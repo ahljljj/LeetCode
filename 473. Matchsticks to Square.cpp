@@ -54,10 +54,8 @@ public:
 
 
 /*
-2020/04/19, subset, AC but unsure, whether it is correct
-
-Runtime: 72 ms, faster than 90.14% of Python3 online submissions for Matchsticks to Square.
-Memory Usage: 13.8 MB, less than 20.00% of Python3 online submissions for Matchsticks to Square.
+Runtime: 76 ms, faster than 89.79% of Python3 online submissions for Matchsticks to Square.
+Memory Usage: 13.9 MB, less than 20.00% of Python3 online submissions for Matchsticks to Square.
 
 
 class Solution:
@@ -73,12 +71,12 @@ class Solution:
 
     def dfs(self, nums, size, subset, pos, visited):
         if size == 0:
-            # intersection
-            if subset & visited:
-                return
-            # union
-            visited |= subset
-            self.res += 1
+            # intersection is not none
+            if not subset & visited:
+                # union
+                visited |= subset
+                self.res += 1
+            return
         if pos == len(nums) or size < 0:
             return
         for i in range(pos, len(nums)):
