@@ -90,3 +90,30 @@ public:
 };
 '''
 
+
+# 2020/04/19, DFS standard permutation
+
+'''
+Runtime: 64 ms, faster than 5.31% of Python3 online submissions for Permutations.
+Memory Usage: 14.1 MB, less than 5.36% of Python3 online submissions for Permutations.
+'''
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        visited = [False] * len(nums)
+        self.dfs(nums, res, [], visited)
+        return res
+
+    def dfs(self, nums, result, permutation, visited):
+        if len(permutation) == len(nums):
+            result.append(permutation[:])
+            return
+        for i in range(len(nums)):
+            if visited[i]: continue
+            visited[i] = True
+            permutation.append(nums[i])
+            self.dfs(nums, result, permutation, visited)
+            permutation.pop()
+            visited[i] = False
+
