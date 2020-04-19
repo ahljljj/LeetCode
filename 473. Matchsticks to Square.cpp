@@ -51,3 +51,40 @@ public:
 
     }
 };
+
+
+/*
+2020/04/19, subset, AC but unsure, whether it is correct
+
+Runtime: 72 ms, faster than 90.14% of Python3 online submissions for Matchsticks to Square.
+Memory Usage: 13.8 MB, less than 20.00% of Python3 online submissions for Matchsticks to Square.
+
+
+class Solution:
+    def makesquare(self, nums: List[int]) -> bool:
+        if not nums: return False
+        perimeter = sum(nums)
+        size = perimeter // 4
+        if perimeter % 4 != 0 or max(nums) > size: return False
+        self.res = 0
+        nums.sort(reverse = True)
+        self.dfs(nums, size, set(), 0, set())
+        return self.res == 4
+
+    def dfs(self, nums, size, subset, pos, visited):
+        if size == 0:
+            # intersection
+            if subset & visited:
+                return
+            # union
+            visited |= subset
+            self.res += 1
+        if pos == len(nums) or size < 0:
+            return
+        for i in range(pos, len(nums)):
+            subset.add(i)
+            self.dfs(nums, size - nums[i], subset, i + 1, visited)
+            subset.remove(i)
+
+
+*/
