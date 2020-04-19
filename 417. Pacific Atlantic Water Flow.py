@@ -224,6 +224,44 @@ class Solution:
             queue = tmp
 
 
+# 2020/04/18, two bfs
+
+'''
+Runtime: 408 ms, faster than 20.92% of Python3 online submissions for Pacific Atlantic Water Flow.
+Memory Usage: 15.1 MB, less than 10.00% of Python3 online submissions for Pacific Atlantic Water Flow.
+'''
+
+class Solution:
+    def pacificAtlantic(self, matrix: List[List[int]]) -> List[List[int]]:
+        if not matrix: return []
+        n, m = len(matrix), len(matrix[0])
+        pacific = [[False] * m for _ in range(n)]
+        atlantic = [[False] * m for _ in range(n)]
+        pac_start = [(i, j) for i in range(n) for j in range(m) if i == 0 or j == 0]
+        pac_q = collections.deque(pac_start)
+        self.bfs(matrix, n, m, pac_q, pacific)
+        alt_start = [(i, j) for i in range(n) for j in range(m) if i == n - 1 or j == m - 1]
+        alt_q = collections.deque(alt_start)
+        self.bfs(matrix, n, m, alt_q, atlantic)
+        res = []
+        for i in range(n):
+            for j in range(m):
+                if pacific[i][j] and atlantic[i][j]:
+                    res.append([i, j])
+        return res
+
+    def bfs(self, matrix, n, m, q, visited):
+        dirs = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        for (i, j) in q:
+            visited[i][j] = True
+        while q:
+            i, j = q.popleft()
+            for deltaI, deltaJ in dirs:
+                x, y = i + deltaI, j + deltaJ
+                if x < 0 or x >= n or y < 0 or y >= m or visited[x][y] or matrix[x][y] < matrix[i][j]: continue
+                q.append((x, y))
+                visited[x][y] = True
+
 
 
 
