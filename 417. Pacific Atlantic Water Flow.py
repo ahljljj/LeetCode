@@ -262,6 +262,36 @@ class Solution:
                 q.append((x, y))
                 visited[x][y] = True
 
+# 2020/04/18, DFS twice, rewrite
+
+class Solution:
+    def pacificAtlantic(self, matrix: List[List[int]]) -> List[List[int]]:
+        if not matrix: return []
+        n, m = len(matrix), len(matrix[0])
+        pacific = [[False] * m for _ in range(n)]
+        atlantic = [[False] * m for _ in range(n)]
+        dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        for i in range(n):
+            for j in range(m):
+                if i == 0 or j == 0:
+                    self.dfs(matrix, n, m, dirs, i, j, pacific)
+                if i == n - 1 or j == m - 1:
+                    self.dfs(matrix, n, m, dirs, i, j, atlantic)
+        res = []
+        for i in range(n):
+            for j in range(m):
+                if pacific[i][j] and atlantic[i][j]:
+                    res.append([i, j])
+        return res
+
+    def dfs(self, matrix, n, m, dirs, i, j, visited):
+        visited[i][j] = True
+        for deltaI, deltaJ in dirs:
+            x, y = i + deltaI, j + deltaJ
+            if x < 0 or x >= n or y < 0 or y >= m or visited[x][y] \
+                    or matrix[x][y] < matrix[i][j]: continue
+            self.dfs(matrix, n, m, dirs, x, y, visited)
+
 
 
 
