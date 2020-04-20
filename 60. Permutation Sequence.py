@@ -105,5 +105,36 @@ class Solution:
         return res_str
 
 
+# 2020/04/20, next permutation
+'''
+Runtime: 5464 ms, faster than 5.03% of Python3 online submissions for Permutation Sequence.
+Memory Usage: 13.8 MB, less than 8.33% of Python3 online submissions for Permutation Sequence.
+'''
+
+class Solution:
+    def getPermutation(self, n: int, k: int) -> str:
+        nums = [i + 1 for i in range(n)]
+        for _ in range(k - 1):
+            self.next_permutation(nums)
+        return ''.join(map(str, nums))
+
+    def next_permutation(self, nums):
+        smaller_idx = len(nums) - 2
+        while smaller_idx > -1 and nums[smaller_idx] >= nums[smaller_idx + 1]:
+            smaller_idx -= 1
+        if smaller_idx == -1:
+            nums.reverse()
+            return
+        bigger_idx = len(nums) - 1
+        while bigger_idx > smaller_idx and nums[bigger_idx] <= nums[smaller_idx]:
+            bigger_idx -= 1
+        nums[smaller_idx], nums[bigger_idx] = nums[bigger_idx], nums[smaller_idx]
+        self.reverse(nums, smaller_idx + 1, len(nums) - 1)
+
+    def reverse(self, nums, l, r):
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1;
+            r -= 1
 
 
