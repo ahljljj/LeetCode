@@ -49,3 +49,37 @@ class Solution(object):
             swap(nums, idx, j)
         reverse(nums, idx + 1, nb - 1)
 
+# 2020/04/20
+
+'''
+Runtime: 36 ms, faster than 89.22% of Python3 online submissions for Next Permutation.
+Memory Usage: 14 MB, less than 5.56% of Python3 online submissions for Next Permutation.
+'''
+
+
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        i = len(nums) - 2
+        while i > -1 and nums[i] >= nums[i + 1]:
+            i -= 1
+        if i == -1:
+            nums.reverse()
+            return
+        target = nums[i]
+        j = len(nums) - 1
+        while j > i and nums[j] <= target:
+            j -= 1
+        nums[i], nums[j] = nums[j], nums[i]
+
+        self.reverse(nums, i + 1, len(nums) - 1)
+        return
+
+    def reverse(self, nums, l, r):
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1;
+            r -= 1
+        return
