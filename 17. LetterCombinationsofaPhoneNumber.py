@@ -93,3 +93,32 @@ public:
 };
 
 '''
+
+
+# 2020/04/20, subsets
+'''
+Runtime: 20 ms, faster than 97.57% of Python3 online submissions for Letter Combinations of a Phone Number.
+Memory Usage: 13.9 MB, less than 5.88% of Python3 online submissions for Letter Combinations of a Phone Number.
+'''
+
+
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits: return []
+        res = []
+        keyboard = {'2': 'abc', '3': 'def',
+                    '4': 'ghi', '5': 'jkl', '6': 'mno',
+                    '7': 'pqrs', '8': 'tuv', '9': 'wxyz'}
+        visited = [False] * len(digits)
+        self.dfs(digits, keyboard, res, "", 0)
+        return res
+
+    def dfs(self, digits, keyboard, res, string, pos):
+        if len(string) == len(digits):
+            res.append(string)
+            return
+        for i in range(pos, len(digits)):
+            for c in keyboard[digits[i]]:
+                self.dfs(digits, keyboard, res, string + c, i + 1)
+
+
