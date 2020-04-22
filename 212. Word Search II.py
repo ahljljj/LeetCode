@@ -36,6 +36,7 @@ Submissions
 '''
 
 2020/04/22, wrong, time limit exceeded, 34 / 36 test cases passed.
+# starting from dictionary is not correct...
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
@@ -76,3 +77,40 @@ class Solution:
         
         
 '''
+
+# 2020/04/22, starting from matrix since dict could be very big in general
+
+'''
+Runtime: 332 ms, faster than 71.22% of Python3 online submissions for Word Search II.
+Memory Usage: 22.2 MB, less than 100.00% of Python3 online submissions for Word Search II.
+'''
+
+
+class Solution:
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        prefix_words = set()
+        for word in words:
+            for i in range(len(word)):
+                prefix_words.add(word[:i + 1])
+        words = set(words)
+        n, m = len(board), len(board[0])
+        res = []
+        dirs = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+        res = set()
+        for i in range(n):
+            for j in range(m):
+                self.dfs(board, n, m, dirs, i, j, prefix_words, words, board[i][j], res, set([(i, j)]))
+        return list(res)
+
+    def dfs(self, matrix, n, m, dirs, i, j, prefix_words, words, word, res, visited):
+        if word not in prefix_words: return
+        if word in words:
+            res.add(word)
+        for deltaI, deltaJ in dirs:
+            x, y = i + deltaI, j + deltaJ
+            if x < 0 or x >= n or y < 0 or y >= m or (x, y) in visited:
+                continue
+            visited.add((x, y))
+            self.dfs(matrix, n, m, dirs, x, y, prefix_words, words, word + matrix[x][y], res, visited)
+            visited.remove((x, y))
+
