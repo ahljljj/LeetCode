@@ -150,3 +150,34 @@ class Solution:
                 self.backtracking(board, visited, n, m, nx, ny, dirs, i + 1, word)
                 visited[nx][ny] = False
 
+# 2020/04/22, permutation, pass with slight modification
+
+
+'''
+Runtime: 308 ms, faster than 88.09% of Python3 online submissions for Word Search.
+Memory Usage: 14.8 MB, less than 27.66% of Python3 online submissions for Word Search.
+'''
+
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        n, m = len(board), len(board[0])
+        dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        self.res = False
+        for i in range(n):
+            for j in range(m):
+                if board[i][j] != word[0]: continue
+                if self.backtracking(board, set([(i, j)]), n, m, i, j, dirs, 1, word):
+                    return True
+        return False
+
+    def backtracking(self, board, visited, n, m, x, y, dirs, pos, word):
+        if pos == len(word):
+            return True
+        for deltaX, deltaY in dirs:
+            nx, ny = x + deltaX, y + deltaY
+            if -1 < nx < n and -1 < ny < m and (nx, ny) not in visited and board[nx][ny] == word[pos]:
+                visited.add((nx, ny))
+                if self.backtracking(board, visited, n, m, nx, ny, dirs, pos + 1, word):
+                    return True
+                visited.remove((nx, ny))
+        return False
