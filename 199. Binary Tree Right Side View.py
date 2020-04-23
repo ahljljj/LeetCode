@@ -48,3 +48,23 @@ class Solution(object):
         self.helper(res, root.right, level + 1)
         self.helper(res, root.left, level + 1)
 
+# 2020/04/22, standard BFS
+
+'''
+Runtime: 28 ms, faster than 84.13% of Python3 online submissions for Binary Tree Right Side View.
+Memory Usage: 13.8 MB, less than 5.26% of Python3 online submissions for Binary Tree Right Side View.
+'''
+
+class Solution:
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        if not root: return []
+        q = collections.deque([root])
+        res = []
+        while q:
+            size = len(q)
+            res.append(q[-1].val)
+            for _ in range(size):
+                front = q.popleft()
+                if front.left: q.append(front.left)
+                if front.right: q.append(front.right)
+        return res
