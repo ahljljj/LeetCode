@@ -93,3 +93,26 @@ public:
         dfs(root->right, maxDepth, res, depth + 1);
     }
 };
+
+
+/*2020/04/22, bfs
+
+Runtime: 44 ms, faster than 58.77% of Python3 online submissions for Find Bottom Left Tree Value.
+Memory Usage: 16.2 MB, less than 33.33% of Python3 online submissions for Find Bottom Left Tree Value.
+
+
+class Solution:
+    def findBottomLeftValue(self, root: TreeNode) -> int:
+        q = collections.deque([root])
+        res = None
+        while q:
+            size = len(q)
+            for i in range(size):
+                front = q.popleft()
+                if i == 0: res = front.val
+                if front.left: q.append(front.left)
+                if front.right: q.append(front.right)
+        return res
+
+
+*/
