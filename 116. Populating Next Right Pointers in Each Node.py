@@ -96,6 +96,28 @@ class Solution:
             if curr.left: q.append(curr.left)
             if curr.right: q.append(curr.right)
 
+# 2020/04/23,  bfs, not constant space
+
+'''
+Runtime: 56 ms, faster than 96.11% of Python3 online submissions for Populating Next Right Pointers in Each Node.
+Memory Usage: 15.2 MB, less than 100.00% of Python3 online submissions for Populating Next Right Pointers in Each Node.
+'''
+
+
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        if not root: return root
+        q = collections.deque([root])
+        while q:
+            size = len(q)
+            for i in range(size):
+                front = q.popleft()
+                if i < size - 1:
+                    front.next = q[0]
+                if front.left: q.append(front.left)
+                if front.right: q.append(front.right)
+        return root
+
 
 
 
