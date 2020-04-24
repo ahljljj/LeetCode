@@ -62,3 +62,24 @@ class Solution:
             layer = tmp
 
         return
+
+# 2020/04/24, bfs, too simple but with extra space
+
+'''
+Runtime: 48 ms, faster than 73.12% of Python3 online submissions for Populating Next Right Pointers in Each Node II.
+Memory Usage: 14.7 MB, less than 100.00% of Python3 online submissions for Populating Next Right Pointers in Each Node II.
+'''
+
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        if not root: return root
+        q = collections.deque([root])
+        while q:
+            size = len(q)
+            for i in range(size):
+                front = q.popleft()
+                if i < size - 1:
+                    front.next = q[0]
+                if front.left: q.append(front.left)
+                if front.right: q.append(front.right)
+        return root
