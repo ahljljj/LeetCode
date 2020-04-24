@@ -84,3 +84,35 @@ class Solution:
 
 
 */
+
+
+/*
+2020/04/23, dfs
+
+Runtime: 36 ms, faster than 99.12% of Python3 online submissions for Find Largest Value in Each Tree Row.
+Memory Usage: 16.4 MB, less than 20.00% of Python3 online submissions for Find Largest Value in Each Tree Row.
+
+
+class Solution:
+    def largestValues(self, root: TreeNode) -> List[int]:
+        level_tree = []
+        self.dfs(root, level_tree, 0)
+        res = []
+        for level in level_tree:
+            res.append(max(level))
+        return res
+
+    def dfs(self, root, level, depth):
+        if not root: return
+        if len(level) <= depth:
+            level.append([root.val])
+        else:
+            level[depth].append(root.val)
+        self.dfs(root.left, level, depth + 1)
+        self.dfs(root.right, level, depth + 1)
+
+
+
+
+
+*/
