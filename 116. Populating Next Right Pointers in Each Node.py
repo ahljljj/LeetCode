@@ -118,6 +118,26 @@ class Solution:
                 if front.right: q.append(front.right)
         return root
 
+# 2020/04/24, dfs
+
+'''
+Runtime: 68 ms, faster than 45.82% of Python3 online submissions for Populating Next Right Pointers in Each Node.
+Memory Usage: 15.3 MB, less than 57.14% of Python3 online submissions for Populating Next Right Pointers in Each Node.
+'''
+
+
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        self.dfs(root)
+        return root
+
+    def dfs(self, root):
+        if not root: return
+        if root.left: root.left.next = root.right
+        if root.right and root.next:
+            root.right.next = root.next.left
+        self.dfs(root.left)
+        self.dfs(root.right)
 
 
 
