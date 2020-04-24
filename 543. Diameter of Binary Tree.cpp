@@ -76,3 +76,35 @@ public:
         return max(left, right) + 1;
     }
 };
+
+
+/*
+2020/04/23, too complicated
+
+Runtime: 44 ms, faster than 71.85% of Python3 online submissions for Diameter of Binary Tree.
+Memory Usage: 15.7 MB, less than 58.62% of Python3 online submissions for Diameter of Binary Tree.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        if not root: return 0
+        _, _, res = self.div_conq(root)
+        return res
+
+    def div_conq(self, root):
+        if not root: return -1, -1, -1
+        left_root_max, left_path_max, left_max = self.div_conq(root.left)
+        right_root_max, right_path_max, right_max = self.div_conq(root.right)
+        curr_root_max = 1 + max(left_root_max, right_root_max)
+        curr_path_max = 2 + left_root_max + right_root_max
+        curr_max = max([left_max, right_max, curr_path_max])
+        return curr_root_max, curr_path_max, curr_max
+
+
+*/
