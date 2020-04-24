@@ -49,3 +49,38 @@ public:
         return res;
     }
 };
+
+
+/*
+2020/04/23, bfs, simple
+
+Runtime: 48 ms, faster than 59.09% of Python3 online submissions for Find Largest Value in Each Tree Row.
+Memory Usage: 15.9 MB, less than 20.00% of Python3 online submissions for Find Largest Value in Each Tree Row.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def largestValues(self, root: TreeNode) -> List[int]:
+        if not root: return []
+        q = collections.deque([root])
+        res = []
+        while q:
+            size = len(q)
+            max_val = -float("inf")
+            for _ in range(size):
+                front = q.popleft()
+                max_val = max(max_val, front.val)
+                if front.left: q.append(front.left)
+                if front.right: q.append(front.right)
+            res.append(max_val)
+        return res
+
+
+
+
+*/
