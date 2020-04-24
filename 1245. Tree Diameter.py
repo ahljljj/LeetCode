@@ -79,3 +79,53 @@ class Solution:
         return m
 
 
+# 2020/04/23, first apply bfs to find one end of the longest path, then use dfs to find the longest path
+
+'''
+Runtime: 192 ms, faster than 60.90% of Python3 online submissions for Tree Diameter.
+Memory Usage: 18.9 MB, less than 100.00% of Python3 online submissions for Tree Diameter.
+'''
+
+
+class Solution:
+    def treeDiameter(self, edges: List[List[int]]) -> int:
+        graph = self.get_graph(edges)
+        root = self.bfs(graph, 0)
+        depth = self.dfs(graph, root, 0, set([root]))
+        return depth
+
+    def get_graph(self, edges):
+        m = {}
+        for u, v in edges:
+            if u not in m:
+                m[u] = set([v])
+            else:
+                m[u].add(v)
+            if v not in m:
+                m[v] = set([u])
+            else:
+                m[v].add(u)
+        return m
+
+    def bfs(self, graph, start):
+        q = collections.deque([start])
+        last = None
+        visited = set([start])
+        while q:
+            size = len(q)
+            for _ in range(size):
+                last = q.popleft()
+                for kid in graph[last]:
+                    if kid in visited: continue
+                    visited.add(kid)
+                    q.append(kid)
+        return last
+
+    def dfs(self, graph, root, depth, visited):
+        curr = depth
+        for kid in graph[root]:
+            if kid in visited: continue
+            visited.add(kid)
+            curr = max(curr, self.dfs(graph, kid, depth + 1, visited))
+        return curr
+
