@@ -55,24 +55,22 @@ class Solution:
         visited, border = set([(r0, c0)]), set()
         n, m = len(grid), len(grid[0])
         dirs = [(-1, 0), (1, 0), (0, 1), (0, -1)]
-        self.dfs(grid, n, m, dirs, r0, c0, color, visited, border)
-        if self.is_border(grid, n, m, dirs, r0, c0):
-            grid[r0][c0] = color
+        self.dfs(grid, n, m, dirs, r0, c0, visited, border)
         for i in range(n):
             for j in range(m):
                 if (i, j) in border:
                     grid[i][j] = color
         return grid
 
-    def dfs(self, matrix, n, m, dirs, i, j, color, visited, border):
+    def dfs(self, matrix, n, m, dirs, i, j, visited, border):
+        if self.is_border(matrix, n, m, dirs, i, j): border.add((i, j))
         for delta_i, delta_j in dirs:
             x, y = i + delta_i, j + delta_j
             if x < 0 or x >= n or y < 0 or y >= m or (x, y) in visited \
                     or matrix[x][y] != matrix[i][j]:
                 continue
             visited.add((x, y))
-            if self.is_border(matrix, n, m, dirs, x, y): border.add((x, y))
-            self.dfs(matrix, n, m, dirs, x, y, color, visited, border)
+            self.dfs(matrix, n, m, dirs, x, y, visited, border)
 
     def is_border(self, matrix, n, m, dirs, i, j):
         if i in (0, n - 1) or j in (0, m - 1):
