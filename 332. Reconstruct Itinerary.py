@@ -144,3 +144,49 @@ class Solution:
                 return self.res
             graph[start].append(end)
             tmp.pop()
+
+# 2020/04/24, dfs, too hard
+
+'''
+Runtime: 124 ms, faster than 13.23% of Python3 online submissions for Reconstruct Itinerary.
+Memory Usage: 13.9 MB, less than 7.69% of Python3 online submissions for Reconstruct Itinerary.
+'''
+
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        graph = self.get_graph(tickets)
+        n = len(tickets)
+        tickets_num = self.get_tickets_num(tickets)
+        self.res = []
+        self.dfs(graph, tickets_num, n, "JFK", ["JFK"], set())
+        return self.res
+
+    def get_graph(self, tickets):
+        m = collections.defaultdict(set)
+        for x, y in tickets:
+            m[x].add(y)
+        for x in m:
+            m[x] = sorted(list(m[x]))
+        return m
+
+    def get_tickets_num(self, tickets):
+        m = {}
+        for x, y in tickets:
+            m[(x, y)] = m.get((x, y), 0) + 1
+        return m
+
+    def dfs(self, graph, tickets, n, start, path, visited):
+        if self.res and path > self.res[:len(path)]:
+            return
+        if len(path) == n + 1:
+            if not self.res or (self.res and path < self.res):
+                self.res = path[:]
+            return
+        for nei in graph[start]:
+            if tickets[(start, nei)] < 1: continue
+            tickets[(start, nei)] -= 1
+            path.append(nei)
+            self.dfs(graph, tickets, n, nei, path, visited)
+            path.pop()
+            tickets[(start, nei)] += 1
+        return
