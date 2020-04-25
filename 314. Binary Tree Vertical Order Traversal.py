@@ -160,3 +160,30 @@ public:
 };
 
 '''
+
+# 2020/04/25, standard bfs
+
+'''
+Runtime: 32 ms, faster than 69.13% of Python3 online submissions for Binary Tree Vertical Order Traversal.
+Memory Usage: 13.8 MB, less than 14.29% of Python3 online submissions for Binary Tree Vertical Order Traversal.
+'''
+
+
+class Solution:
+    def verticalOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root: return []
+        cols = [[] for _ in range(100)]
+        col = 50
+        q = collections.deque([(root, col)])
+        while q:
+            size = len(q)
+            for _ in range(size):
+                node, col = q.popleft()
+                cols[col].append(node.val)
+                if node.left: q.append((node.left, col - 1))
+                if node.right: q.append((node.right, col + 1))
+        res = []
+        for col in cols:
+            if not col: continue
+            res.append(col)
+        return res
