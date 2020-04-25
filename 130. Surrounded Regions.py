@@ -152,3 +152,41 @@ public:
 };
 
 '''
+
+# 2020/04/24, bfs, not hard
+
+'''
+Runtime: 152 ms, faster than 40.94% of Python3 online submissions for Surrounded Regions.
+Memory Usage: 14.9 MB, less than 40.00% of Python3 online submissions for Surrounded Regions.
+'''
+
+
+class Solution:
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        if not board: return
+        n, m = len(board), len(board[0])
+        start = []
+        for i in range(n):
+            for j in range(m):
+                if (i == 0 or i == n - 1 or j == 0 or j == m - 1) \
+                and board[i][j] == 'O':
+                    start.append((i, j))
+        q = collections.deque(start)
+        visited = set(start)
+        dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        while q:
+            x, y = q.popleft()
+            for delta_x, delta_y in dirs:
+                nx, ny = x + delta_x, y + delta_y
+                if nx < 0 or nx >= n or ny < 0 or ny >= m\
+                or board[nx][ny] != 'O' or (nx, ny) in visited:
+                    continue
+                q.append((nx, ny))
+                visited.add((nx, ny))
+        for i in range(n):
+            for j in range(m):
+                if board[i][j] == 'O' and (i, j) not in visited:
+                    board[i][j] = 'X'
