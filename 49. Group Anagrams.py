@@ -121,3 +121,23 @@ public:
     }
 };
 '''
+
+
+# 2020/04/29, hashtable
+
+'''
+Runtime: 108 ms, faster than 61.93% of Python3 online submissions for Group Anagrams.
+Memory Usage: 17.5 MB, less than 30.19% of Python3 online submissions for Group Anagrams.
+'''
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        key_to_sorted = collections.defaultdict(list)
+        for str in strs:
+            key = tuple(sorted(str))
+            key_to_sorted[key].append(str)
+        res = []
+        for _, sublist in key_to_sorted.items():
+            res.append(sublist)
+        return res
+

@@ -72,3 +72,40 @@ public:
     }
 };
 '''
+
+
+# 2020/04/29, similar to lc 133
+
+'''
+Runtime: 36 ms, faster than 60.71% of Python3 online submissions for Copy List with Random Pointer.
+Memory Usage: 14.2 MB, less than 100.00% of Python3 online submissions for Copy List with Random Pointer.
+'''
+
+
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+
+
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        if not head: return None
+        copy = self.make_copy(head)
+        dummy = head
+        while head:
+            if head.random: copy[head].random = copy[head.random]
+            if head.next: copy[head].next = copy[head.next]
+            head = head.next
+        return copy[dummy]
+
+    def make_copy(self, head):
+        m = {}
+        while head:
+            m[head] = Node(head.val)
+            head = head.next
+        return m
