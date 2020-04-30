@@ -105,3 +105,22 @@ class Solution:
         return res
 
 '''
+
+# 2020/04/30, min heap
+
+'''
+Runtime: 196 ms, faster than 40.87% of Python3 online submissions for Ugly Number II.
+Memory Usage: 14 MB, less than 20.00% of Python3 online submissions for Ugly Number II.
+'''
+
+class Solution:
+    def nthUglyNumber(self, n: int) -> int:
+        heap = [1]
+        visited = set([1])
+        for _ in range(n):
+            top = heapq.heappop(heap)
+            for factor in [2, 3, 5]:
+                if top * factor not in visited:
+                    heapq.heappush(heap, top * factor)
+                    visited.add(top * factor)
+        return top
