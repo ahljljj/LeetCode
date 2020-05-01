@@ -51,3 +51,25 @@ class Solution:
         for i in range(K):
             res.append(points[i])
         return res
+
+
+# 2020/04/30, heap
+
+'''
+Runtime: 728 ms, faster than 53.69% of Python3 online submissions for K Closest Points to Origin.
+Memory Usage: 19.8 MB, less than 5.80% of Python3 online submissions for K Closest Points to Origin.
+'''
+
+
+class Solution:
+    def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
+        heap = []
+        for x, y in points:
+            heapq.heappush(heap, (-x*x - y*y, x, y))
+            if len(heap) > K:
+                heapq.heappop(heap)
+        res = []
+        while heap:
+            _, x, y = heapq.heappop(heap)
+            res.append([x, y])
+        return res
