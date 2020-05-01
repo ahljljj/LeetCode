@@ -144,3 +144,24 @@ public:
     }
 };
 '''
+
+# 2020/05/01, hashtable + min heap
+'''
+Runtime: 116 ms, faster than 22.98% of Python3 online submissions for Top K Frequent Elements.
+Memory Usage: 18.2 MB, less than 6.25% of Python3 online submissions for Top K Frequent Elements.
+'''
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        m = {}
+        for num in nums:
+            m[num] = m.get(num, 0) + 1
+        heap = []
+        for num, freq in m.items():
+            heapq.heappush(heap, (freq, num))
+            if len(heap) > k:
+                heapq.heappop(heap)
+        res = []
+        for freq, num in heap:
+            res.append(num)
+        return res
