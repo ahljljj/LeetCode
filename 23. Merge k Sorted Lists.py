@@ -19,7 +19,8 @@ Submissions
 
 '''
 
-# 2020/05/01, heap
+# 2020/05/01, heap, AC, but not the right way to use heap
+# time complexity O(Nlg(N)), not necessary to use heap
 
 '''
 Runtime: 112 ms, faster than 60.66% of Python3 online submissions for Merge k Sorted Lists.
