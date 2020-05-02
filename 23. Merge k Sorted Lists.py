@@ -74,3 +74,33 @@ class Solution:
                 heapq.heappush(heap, head.next)
         return dummy.next
 
+# 2020/05/02, bfs
+
+'''
+Runtime: 184 ms, faster than 25.83% of Python3 online submissions for Merge k Sorted Lists.
+Memory Usage: 17.7 MB, less than 12.12% of Python3 online submissions for Merge k Sorted Lists.
+'''
+
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        if not lists: return None
+        q = collections.deque(lists)
+        while len(q) > 1:
+            l1 = q.popleft()
+            l2 = q.popleft()
+            q.append(self.merge2lists(l1, l2))
+        return q[0]
+
+    def merge2lists(self, l1, l2):
+        dummy = head = ListNode(None)
+        while l1 and l2:
+            if l1.val < l2.val:
+                head.next = l1
+                l1 = l1.next
+            else:
+                head.next = l2
+                l2 = l2.next
+            head = head.next
+        if l1: head.next = l1
+        if l2: head.next = l2
+        return dummy.next
