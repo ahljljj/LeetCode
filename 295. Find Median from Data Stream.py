@@ -54,10 +54,10 @@ class MedianFinder:
     def addNum(self, num: int) -> None:
         median = self.findMedian()
         if median == None or num < median:
-            if len(self.left) > len(self.right):
+            heapq.heappush(self.left, -num)
+            if len(self.left) > len(self.right) + 1:
                 left_max = -heapq.heappop(self.left)
                 heapq.heappush(self.right, left_max)
-            heapq.heappush(self.left, -num)
             return
         heapq.heappush(self.right, num)
         if len(self.right) > len(self.left):
