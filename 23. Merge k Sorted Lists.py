@@ -49,3 +49,28 @@ class Solution:
             _, _, curr = heapq.heappop(heap)
         return head
 
+
+# 2020/05/02, heap O(Nlg(K))
+
+'''
+Runtime: 248 ms, faster than 16.72% of Python3 online submissions for Merge k Sorted Lists.
+Memory Usage: 17.4 MB, less than 18.18% of Python3 online submissions for Merge k Sorted Lists.
+'''
+
+ListNode.__lt__ = lambda x, y: (x.val < y.val)
+
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        dummy = head = ListNode(None)
+        heap = []
+        for l in lists:
+            if l:
+                heapq.heappush(heap, l)
+        while heap:
+            top = heapq.heappop(heap)
+            head.next = top
+            head = top
+            if head.next:
+                heapq.heappush(heap, head.next)
+        return dummy.next
+
