@@ -55,3 +55,34 @@ class Vector2D(object):
 # Your Vector2D object will be instantiated and called as such:
 # i, v = Vector2D(vec2d), []
 # while i.hasNext(): v.append(i.next())
+
+
+# 2020/05/03, two pointers
+
+'''
+Runtime: 92 ms, faster than 26.85% of Python3 online submissions for Flatten 2D Vector.
+Memory Usage: 19.5 MB, less than 12.50% of Python3 online submissions for Flatten 2D Vector.
+'''
+
+
+class Vector2D:
+
+    def __init__(self, v: List[List[int]]):
+        self.v = v
+        self.row = 0
+        self.col = 0
+
+    def to_next(self):
+        while self.row < len(self.v) and self.col == len(self.v[self.row]):
+            self.row += 1
+            self.col = 0
+
+    def next(self) -> int:
+        self.to_next()
+        res = self.v[self.row][self.col]
+        self.col += 1
+        return res
+
+    def hasNext(self) -> bool:
+        self.to_next()
+        return self.row < len(self.v)
