@@ -85,3 +85,38 @@ class WordDistance:
 # Your WordDistance object will be instantiated and called as such:
 # obj = WordDistance(words)
 # param_1 = obj.shortest(word1,word2)
+
+
+# 2020/05/03, hashtable + binary search
+# O(NlgN), not good
+
+'''
+Runtime: 104 ms, faster than 54.09% of Python3 online submissions for Shortest Word Distance II.
+Memory Usage: 21.3 MB, less than 50.00% of Python3 online submissions for Shortest Word Distance II.
+'''
+
+class WordDistance:
+
+    def __init__(self, words: List[str]):
+        self.m = collections.defaultdict(list)
+        for i, word in enumerate(words):
+            self.m[word].append(i)
+
+    def shortest(self, word1: str, word2: str) -> int:
+        l1, l2 = self.m[word1], self.m[word2]
+        res = float("inf")
+        for i in l1:
+            d = self.search(l2, i)
+            res = min(d, res)
+        return res
+
+    def search(self, nums, target):
+        l, r = 0, len(nums) - 1
+        while l + 1 < r:
+            m = (l + r) >> 1
+            if target < nums[m]:
+                r = m
+            else:
+                l = m
+        c1, c2 = abs(nums[l] - target), abs(nums[r] - target)
+        return c1 if c1 < c2 else c2
