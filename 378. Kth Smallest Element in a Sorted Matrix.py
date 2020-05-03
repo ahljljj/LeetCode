@@ -81,4 +81,24 @@ class Solution:
         return left
 
 
+# 2020/05/02, heap, o(klogn)
 
+'''
+Runtime: 224 ms, faster than 49.12% of Python3 online submissions for Kth Smallest Element in a Sorted Matrix.
+Memory Usage: 19.8 MB, less than 9.09% of Python3 online submissions for Kth Smallest Element in a Sorted Matrix.
+'''
+
+
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        heap = []
+        for i, row in enumerate(matrix):
+            heapq.heappush(heap, (row[0], i, 0))
+        order = 0
+        while order < k:
+            num, i, pos = heapq.heappop(heap)
+            pos += 1
+            if pos < len(matrix[i]):
+                heapq.heappush(heap, (matrix[i][pos], i, pos))
+            order += 1
+        return num
