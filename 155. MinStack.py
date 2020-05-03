@@ -93,3 +93,35 @@ class MinStack:
 
     def getMin(self) -> int:
         return self.min_heap[0]
+
+# 2020/05/02, two stack, optimize O(1)
+
+'''
+Runtime: 104 ms, faster than 31.09% of Python3 online submissions for Min Stack.
+Memory Usage: 17.4 MB, less than 5.36% of Python3 online submissions for Min Stack.
+'''
+
+class MinStack:
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.stack = []
+        self.mins = []
+
+    def push(self, x: int) -> None:
+        self.stack.append(x)
+        if not self.mins or x <= self.mins[-1]:
+            self.mins.append(x)
+
+    def pop(self) -> None:
+        top = self.stack.pop()
+        if top == self.mins[-1]:
+            self.mins.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.mins[-1]
