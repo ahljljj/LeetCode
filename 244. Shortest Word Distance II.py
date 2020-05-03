@@ -120,3 +120,30 @@ class WordDistance:
                 l = m
         c1, c2 = abs(nums[l] - target), abs(nums[r] - target)
         return c1 if c1 < c2 else c2
+
+# 2020/05/03, two pointers in same direction
+
+'''
+Runtime: 100 ms, faster than 76.52% of Python3 online submissions for Shortest Word Distance II.
+Memory Usage: 21.1 MB, less than 50.00% of Python3 online submissions for Shortest Word Distance II.
+'''
+
+
+class WordDistance:
+
+    def __init__(self, words: List[str]):
+        self.m = collections.defaultdict(list)
+        for i, word in enumerate(words):
+            self.m[word].append(i)
+
+    def shortest(self, word1: str, word2: str) -> int:
+        l1, l2 = self.m[word1], self.m[word2]
+        res = float("inf")
+        i1, i2 = 0, 0
+        while i1 < len(l1) and i2 < len(l2):
+            res = min(res, abs(l2[i2] - l1[i1]))
+            if l1[i1] < l2[i2]:
+                i1 += 1
+            else:
+                i2 += 1
+        return res
