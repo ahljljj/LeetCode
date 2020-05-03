@@ -62,3 +62,34 @@ class MinStack(object):
 # obj.pop()
 # param_3 = obj.top()
 # param_4 = obj.getMin()
+
+# 2020/05/02, heap + stack, not good, O(lgN)
+
+'''
+Runtime: 80 ms, faster than 33.74% of Python3 online submissions for Min Stack.
+Memory Usage: 17.6 MB, less than 5.36% of Python3 online submissions for Min Stack.
+'''
+
+class MinStack:
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.stack = []
+        self.min_heap = []
+
+    def push(self, x: int) -> None:
+        self.stack.append(x)
+        heapq.heappush(self.min_heap, x)
+
+    def pop(self) -> None:
+        top = self.stack.pop()
+        if top == self.min_heap[0]:
+            heapq.heappop(self.min_heap)
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.min_heap[0]
