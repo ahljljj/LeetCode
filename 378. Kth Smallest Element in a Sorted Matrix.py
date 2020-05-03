@@ -102,3 +102,29 @@ class Solution:
                 heapq.heappush(heap, (matrix[i][pos], i, pos))
             order += 1
         return num
+
+# 2020/03, binary search
+
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        n = len(matrix)
+        l, r = matrix[0][0], matrix[-1][-1]
+        while l < r:
+            m = (l + r) >> 1
+            # find # of element that larger than m
+            count = self.find_larger(matrix, m)
+            if count > n * n - k:
+                l = m + 1
+            else:
+                r = m
+        return l
+
+    def find_larger(self, matrix, target):
+        n = len(matrix)
+        res = 0
+        for i in range(n):
+            j = n - 1
+            while j > - 1 and matrix[i][j] > target:
+                j -= 1
+                res += 1
+        return res
