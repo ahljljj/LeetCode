@@ -220,3 +220,31 @@ public:
  * while (i.hasNext()) cout << i.next();
  */
 '''
+
+# 2020/05/04, initialize within the constructor
+
+'''
+Runtime: 68 ms, faster than 68.18% of Python3 online submissions for Flatten Nested List Iterator.
+Memory Usage: 17.3 MB, less than 100.00% of Python3 online submissions for Flatten Nested List Iterator.
+'''
+
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        self.list = []
+        self.make_list(nestedList, self.list)
+        self.pos = 0
+
+    def next(self) -> int:
+        res = self.list[self.pos]
+        self.pos += 1
+        return res
+
+    def hasNext(self) -> bool:
+        return self.pos < len(self.list)
+
+    def make_list(self, nested, res):
+        for inner_list in nested:
+            if inner_list.isInteger():
+                res.append(inner_list.getInteger())
+            else:
+                self.make_list(inner_list.getList(), res)
