@@ -248,3 +248,37 @@ class NestedIterator:
                 res.append(inner_list.getInteger())
             else:
                 self.make_list(inner_list.getList(), res)
+
+
+# 2020/05/04, stack
+
+'''
+Runtime: 80 ms, faster than 23.32% of Python3 online submissions for Flatten Nested List Iterator.
+Memory Usage: 17.5 MB, less than 100.00% of Python3 online submissions for Flatten Nested List Iterator.
+'''
+
+
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        self.iterator = []
+        for i in range(len(nestedList) - 1, -1, -1):
+            self.iterator.append(nestedList[i])
+
+    def next(self) -> int:
+        if self.adv_to_next():
+            return self.iterator.pop().getInteger()
+        return
+
+    def hasNext(self) -> bool:
+        return self.adv_to_next()
+
+    def adv_to_next(self):
+        while self.iterator:
+            top = self.iterator.pop()
+            if top.isInteger():
+                self.iterator.append(top)
+                return True
+            else:
+                for i in range(len(top.getList()) - 1, -1, -1):
+                    self.iterator.append(top.getList()[i])
+        return False
