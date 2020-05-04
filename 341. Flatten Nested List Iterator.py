@@ -221,7 +221,7 @@ public:
  */
 '''
 
-# 2020/05/04, initialize within the constructor
+# 2020/05/04, initialize within the constructor, not good
 
 '''
 Runtime: 68 ms, faster than 68.18% of Python3 online submissions for Flatten Nested List Iterator.
