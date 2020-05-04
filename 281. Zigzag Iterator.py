@@ -144,3 +144,27 @@ class ZigzagIterator:
 
     def hasNext(self) -> bool:
         return self.i1 < len(self.v1) or self.i2 < len(self.v2)
+
+# 2020/05/03, queue to deal with follow up
+
+'''
+Runtime: 52 ms, faster than 58.95% of Python3 online submissions for Zigzag Iterator.
+Memory Usage: 14.1 MB, less than 100.00% of Python3 online submissions for Zigzag Iterator.
+'''
+
+class ZigzagIterator:
+    def __init__(self, v1: List[int], v2: List[int]):
+        self.q = collections.deque()
+        if v1: self.q.append((v1, 0))
+        if v2: self.q.append((v2, 0))
+
+    def next(self) -> int:
+        nums, pos = self.q.popleft()
+        res = nums[pos]
+        pos += 1
+        if pos < len(nums):
+            self.q.append((nums, pos))
+        return res
+
+    def hasNext(self) -> bool:
+        return self.q
