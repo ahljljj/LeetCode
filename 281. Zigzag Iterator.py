@@ -114,3 +114,33 @@ public:
  */
 
 '''
+
+# 2020/05/03, two pointers on two arrays
+
+'''
+Runtime: 56 ms, faster than 31.58% of Python3 online submissions for Zigzag Iterator.
+Memory Usage: 14 MB, less than 100.00% of Python3 online submissions for Zigzag Iterator.
+'''
+
+
+class ZigzagIterator:
+    def __init__(self, v1: List[int], v2: List[int]):
+        self.v1 = v1
+        self.v2 = v2
+        self.is_first = True
+        self.i1 = 0
+        self.i2 = 0
+
+    def next(self) -> int:
+        if (self.is_first and self.i1 < len(self.v1)) or self.i2 == len(self.v2):
+            self.is_first = False
+            res = self.v1[self.i1]
+            self.i1 += 1
+            return res
+        self.is_first = True
+        res = self.v2[self.i2]
+        self.i2 += 1
+        return res
+
+    def hasNext(self) -> bool:
+        return self.i1 < len(self.v1) or self.i2 < len(self.v2)
