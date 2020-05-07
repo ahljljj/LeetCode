@@ -77,3 +77,46 @@ class NumArray:
 # obj = NumArray(nums)
 # obj.update(i,val)
 # param_2 = obj.sumRange(i,j)
+
+
+
+# 2020/05/07, binary indexed tree, too hard
+
+'''
+Runtime: 156 ms, faster than 79.38% of Python3 online submissions for Range Sum Query - Mutable.
+Memory Usage: 17.9 MB, less than 33.33% of Python3 online submissions for Range Sum Query - Mutable.
+'''
+
+
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.n = len(nums)
+        self.bit = [0] * (1 + self.n)
+        if not nums:
+            self.nums = []
+            return
+        self.nums = [0] * self.n
+        for i in range(self.n):
+            self.update(i, nums[i])
+
+    def update(self, i: int, val: int) -> None:
+        delta = val - self.nums[i]
+        self.nums[i] = val
+        p = i + 1
+        while p <= self.n:
+            self.bit[p] += delta
+            p += self.lowbit(p)
+
+    def lowbit(self, x):
+        return x & (-x)
+
+    def prefix_sum(self, i):
+        res = 0
+        while i > 0:
+            res += self.bit[i]
+            i -= self.lowbit(i)
+        return res
+
+    def sumRange(self, i: int, j: int) -> int:
+        return self.prefix_sum(j + 1) - self.prefix_sum(i)
