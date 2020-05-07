@@ -45,3 +45,21 @@ class NumArray:
 # Your NumArray object will be instantiated and called as such:
 # obj = NumArray(nums)
 # param_1 = obj.sumRange(i,j)
+
+
+# 2020/05/06, dynamic programming
+
+'''
+Runtime: 80 ms, faster than 76.93% of Python3 online submissions for Range Sum Query - Immutable.
+Memory Usage: 17.5 MB, less than 10.00% of Python3 online submissions for Range Sum Query - Immutable.
+'''
+
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.prefix_sum = [0] * (len(nums) + 1)
+        for i in range(len(nums)):
+            self.prefix_sum[i + 1] = self.prefix_sum[i] + nums[i]
+
+    def sumRange(self, i: int, j: int) -> int:
+        return self.prefix_sum[j + 1] - self.prefix_sum[i]

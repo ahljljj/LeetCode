@@ -92,4 +92,19 @@ public:
 
 '''
 
+# 2020/05/05, dp
+
+'''
+Runtime: 72 ms, faster than 26.78% of Python3 online submissions for Best Time to Buy and Sell Stock.
+Memory Usage: 15.1 MB, less than 5.75% of Python3 online submissions for Best Time to Buy and Sell Stock.
+'''
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        res = 0
+        curr_min = float("inf")
+        for i in range(1, len(prices)):
+            curr_min = min(curr_min, prices[i - 1])
+            res = max(res, prices[i] - curr_min)
+        return res
 
