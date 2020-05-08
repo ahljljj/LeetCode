@@ -56,3 +56,24 @@ class Solution:
                      
 
 '''
+
+
+# 2020/05/07, dynamic programming
+
+
+'''
+Runtime: 72 ms, faster than 34.99% of Python3 online submissions for Maximum Subarray.
+Memory Usage: 14.6 MB, less than 5.69% of Python3 online submissions for Maximum Subarray.
+'''
+
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        dp = [-float("inf")] * len(nums)
+        res = -float("inf")
+        for i in range(len(nums)):
+            if i == 0:
+                dp[i] = nums[i]
+            else:
+                dp[i] = nums[i] if dp[i-1] < 0 else nums[i] + dp[i - 1]
+            res = max(res, dp[i])
+        return res
