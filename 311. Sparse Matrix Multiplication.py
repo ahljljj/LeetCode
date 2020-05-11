@@ -101,3 +101,48 @@ public:
 };
 
 '''
+
+# 2020/05/11, hashmap
+
+'''
+Runtime: 60 ms, faster than 65.30% of Python3 online submissions for Sparse Matrix Multiplication.
+Memory Usage: 14.2 MB, less than 100.00% of Python3 online submissions for Sparse Matrix Multiplication.
+'''
+
+
+class Solution:
+    def multiply(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
+        n = len(A)
+        k, m = len(B), len(B[0])
+        res = [[0] * m for _ in range(n)]
+        m_A = self.make_row_vec(A)
+        m_B = self.make_col_vec(B)
+        for i in range(n):
+            for j in range(m):
+                res[i][j] = self.vec_prod(m_A[i], m_B[j])
+        return res
+
+    def make_row_vec(self, matrix):
+        n, m = len(matrix), len(matrix[0])
+        res = [{} for _ in range(n)]
+        for i in range(n):
+            for j in range(m):
+                if matrix[i][j]:
+                    res[i][j] = matrix[i][j]
+        return res
+
+    def make_col_vec(self, matrix):
+        n, m = len(matrix), len(matrix[0])
+        res = [{} for _ in range(n)]
+        for i in range(n):
+            for j in range(m):
+                if matrix[i][j]:
+                    res[j][i] = matrix[i][j]
+        return res
+
+    def vec_prod(self, x, y):
+        res = 0
+        for n in x:
+            if n in y:
+                res += x[n] * y[n]
+        return res
