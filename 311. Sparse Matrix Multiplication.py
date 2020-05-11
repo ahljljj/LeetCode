@@ -146,3 +146,59 @@ class Solution:
             if n in y:
                 res += x[n] * y[n]
         return res
+
+
+# 2020/05/11, no hashtable
+
+'''
+Runtime: 60 ms, faster than 65.30% of Python3 online submissions for Sparse Matrix Multiplication.
+Memory Usage: 13.9 MB, less than 100.00% of Python3 online submissions for Sparse Matrix Multiplication.
+'''
+
+class Solution:
+    def multiply(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
+        n = len(A)
+        k, m = len(B), len(B[0])
+        res = [[0] * m for _ in range(n)]
+        rows_A = self.make_row_vec(A)
+        cols_B = self.make_col_vec(B)
+        for i in range(n):
+            for j in range(m):
+                res[i][j] = self.vec_prod(rows_A[i], cols_B[j])
+        return res
+
+    def make_row_vec(self, matrix):
+        n, m = len(matrix), len(matrix[0])
+        res = []
+        for i in range(n):
+            row = []
+            for j in range(m):
+                if matrix[i][j]:
+                    row.append((j, matrix[i][j]))
+            res.append(row)
+        return res
+
+    def make_col_vec(self, matrix):
+        n, m = len(matrix), len(matrix[0])
+        res = []
+        for j in range(m):
+            col = []
+            for i in range(n):
+                if matrix[i][j]:
+                    col.append((i, matrix[i][j]))
+            res.append(col)
+        return res
+
+    def vec_prod(self, x, y):
+        res = 0
+        i1, i2 = 0, 0
+        while i1 < len(x) and i2 < len(y):
+            if x[i1][0] < y[i2][0]:
+                i1 += 1
+            elif x[i1][0] > y[i2][0]:
+                i2 += 1
+            else:
+                res += x[i1][1] * y[i2][1]
+                i1 += 1;
+                i2 += 1
+        return res
