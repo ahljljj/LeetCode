@@ -176,5 +176,35 @@ class Solution:
                 max_count -= 1
         return res
 
+# 2020/05/12, dp, use kids array to record the path
+
+'''
+Runtime: 408 ms, faster than 74.70% of Python3 online submissions for Largest Divisible Subset.
+Memory Usage: 13.9 MB, less than 20.00% of Python3 online submissions for Largest Divisible Subset.
+'''
+
+
+class Solution:
+    def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
+        nums.sort()
+        dp = [1] * len(nums)
+        kids = [None] * len(nums)
+        for i in range(len(nums)):
+            for j in range(i):
+                if nums[i] % nums[j] == 0 and dp[i] < dp[j] + 1:
+                    dp[i] = dp[j] + 1
+                    kids[i] = j
+        max_count, max_idx = 0, -1
+        for i in range(len(dp)):
+            if dp[i] > max_count:
+                max_count = dp[i]
+                max_idx = i
+        res = []
+        i = max_idx
+        while i != None and i > -1:
+            res.append(nums[i])
+            i = kids[i]
+        return res
+
 
 
