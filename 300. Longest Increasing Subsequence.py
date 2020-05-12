@@ -128,7 +128,6 @@ class Solution:
         dp = []
         for num in nums:
             self.search(dp, num)
-        print(dp)
         return len(dp)
 
     def search(self, dp, num):
