@@ -149,4 +149,32 @@ class Solution:
         return res
 
 
+# 2020/05/12, dp, similar to the above solution
+
+'''
+Runtime: 444 ms, faster than 39.36% of Python3 online submissions for Largest Divisible Subset.
+Memory Usage: 14 MB, less than 20.00% of Python3 online submissions for Largest Divisible Subset.
+'''
+
+class Solution:
+    def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
+        nums.sort()
+        dp = [1] * len(nums)
+        for i in range(len(nums)):
+            for j in range(i):
+                if nums[i] % nums[j] == 0:
+                    dp[i] = max(dp[i], dp[j] + 1)
+        max_count, max_idx = 0, -1
+        for i in range(len(dp)):
+            if dp[i] > max_count:
+                max_count = dp[i]
+                max_idx = i
+        res = []
+        for i in range(max_idx, -1, -1):
+            if nums[max_idx] % nums[i] == 0 and dp[i] == max_count:
+                res.append(nums[i])
+                max_count -= 1
+        return res
+
+
 
