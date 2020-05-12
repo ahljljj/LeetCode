@@ -121,3 +121,23 @@ class Solution:
             if i + nums[i] >= last_good:
                 last_good = i
         return last_good == 0
+
+
+# 2020/05/12, dp or greedy? maximal jump capacity
+
+'''
+
+Runtime: 100 ms, faster than 29.31% of Python3 online submissions for Jump Game.
+Memory Usage: 15.7 MB, less than 7.14% of Python3 online submissions for Jump Game.'''
+
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        if len(nums) == 1: return True
+        reach = 0
+        for i in range(len(nums)):
+            if reach >= len(nums) - 1:
+                return True
+            if reach < i:
+                return False
+            reach = max(reach, i + nums[i])
+        return False
