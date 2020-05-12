@@ -93,3 +93,24 @@ class Solution:
                 l = m
         if dummy[r] >= target: return r
         if dummy[l] >= target: return l
+
+# 2020/05/12, dp
+
+'''
+Runtime: 1272 ms, faster than 20.34% of Python3 online submissions for Longest Increasing Subsequence.
+Memory Usage: 14 MB, less than 5.13% of Python3 online submissions for Longest Increasing Subsequence.
+'''
+
+
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        if not nums: return 0
+        dp = [1] * len(nums)
+        for i in range(len(nums)):
+            if i == 0:
+                dp[i] = 1
+                continue
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[i], dp[j] + 1)
+        return max(dp)
