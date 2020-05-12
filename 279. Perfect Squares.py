@@ -141,3 +141,27 @@ class Solution:
 
 
 '''
+
+
+# 2020/05/12, dp, too clever
+
+'''
+Runtime: 4432 ms, faster than 42.55% of Python3 online submissions for Perfect Squares.
+Memory Usage: 13.8 MB, less than 60.00% of Python3 online submissions for Perfect Squares.
+'''
+
+
+class Solution:
+    def numSquares(self, n: int) -> int:
+        dp = [float("inf")] * (n + 1)
+        squares = []
+        x = 1
+        dp[0] = 0
+        while x * x <= n:
+            squares.append(x * x)
+            x += 1
+        for i in range(1, n + 1):
+            for square in squares:
+                if i < square: break
+                dp[i] = min(dp[i], 1 + dp[i - square])
+        return dp[n]

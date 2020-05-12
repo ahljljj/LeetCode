@@ -92,3 +92,14 @@ public:
     }
 };
 '''
+
+# 2020/05/12, dp, tle
+
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        n = len(nums)
+        dp = [None] * n
+        dp[n-1] = True
+        for i in range(n - 2, -1, -1):
+            dp[i] = any([dp[1+i+j] for j in range(nums[i]) if 1 + i + j < n])
+        return dp[0]
