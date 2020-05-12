@@ -83,3 +83,31 @@ class Solution:
                 else:
                     res[i][j] = None
         return res[n - 1][m - 1] if res[n - 1][m - 1] != None else 0
+
+
+# 2020/05/12, dp
+
+'''
+Runtime: 36 ms, faster than 98.07% of Python3 online submissions for Unique Paths II.
+Memory Usage: 13.8 MB, less than 8.89% of Python3 online submissions for Unique Paths II.
+'''
+
+
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        n, m = len(obstacleGrid), len(obstacleGrid[0])
+        dp = [[0] * m for _ in range(n)]
+        for i in range(n):
+            if obstacleGrid[i][0] == 1:
+                break
+            dp[i][0] = 1
+        for j in range(m):
+            if obstacleGrid[0][j] == 1:
+                break
+            dp[0][j] = 1
+        for i in range(1, n):
+            for j in range(1, m):
+                if obstacleGrid[i][j] == 1:
+                    continue
+                dp[i][j] = dp[i-1][j] + dp[i][j-1]
+        return dp[n-1][m-1]
