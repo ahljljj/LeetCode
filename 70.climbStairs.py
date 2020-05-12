@@ -74,3 +74,20 @@ public:
     }
 };
 '''
+
+
+# 2020/05/12, dp
+
+'''
+Runtime: 32 ms, faster than 38.94% of Python3 online submissions for Climbing Stairs.
+Memory Usage: 13.9 MB, less than 5.97% of Python3 online submissions for Climbing Stairs.
+'''
+
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n <= 2: return n
+        dp = [0] * n
+        dp[0], dp[1] = 1, 2
+        for k in range(2, n):
+            dp[k] = dp[k-1] + dp[k-2]
+        return dp[n-1]
