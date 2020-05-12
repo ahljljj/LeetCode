@@ -114,3 +114,38 @@ class Solution:
                 if nums[i] > nums[j]:
                     dp[i] = max(dp[i], dp[j] + 1)
         return max(dp)
+
+# 2020/05/12, binary search, O(nlgn), too clever
+
+'''
+Runtime: 36 ms, faster than 96.12% of Python3 online submissions for Longest Increasing Subsequence.
+Memory Usage: 14.1 MB, less than 5.13% of Python3 online submissions for Longest Increasing Subsequence.
+'''
+
+
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = []
+        for num in nums:
+            self.search(dp, num)
+        print(dp)
+        return len(dp)
+
+    def search(self, dp, num):
+        if not dp or num > dp[-1]:
+            dp.append(num)
+            return
+        if num <= dp[0]:
+            dp[0] = num
+            return
+        l, r = 0, len(dp) - 1
+        while l + 1 < r:
+            m = (l + r) >> 1
+            if dp[m] < num:
+                l = m
+            else:
+                r = m
+        if dp[l] > num:
+            dp[l] = num
+        else:
+            dp[r] = num
