@@ -103,3 +103,21 @@ class Solution:
         for i in range(n - 2, -1, -1):
             dp[i] = any([dp[1+i+j] for j in range(nums[i]) if 1 + i + j < n])
         return dp[0]
+
+
+# 2020/05/12, greedy , too clever
+
+
+'''
+Runtime: 88 ms, faster than 77.98% of Python3 online submissions for Jump Game.
+Memory Usage: 15.9 MB, less than 7.14% of Python3 online submissions for Jump Game.
+'''
+
+
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        last_good = len(nums) - 1
+        for i in range(len(nums) - 1, -1, -1):
+            if i + nums[i] >= last_good:
+                last_good = i
+        return last_good == 0
