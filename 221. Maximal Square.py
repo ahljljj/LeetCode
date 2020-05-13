@@ -78,3 +78,28 @@ public:
 };
 '''
 
+
+# 2020/05/13, 2d dp
+
+'''
+Runtime: 196 ms, faster than 84.07% of Python3 online submissions for Maximal Square.
+Memory Usage: 14.7 MB, less than 9.09% of Python3 online submissions for Maximal Square.
+'''
+
+class Solution:
+    def maximalSquare(self, matrix: List[List[str]]) -> int:
+        if not matrix: return 0
+        n, m = len(matrix), len(matrix[0])
+        dp = [[0] * m for _ in range(n)]
+        max_side = 0
+        for i in range(n):
+            dp[i][0] = int(matrix[i][0])
+        for j in range(m):
+            dp[0][j] = int(matrix[0][j])
+        for i in range(1, n):
+            for j in range(1, m):
+                dp[i][j] = int(matrix[i][j])
+                if not dp[i][j]: continue
+                dp[i][j] += min([dp[i-1][j-1], dp[i-1][j], dp[i][j-1]])
+        return max([max(row) for row in dp]) ** 2
+

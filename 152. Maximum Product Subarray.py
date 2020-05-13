@@ -49,3 +49,22 @@ public:
     }
 };
 '''
+
+
+# 2020/05/13, two dp arrays
+
+'''
+Runtime: 60 ms, faster than 39.88% of Python3 online submissions for Maximum Product Subarray.
+Memory Usage: 15 MB, less than 6.90% of Python3 online submissions for Maximum Product Subarray.
+'''
+
+
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        dp_max, dp_min = [nums[0]], [nums[0]]
+        for i in range(1, len(nums)):
+            curr_max = max([nums[i], nums[i] * dp_max[i-1], nums[i] * dp_min[i-1]])
+            curr_min = min([nums[i], nums[i] * dp_max[i-1], nums[i] * dp_min[i-1]])
+            dp_max.append(curr_max)
+            dp_min.append(curr_min)
+        return max(dp_max)
