@@ -165,3 +165,26 @@ class Solution:
         return s == s[::-1]
 
 '''
+
+# 2020/05/12, 2d- dp, too hard
+
+'''
+Runtime: 3012 ms, faster than 37.45% of Python3 online submissions for Longest Palindromic Substring.
+Memory Usage: 21.5 MB, less than 9.25% of Python3 online submissions for Longest Palindromic Substring.
+'''
+
+
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
+        max_len, left = 1, 0
+        for i in range(n):
+            dp[i][i] = True
+            for j in range(i):
+                if (s[i] == s[j]) and (i-j < 2 or dp[i-1][j+1]):
+                    dp[i][j] = True
+                if dp[i][j] and i-j+1 > max_len:
+                    left = j
+                    max_len = i-j+1
+        return s[left : left + max_len]
