@@ -52,3 +52,26 @@ class Solution(object):
             second = second.next
         second.next = second.next.next
         return dummy.next
+
+
+# 2020/05/22, two pointer
+
+'''
+Runtime: 60 ms, faster than 5.69% of Python3 online submissions for Remove Nth Node From End of List.
+Memory Usage: 13.7 MB, less than 6.06% of Python3 online submissions for Remove Nth Node From End of List.
+'''
+
+
+class Solution:
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        dummy = ListNode(None)
+        dummy.next = head
+        fast = slow = dummy
+        for i in range(n):
+            fast = fast.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next
+        node = slow.next
+        slow.next = node.next
+        return dummy.next
