@@ -70,3 +70,24 @@ class Solution:
                 l += 1
             res = max(res, r - l + 1)
         return res
+
+
+# 2020/05/21, sliding window
+'''
+Runtime: 72 ms, faster than 50.93% of Python3 online submissions for Longest Substring Without Repeating Characters.
+Memory Usage: 13.9 MB, less than 5.10% of Python3 online submissions for Longest Substring Without Repeating Characters.
+'''
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        m = [0] * 256
+        l, r = 0, 0
+        res = 0
+        for r in range(len(s)):
+            pos = ord(s[r])
+            m[pos] += 1
+            while l <= r and m[pos] > 1:
+                m[ord(s[l])] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+        return res
