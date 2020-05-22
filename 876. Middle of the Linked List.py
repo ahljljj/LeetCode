@@ -42,10 +42,8 @@ Memory Usage: 14 MB, less than 7.14% of Python3 online submissions for Middle of
 #         self.next = next
 class Solution:
     def middleNode(self, head: ListNode) -> ListNode:
-        dummy = ListNode(None)
-        dummy.next = head
-        slow = fast = dummy
-        while fast and fast.next and fast.next.next:
+        slow = fast = head
+        while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        return slow.next
+        return slow
