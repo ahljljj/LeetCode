@@ -171,3 +171,58 @@ public:
  * bool param_3 = obj.startsWith(prefix);
  */
 '''
+
+
+# 2020/06/04, prefix/hash table
+
+
+'''
+Runtime: 180 ms, faster than 70.05% of Python3 online submissions for Implement Trie (Prefix Tree).
+Memory Usage: 31.2 MB, less than 11.11% of Python3 online submissions for Implement Trie (Prefix Tree).
+'''
+
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_word = False
+
+
+class Trie:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        """
+        Inserts a word into the trie.
+        """
+        node = self.root
+        for w in word:
+            if w not in node.children:
+                node.children[w] = TrieNode()
+            node = node.children[w]
+        node.is_word = True
+
+    def find(self, word):
+        node = self.root
+        for w in word:
+            node = node.children.get(w, None)
+            if not node: return None
+        return node
+
+    def search(self, word: str) -> bool:
+        """
+        Returns if the word is in the trie.
+        """
+        node = self.find(word)
+        return node and node.is_word
+
+    def startsWith(self, prefix: str) -> bool:
+        """
+        Returns if there is any word in the trie that starts with the given prefix.
+        """
+        return self.find(prefix)
