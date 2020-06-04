@@ -268,3 +268,16 @@ class Trie:
             if not node:
                 return None
         return node
+
+    def search(self, word: str) -> bool:
+        """
+        Returns if the word is in the trie.
+        """
+        node = self.find(word)
+        return node and node.is_word
+
+    def startsWith(self, prefix: str) -> bool:
+        """
+        Returns if there is any word in the trie that starts with the given prefix.
+        """
+        return self.find(prefix)
