@@ -226,3 +226,45 @@ class Trie:
         Returns if there is any word in the trie that starts with the given prefix.
         """
         return self.find(prefix)
+
+# 2020/06/04, prefix/array
+
+
+'''
+Runtime: 248 ms, faster than 27.32% of Python3 online submissions for Implement Trie (Prefix Tree).
+Memory Usage: 32.9 MB, less than 7.41% of Python3 online submissions for Implement Trie (Prefix Tree).
+'''
+
+
+class TrieNode:
+    def __init__(self):
+        self.children = [None] * 26
+        self.is_word = False
+
+
+class Trie:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        """
+        Inserts a word into the trie.
+        """
+        node = self.root
+        for c in word:
+            if not node.children[ord(c) - ord('a')]:
+                node.children[ord(c) - ord('a')] = TrieNode()
+            node = node.children[ord(c) - ord('a')]
+        node.is_word = True
+
+    def find(self, word):
+        node = self.root
+        for c in word:
+            node = node.children[ord(c) - ord('a')]
+            if not node:
+                return None
+        return node
