@@ -80,3 +80,56 @@ class WordDictionary(object):
 # obj = WordDictionary()
 # obj.addWord(word)
 # param_2 = obj.search(word)
+
+# 2020/06/04, trie, hashtable
+
+
+'''
+
+Runtime: 336 ms, faster than 70.68% of Python3 online submissions for Add and Search Word - Data structure design.
+Memory Usage: 28.3 MB, less than 8.70% of Python3 online submissions for Add and Search Word - Data structure design.
+'''
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_word = False
+
+
+class WordDictionary:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.root = TrieNode()
+
+    def addWord(self, word: str) -> None:
+        """
+        Adds a word into the data structure.
+        """
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                node.children[c] = TrieNode()
+            node = node.children[c]
+        node.is_word = True
+
+    def search(self, word: str) -> bool:
+        """
+        Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter.
+        """
+        return self.dfs(word, self.root, 0)
+
+    def dfs(self, word, node, pos):
+        if pos == len(word):
+            return node.is_word
+        if word[pos] != '.':
+            node = node.children.get(word[pos], None)
+            if not node: return False
+            return self.dfs(word, node, pos + 1)
+        else:
+            for son in node.children:
+                if self.dfs(word, node.children[son], pos + 1):
+                    return True
+        return False
