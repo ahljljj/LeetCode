@@ -94,3 +94,60 @@ class UnionFind:
             self.parents[rootY] = rootX
             self.size[rootX] += self.size[rootY]
 
+# 2020/06/03, union find, slight different
+
+'''
+Runtime: 264 ms, faster than 46.51% of Python3 online submissions for Accounts Merge.
+Memory Usage: 17.7 MB, less than 88.89% of Python3 online submissions for Accounts Merge.
+'''
+
+
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        emails, names = set(), {}
+        for acct in accounts:
+            for i in range(1, len(acct)):
+                emails.add(acct[i])
+                names[acct[i]] = acct[0]
+        union_find = UnionFind(emails)
+        for acct in accounts:
+            for i in range(1, len(acct) - 1):
+                union_find.union(acct[i], acct[i + 1])
+        connect_emails = collections.defaultdict(list)
+        for email in emails:
+            root = union_find.find(email)
+            connect_emails[root].append(email)
+        ans = []
+        for root in connect_emails:
+            ans.append(sorted([names[root]] + connect_emails[root]))
+        return ans
+
+
+class UnionFind:
+    def __init__(self, nodes):
+        self.parents = {node: node for node in nodes}
+        self.size = {node: 1 for node in nodes}
+
+    def find(self, x):
+        root = x
+        while root != self.parents[root]:
+            root = self.parents[root]
+        while root != x:
+            old_root = self.parents[x]
+            self.parents[x] = root
+            x = old_root
+        return root
+
+    def union(self, x, y):
+        root_x = self.find(x)
+        root_y = self.find(y)
+        if self.size[root_x] < self.size[root_y]:
+            self.parents[root_x] = root_y
+            self.size[root_y] += self.size[root_x]
+        else:
+            self.parents[root_y] = root_x
+            self.size[root_x] += self.size[root_y]
+
+
+
+
