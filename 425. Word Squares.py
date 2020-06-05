@@ -96,3 +96,71 @@ class Solution:
         return word[:n] == candidate
             
 '''
+
+
+# 2020/06/05, trie+backtracking
+
+
+'''
+Runtime: 520 ms, faster than 41.68% of Python3 online submissions for Word Squares.
+Memory Usage: 15.8 MB, less than 61.52% of Python3 online submissions for Word Squares.
+'''
+
+
+class Solution:
+    def wordSquares(self, words: List[str]) -> List[List[str]]:
+        ans = []
+        words_trie = Trie()
+        for word in words:
+            words_trie.insert(word)
+        self.dfs(words_trie, ans, [], len(words[0]))
+        return ans
+
+    def dfs(self, words_trie, ans, square, n):
+        if len(square) == n:
+            ans.append(square[:])
+            return
+        prefix = self.get_prefix(square)
+        for word in words_trie.find(prefix):
+            square.append(word)
+            self.dfs(words_trie, ans, square, n)
+            square.pop()
+
+    def get_prefix(self, square):
+        if not square: return ""
+        prefix = ""
+        n = len(square)
+        for i in range(n):
+            prefix += square[i][n]
+        return prefix
+
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_word = False
+        self.words_list = []
+
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word):
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                node.children[c] = TrieNode()
+            node.words_list.append(word)
+            node = node.children[c]
+        node.is_word = True
+
+    def find(self, word):
+        node = self.root
+        for c in word:
+            node = node.children.get(c, None)
+            if not node: return []
+        return node.words_list
+
+
+

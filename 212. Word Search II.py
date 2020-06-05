@@ -114,3 +114,71 @@ class Solution:
             self.dfs(matrix, n, m, dirs, x, y, prefix_words, words, word + matrix[x][y], res, visited)
             visited.remove((x, y))
 
+# 2020/06/05, trie
+
+
+'''
+Runtime: 956 ms, faster than 6.55% of Python3 online submissions for Word Search II.
+Memory Usage: 32.1 MB, less than 45.24% of Python3 online submissions for Word Search II.
+'''
+
+
+class Solution:
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        n, m = len(board), len(board[0])
+        dirs = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+        words_trie = Trie()
+        for word in words:
+            words_trie.insert(word)
+        ans = set()
+        for i in range(n):
+            for j in range(m):
+                self.dfs(board, n, m, dirs, words_trie, ans, i, j, board[i][j], set([(i, j)]))
+        return list(ans)
+
+    def dfs(self, board, n, m, dirs, trie, ans, i, j, word, visited):
+        if not trie.startsWith(word): return
+        if trie.search(word):
+            ans.add(word)
+        for delta_i, delta_j in dirs:
+            n_i = i + delta_i
+            n_j = j + delta_j
+            if n_i < 0 or n_i >= n or n_j < 0 or n_j >= m or (n_i, n_j) in visited:
+                continue
+            visited.add((n_i, n_j))
+            self.dfs(board, n, m, dirs, trie, ans, n_i, n_j, word + board[n_i][n_j], visited)
+            visited.remove((n_i, n_j))
+
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_word = False
+
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word):
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                node.children[c] = TrieNode()
+            node = node.children[c]
+        node.is_word = True
+
+    def find(self, word):
+        node = self.root
+        for c in word:
+            node = node.children.get(c, None)
+            if not node: return None
+        return node
+
+    def search(self, word):
+        node = self.find(word)
+        return node and node.is_word
+
+    def startsWith(self, prefix):
+        return self.find(prefix)
+
