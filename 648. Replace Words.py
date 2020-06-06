@@ -51,3 +51,49 @@ class Solution:
                     break
         return " ".join(sentence)
 
+# 2020/06/05, trie, too smart
+
+'''
+Runtime: 112 ms, faster than 75.66% of Python3 online submissions for Replace Words.
+Memory Usage: 35.3 MB, less than 27.31% of Python3 online submissions for Replace Words.
+'''
+
+
+class Solution:
+    def replaceWords(self, dict: List[str], sentence: str) -> str:
+        trie = Trie()
+        for word in dict:
+            trie.insert(word)
+        sentence = sentence.split(" ")
+        for i, word in enumerate(sentence):
+            sentence[i] = trie.find_prefix(word)
+        return " ".join(sentence)
+
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_word = False
+
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word):
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                node.children[c] = TrieNode()
+            node = node.children[c]
+        node.is_word = True
+
+    def find_prefix(self, word):
+        node = self.root
+        prefix = ""
+        for c in word:
+            node = node.children.get(c)
+            if not node: break
+            prefix += c
+            if node.is_word: return prefix
+        return word
