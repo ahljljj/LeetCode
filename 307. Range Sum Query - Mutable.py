@@ -120,3 +120,71 @@ class NumArray:
 
     def sumRange(self, i: int, j: int) -> int:
         return self.prefix_sum(j + 1) - self.prefix_sum(i)
+
+# 2020/06/07, segment tree
+
+'''
+Runtime: 244 ms, faster than 67.28% of Python3 online submissions for Range Sum Query - Mutable.
+Memory Usage: 23.1 MB, less than 11.68% of Python3 online submissions for Range Sum Query - Mutable.
+'''
+
+
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.root = SegmentTree.build(nums, 0, len(nums) - 1)
+
+    def update(self, i: int, val: int) -> None:
+        SegmentTree.modify(self.root, i, val)
+        return
+
+    def sumRange(self, i: int, j: int) -> int:
+        return SegmentTree.query(self.root, i, j)
+
+
+class SegmentTree:
+
+    def __init__(self, start, end, sum):
+        self.start = start
+        self.end = end
+        self.sum = sum
+        self.left, self.right = None, None
+
+    @classmethod
+    def build(cls, nums, start, end):
+        if start > end: return
+        root = SegmentTree(start, end, nums[start])
+        if start == end:
+            return root
+        mid = (start + end) // 2
+        root.left = cls.build(nums, start, mid)
+        root.right = cls.build(nums, mid + 1, end)
+        root.sum = root.left.sum + root.right.sum
+        return root
+
+    @classmethod
+    def query(cls, root, start, end):
+        if root.start == start and root.end == end:
+            return root.sum
+        mid = (root.start + root.end) // 2
+        if end <= mid:
+            return cls.query(root.left, start, end)
+        if start > mid:
+            return cls.query(root.right, start, end)
+        l = cls.query(root.left, start, mid)
+        r = cls.query(root.right, mid + 1, end)
+        return l + r
+
+    @classmethod
+    def modify(cls, root, index, value):
+        if not root: return
+        if root.start == root.end:
+            root.sum = value
+            return
+        mid = (root.start + root.end) // 2
+        if index <= mid:
+            cls.modify(root.left, index, value)
+        else:
+            cls.modify(root.right, index, value)
+        root.sum = root.left.sum + root.right.sum
+        return
