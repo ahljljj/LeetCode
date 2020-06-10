@@ -75,3 +75,43 @@ class MedianFinder:
 # obj = MedianFinder()
 # obj.addNum(num)
 # param_2 = obj.findMedian()
+
+# 2020/06/10, two heaps
+
+'''
+Runtime: 216 ms, faster than 55.68% of Python3 online submissions for Find Median from Data Stream.
+Memory Usage: 24.9 MB, less than 61.66% of Python3 online submissions for Find Median from Data Stream.
+'''
+
+
+class MedianFinder:
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        # python default: min stack/ contain all num <= median
+        # max stack: reverse of min stack/ contain all num > median
+        self.max_heap = []
+        self.min_heap = []
+
+    def addNum(self, num: int) -> None:
+        if not self.max_heap or num <= -self.max_heap[0]:
+            heapq.heappush(self.max_heap, -num)
+        else:
+            heapq.heappush(self.min_heap, num)
+        # min heap <= max heap <= min heap + 1
+        self.balance()
+
+    def balance(self):
+        while len(self.min_heap) > len(self.max_heap):
+            min_val = heapq.heappop(self.min_heap)
+            heapq.heappush(self.max_heap, -min_val)
+        while len(self.max_heap) > len(self.min_heap) + 1:
+            max_val = -heapq.heappop(self.max_heap)
+            heapq.heappush(self.min_heap, max_val)
+
+    def findMedian(self) -> float:
+        if len(self.max_heap) == len(self.min_heap):
+            return (-self.max_heap[0] + self.min_heap[0]) / 2
+        return -self.max_heap[0]
