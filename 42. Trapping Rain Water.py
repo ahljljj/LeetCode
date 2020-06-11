@@ -19,7 +19,7 @@ Submissions
 
 
 
-# 2020/06/11, two pointers
+# 2020/06/11, two pointers, too hard
 
 
 '''
