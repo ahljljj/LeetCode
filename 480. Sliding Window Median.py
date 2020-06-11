@@ -50,32 +50,32 @@ class Solution:
         for i in range(half):
             heapq.heappush(max_heap, -heapq.heappop(min_heap))
         ans.append(self.get_median(max_heap, min_heap, k))
-        to_be_deleted = collections.defaultdict(int)
+        del_nums = collections.defaultdict(int)
         for r in range(k, len(nums)):
-            del_num = nums[r - k]
+            to_be_deleted = nums[r - k]
             in_num = nums[r]
-            to_be_deleted[del_num] += 1
+            del_nums[to_be_deleted] += 1
             if in_num <= -max_heap[0]:
                 heapq.heappush(max_heap, -in_num)
-                if del_num > -max_heap[0]:
+                if to_be_deleted > -max_heap[0]:
                     self.rebalance(max_heap, min_heap)
             else:
                 heapq.heappush(min_heap, in_num)
-                if del_num <= -max_heap[0]:
+                if to_be_deleted <= -max_heap[0]:
                     self.rebalance(min_heap, max_heap)
-            self.check_valid(to_be_deleted, max_heap, min_heap)
+            self.check_valid(del_nums, max_heap, min_heap)
             ans.append(self.get_median(max_heap, min_heap, k))
         return ans
 
     def rebalance(self, from_heap, to_heap):
         heapq.heappush(to_heap, -heapq.heappop(from_heap))
 
-    def check_valid(self, to_be_deleted, left, right):
-        while to_be_deleted[-left[0]]:
-            to_be_deleted[-left[0]] -= 1
+    def check_valid(self, del_nums, left, right):
+        while del_nums[-left[0]]:
+            del_nums[-left[0]] -= 1
             heapq.heappop(left)
-        while right and to_be_deleted[right[0]]:
-            to_be_deleted[right[0]] -= 1
+        while right and del_nums[right[0]]:
+            del_nums[right[0]] -= 1
             heapq.heappop(right)
 
     def get_median(self, left, right, k):
