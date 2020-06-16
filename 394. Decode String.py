@@ -103,4 +103,36 @@ class Solution:
         return word
 
 
+# 2020/06/16, dfs, rewrite, too clever
+
+'''
+Runtime: 20 ms, faster than 98.46% of Python3 online submissions for Decode String.
+Memory Usage: 13.8 MB, less than 62.31% of Python3 online submissions for Decode String.
+'''
+
+
+class Solution:
+    def decodeString(self, s: str) -> str:
+        self.pos = 0
+        return self.dfs(s)
+
+    def dfs(self, s):
+        word, num = "", 0
+        while self.pos < len(s):
+            c = s[self.pos]
+            if c == ']':
+                return word
+            elif c.isdigit():
+                num = num * 10 + int(c)
+            elif c.isalpha():
+                word += c
+            else:  # c == '['
+                self.pos += 1
+                next_word = self.dfs(s)
+                word += next_word * num
+                num = 0
+            self.pos += 1
+        return word
+
+
 
