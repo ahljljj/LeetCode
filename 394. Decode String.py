@@ -134,5 +134,36 @@ class Solution:
             self.pos += 1
         return word
 
+# 2020/06/16, iteration stack
+
+'''
+Runtime: 28 ms, faster than 74.22% of Python3 online submissions for Decode String.
+Memory Usage: 13.6 MB, less than 93.58% of Python3 online submissions for Decode String.
+'''
+
+class Solution:
+    def decodeString(self, s: str) -> str:
+        num = 0
+        stack = []
+        for c in s:
+            if c.isdigit():
+                num = num * 10 + int(c)
+            elif c == '[':
+                stack.append(str(num))
+                num = 0
+            elif c.isalpha():
+                stack.append(c)
+            else:
+                word = self.pop_back(stack)
+                count = int(stack.pop())
+                stack.append(count * word)
+        return "".join(stack)
+
+    def pop_back(self, stack):
+        word = []
+        while stack and stack[-1].isalpha():
+            word.append(stack.pop())
+        return "".join(word[::-1])
+
 
 
