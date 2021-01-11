@@ -79,3 +79,19 @@ class Solution(object):
             # if nums[0] is greater than the mid value then this means the smallest value is somewhere to the left
             else:
                 right = mid - 1
+
+# 2021-01-21， binary search
+# Runtime: 48 ms, faster than 9.86% of Python3 online submissions for Find Minimum in Rotated Sorted Array.
+# Memory Usage: 14.6 MB, less than 53.25% of Python3 online submissions for Find Minimum in Rotated Sorted Array.
+
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        l, r = 0, len(nums) - 1
+        while l + 1 < r:
+            m = (l + r) >> 1
+            if nums[m] <= nums[r]:
+                r = m
+            else:
+                l = m
+        if nums[l] <= nums[r]: return nums[l]
+        return nums[r]
