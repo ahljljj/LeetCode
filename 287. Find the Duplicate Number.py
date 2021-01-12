@@ -83,3 +83,27 @@ class Solution:
                 lower = mid + 1
         return lower
 
+
+# 2021-01-11, binary search
+
+# Runtime: 80 ms, faster than 20.07% of Python3 online submissions for Find the Duplicate Number.
+# Memory Usage: 16.5 MB, less than 84.40% of Python3 online submissions for Find the Duplicate Number.
+
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        l, r = 1, len(nums) - 1
+        while l + 1 < r:
+            m = (l + r) >> 1
+            if self.count_less(nums, m) > m:
+                r = m
+            else:
+                l = m
+        m = (l + r) >> 1
+        if self.count_less(nums, l) > m: return l
+        return r
+
+    def count_less(self, nums, target):
+        ans = 0
+        for num in nums:
+            if num <= target: ans += 1
+        return ans
