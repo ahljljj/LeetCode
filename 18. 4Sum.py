@@ -81,6 +81,47 @@ class Solution:
                             res.append([nums[i], nums[j], nums[idx1], nums[idx2]])
         return res
 
+# 2021/01/17, two pointer
+
+# Runtime: 792 ms, faster than 55.99% of Python3 online submissions for 4Sum.
+# Memory Usage: 14.4 MB, less than 58.13% of Python3 online submissions for 4Sum.
+
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        nums = sorted(nums)
+        ans = []
+        i = 0
+        for i in range(len(nums)):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+            for j in range(i + 1, len(nums) - 2):
+                if j > i + 1 and nums[j] == nums[j - 1]:
+                    continue
+                pair = self.search(nums, j + 1, target - nums[i] - nums[j])
+                if pair:
+                    for c, d in pair:
+                        ans.append([nums[i], nums[j], nums[c], nums[d]])
+        return ans
+
+    def search(self, nums, start, target):
+        l, r = start, len(nums) - 1
+        ans = []
+        while l < r:
+            if nums[l] + nums[r] < target:
+                l += 1
+            elif nums[l] + nums[r] > target:
+                r -= 1
+            else:
+                ans.append([l, r])
+                l += 1;
+                r -= 1
+                while l < r and nums[l] == nums[l - 1] and nums[r] == nums[r + 1]:
+                    l += 1;
+                    r -= 1
+        return ans
+
+
+
 
 
 
