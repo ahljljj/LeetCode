@@ -254,6 +254,60 @@ class Solution:
                 right = mid - 1
         return left
 
+# 2021/01/17, binary search
+
+# Runtime: 3232 ms, faster than 5.10% of Python3 online submissions for 4Sum II.
+# Memory Usage: 36.1 MB, less than 46.65% of Python3 online submissions for 4Sum II.
+
+
+class Solution:
+    def fourSumCount(self, A: List[int], B: List[int], C: List[int], D: List[int]) -> int:
+        sum1, sum2 = [], []
+        for i in range(len(A)):
+            for j in range(len(A)):
+                sum1.append(A[i] + B[j])
+                sum2.append(C[i] + D[j])
+        sum1.sort();
+        sum2.sort()
+        ans = 0
+        for num in sum1:
+            u = self.find_upper(sum2, -num)
+            if u == -1: continue
+            l = self.find_lower(sum2, -num)
+            ans += u - l + 1
+        return ans
+
+    def find_upper(self, nums, target):
+        l, r = 0, len(nums) - 1
+        while l + 1 < r:
+            m = (l + r) >> 1
+            if nums[m] <= target:
+                l = m
+            else:
+                r = m
+        if nums[r] == target:
+            return r
+
+        if nums[l] == target:
+            return l
+
+        return -1
+
+    def find_lower(self, nums, target):
+        l, r = 0, len(nums) - 1
+        while l + 1 < r:
+            m = (l + r) >> 1
+            if nums[m] >= target:
+                r = m
+            else:
+                l = m
+        if nums[l] == target:
+            return l
+
+        if nums[r] == target:
+            return r
+
+        return -1
 
 
 
