@@ -104,3 +104,25 @@ class Solution:
                 l += 1;
                 r -= 1
         return
+
+# 2021/01/19，三指针模板
+
+# pivot = 1. 将小于1的数移到左侧，大于1的数放到右侧。l：小于1的数的指针；r: 大于1的数的指针；i总指针。
+
+
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        l, r = 0, len(nums) - 1
+        i = 0
+        while i <= r:
+            if nums[i] > 1:
+                nums[i], nums[r] = nums[r], nums[i]
+                r -= 1
+            elif nums[i] < 1:
+                nums[i], nums[l] = nums[l], nums[i]
+                l += 1; i += 1
+            else:
+                i += 1
