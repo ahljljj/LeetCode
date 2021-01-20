@@ -75,3 +75,32 @@ public:
 };
 
 '''
+
+# 2021/01/19, partition twice
+
+# Runtime: 36 ms, faster than 47.69% of Python3 online submissions for Sort Colors.
+# Memory Usage: 14.2 MB, less than 47.38% of Python3 online submissions for Sort Colors.
+
+# 注意：partition 的作用是将小于 target 的数放到左侧，大于 target 的数放到右侧。左右两侧都是未排序的。
+# partition 两次，每一次将0 和 (1, 2) 分开， 第二次将1 和 2分开。
+
+
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        self.partition(nums, 1)
+        self.partition(nums, 2)
+        return
+
+    def partition(self, nums, k):
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            while l <= r and nums[l] < k: l += 1
+            while l <= r and nums[r] >= k: r -= 1
+            if l <= r:
+                nums[l], nums[r] = nums[r], nums[l]
+                l += 1;
+                r -= 1
+        return
