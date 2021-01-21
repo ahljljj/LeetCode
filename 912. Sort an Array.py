@@ -115,3 +115,100 @@ class Solution:
             p += 1
         for x in range(l, r + 1):
             nums[x] = tmp[x]
+
+
+# 2021/01/20, quick sort
+# 双指针
+
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        self.quick_sort(nums, 0, len(nums) - 1)
+        return nums
+
+    def quick_sort(self, nums, start, end):
+        if start >= end:
+            return
+        k = nums[(start + end) >> 1]
+        l, r = self.partition(nums, start, end, k)
+        self.quick_sort(nums, start, l)
+        self.quick_sort(nums, r, end)
+
+    def partition(self, nums, start, end, k):
+        l, r = start, end
+        while l <= r:
+            while l <= r and nums[l] < k:
+                l += 1
+            while l <= r and nums[r] > k:
+                r -= 1
+            if l <= r:
+                nums[l], nums[r] = nums[r], nums[l]
+                l += 1;
+                r -= 1
+        return r, l
+
+# 2021/01/20， 三指针 quick sort
+
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        self.quick_sort(nums, 0, len(nums) - 1)
+        return nums
+
+    def quick_sort(self, nums, start, end):
+        if start >= end:
+            return
+        l, r = self.partition(nums, start, end, nums[(start + end) >> 1])
+        self.quick_sort(nums, start, l)
+        self.quick_sort(nums, r, end)
+        return
+
+    def partition(self, nums, start, end, k):
+        l, r = start, end
+        i = l
+        while i <= r:
+            if nums[i] > k:
+                nums[i], nums[r] = nums[r], nums[i]
+                r -= 1
+            elif nums[i] < k:
+                nums[i], nums[l] = nums[l], nums[i]
+                i += 1;
+                l += 1
+            else:
+                i += 1
+        return l, i
+
+# 2021/01/20, merge sort
+
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        self.merge_sort(nums, 0, len(nums) - 1, [None] * len(nums))
+        return nums
+
+    def merge_sort(self, nums, start, end, dummy):
+        if start >= end: return
+        m = (start + end) >> 1
+        self.merge_sort(nums, start, m, dummy)
+        self.merge_sort(nums, m + 1, end, dummy)
+        self.merge(nums, start, m, end, dummy)
+
+    def merge(self, nums, l, m, r, dummy):
+        i, j = l, m + 1
+        k = l
+        while i <= m and j <= r:
+            if nums[i] < nums[j]:
+                dummy[k] = nums[i]
+                i += 1;
+                k += 1
+            else:
+                dummy[k] = nums[j]
+                j += 1;
+                k += 1
+        while i <= m:
+            dummy[k] = nums[i]
+            k += 1;
+            i += 1
+        while j <= r:
+            dummy[k] = nums[j]
+            k += 1;
+            j += 1
+        for x in range(l, k):
+            nums[x] = dummy[x]
