@@ -51,3 +51,23 @@ class Solution:
             return l
         return -1
 
+# 2021/01/24, prefix sum + hash table
+
+# Runtime: 268 ms, faster than 63.69% of Python3 online submissions for Binary Subarrays With Sum.
+# Memory Usage: 18 MB, less than 14.26% of Python3 online submissions for Binary Subarrays With Sum.
+
+
+# 哈希表 + 前缀和
+# 遍历前缀和数组。如果 prefix_sum[i] - S 存在，表明在此之前有m[prefix_sum[i] - S ]个subarray的和等于prefix_sum[i] - S
+# 那么update 结果
+class Solution:
+    def numSubarraysWithSum(self, A: List[int], S: int) -> int:
+        prefix_sum = [0] * (1 + len(A))
+        for i in range(len(A)):
+            prefix_sum[i + 1] = prefix_sum[i] + A[i]
+        m = {}
+        ans = 0
+        for i in range(len(prefix_sum)):
+            ans += m.get(prefix_sum[i] - S, 0)
+            m[prefix_sum[i]] = m.get(prefix_sum[i], 0) + 1
+        return ans
