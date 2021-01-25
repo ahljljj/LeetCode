@@ -46,3 +46,28 @@ class Solution:
             queue = tempq
             res.append(temp)
         return res[::-1]
+
+
+# 2021/01/25， bfs standard
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
+        if not root: return []
+        ans = []
+        q = collections.deque([root])
+        while q:
+            size = len(q)
+            curr = []
+            for _ in range(size):
+                front = q.popleft()
+                curr.append(front.val)
+                if front.left: q.append(front.left)
+                if front.right: q.append(front.right)
+            ans.append(curr)
+        return ans[::-1]
