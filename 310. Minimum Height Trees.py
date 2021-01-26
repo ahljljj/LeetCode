@@ -86,3 +86,42 @@ class Solution:
                     tmp.append(j)
             leaves = tmp
         return leaves
+
+# 2021/01/25, bfs + graph
+
+# 这题很难，暴力可以做但是超时了
+# 需要转化成拓扑排序，这点很难想到。
+# 需要发现 middle point of the tree。怎么发现middle？从叶子出发，一层层的往里推进
+
+class Solution:
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        if not edges: return [0]
+        neighbors = self.get_neighbors(n, edges)
+        degrees = self.get_degree(n, edges)
+        start = [node for node in range(n) if degrees[node] == 1]
+        q = collections.deque(start)
+        remaing_nodes = n
+        while remaing_nodes > 2:
+            size = len(q)
+            remaing_nodes -= size
+            for _ in range(size):
+                front = q.popleft()
+                for nei in neighbors[front]:
+                    degrees[nei] -= 1
+                    if degrees[nei] == 1:
+                        q.append(nei)
+        return list(q)
+
+    def get_neighbors(self, n, edges):
+        m = {i: [] for i in range(n)}
+        for x, y in edges:
+            m[x].append(y)
+            m[y].append(x)
+        return m
+
+    def get_degree(self, n, edges):
+        m = {i: 0 for i in range(n)}
+        for x, y in edges:
+            m[x] += 1
+            m[y] += 1
+        return m
