@@ -51,3 +51,30 @@ class Solution(object):
             res.append(tmpval)
             queue = tmp
         return res
+
+# 2021/01/25, bfs
+
+# bfs 标准模板
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children
+"""
+
+class Solution:
+    def levelOrder(self, root: 'Node') -> List[List[int]]:
+        if not root: return []
+        q = collections.deque([root])
+        ans = []
+        while q:
+            size = len(q)
+            curr = []
+            for _ in range(size):
+                front = q.popleft()
+                curr.append(front.val)
+                for kid in front.children:
+                    q.append(kid)
+            ans.append(curr)
+        return ans
