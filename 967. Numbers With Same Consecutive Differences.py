@@ -55,3 +55,42 @@ class Solution:
         ans = [ int(num) for num in q if num[0] != '0' ]
         return ans
 
+# 2021/01/27
+# 进一步优化
+
+class Solution:
+    def numsSameConsecDiff(self, n: int, k: int) -> List[int]:
+        q = collections.deque(range(1, 10))
+        length = 1
+        visited = set(q)
+        while length < n:
+            size = len(q)
+            for _ in range(size):
+                front = q.popleft()
+                last = front % 10
+                suffix = [ last - k , last + k ]
+                for num in suffix:
+                    if 0 <= num < 10 and front * 10 + num not in visited:
+                        q.append( front * 10 + num )
+                        visited.add( front * 10 + num )
+            length += 1
+        return list(q)
+
+# 最终版
+# Runtime: 32 ms, faster than 96.81% of Python3 online submissions for Numbers With Same Consecutive Differences.
+# Memory Usage: 14.6 MB, less than 65.69% of Python3 online submissions for Numbers With Same Consecutive Differences.
+class Solution:
+    def numsSameConsecDiff(self, n: int, k: int) -> List[int]:
+        q = collections.deque(range(1, 10))
+        length = 1
+        while length < n:
+            size = len(q)
+            for _ in range(size):
+                front = q.popleft()
+                last = front % 10
+                suffix = [ last - k , last + k ] if k else [last]
+                for num in suffix:
+                    if 0 <= num < 10: q.append( front * 10 + num )
+            length += 1
+        return list(q)
+
