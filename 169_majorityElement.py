@@ -68,3 +68,25 @@ public:
     }
 };
 '''
+
+# 2021/01/29, divide and conquer
+# 分治法的返加回值是majority元素
+# 如果左边的majority与右边的majority元素一致，那么该元素即为整个数组的majority
+# 否则的话，这两个majority中的一个必然是整个数组的majority
+# 利用for loop 来暴力判断
+
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        return self.div_conq(nums, 0, len(nums) - 1)
+
+    def div_conq(self, nums, start, end):
+        if start == end:
+            return nums[start]
+        m = (start + end) // 2
+        left = self.div_conq(nums, start, m)
+        right = self.div_conq(nums, m + 1, end)
+        if left == right:
+            return left
+        left_count = sum(1 for i in range(start, end + 1) if nums[i] == left)
+        right_count = sum(1 for i in range(start, end + 1) if nums[i] == right)
+        return left if left_count > right_count else right
