@@ -72,3 +72,37 @@ class Solution:
         result = max(result, self.longestSubstring(s[start:], k)) # need do compare for the last segment
         return result
 
+
+# 2021/01/30, sliding window
+# Runtime: 128 ms, faster than 41.72% of Python3 online submissions for Longest Substring with At Least K Repeating Characters.
+# Memory Usage: 14.4 MB, less than 68.66% of Python3 online submissions for Longest Substring with At Least K Repeating Characters.
+
+# 循环sliding window
+# 技巧性很强，不太容易能想到sliding window的方法
+# 首先找出字符串中unique字符的个数
+# 滑动窗口维护的是一个窗口中给定 unique 字符的一个窗口
+# 如果window中的unique字符 > curr_unique，左移窗口；否则右移窗口
+
+class Solution:
+    def longestSubstring(self, s: str, k: int) -> int:
+        max_unique = set(s)
+        ans = 0
+        for curr_unique in range(1, len(max_unique) + 1):
+            l, r = 0, 0
+            count = 0
+            curr_window = {}
+            for r in range(len(s)):
+                curr_window[s[r]] = curr_window.get(s[r], 0) + 1
+                if curr_window[s[r]] == k:
+                    count += 1
+                while l <= r and len(curr_window) > curr_unique:
+                    curr_window[s[l]] -= 1
+                    if curr_window[s[l]] == k - 1:
+                        count -= 1
+                    if curr_window[s[l]] == 0:
+                        curr_window.pop(s[l], None)
+                    l += 1
+                if count == curr_unique:
+                    ans = max(ans, r - l + 1)
+        return ans
+
