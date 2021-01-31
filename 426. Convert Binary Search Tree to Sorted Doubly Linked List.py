@@ -123,5 +123,56 @@ class Solution:
         # return the head n1 (the node with the smallest value in the new cycle)
         return n1
 
+# 2021/01/30, divide and conquer
+
+
+# Runtime: 36 ms, faster than 65.33% of Python3 online submissions for Convert Binary Search Tree to Sorted Doubly Linked List.
+# Memory Usage: 15.4 MB, less than 62.13% of Python3 online submissions for Convert Binary Search Tree to Sorted Doubly Linked List.
+
+
+# 分治法，细节很多
+# 有三个 doubly linked list: left, root, and right
+# 有些edge case, 比如，空list的处理
+
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+"""
+
+class Solution:
+    def treeToDoublyList(self, root: 'Node') -> 'Node':
+        if not root: return root
+        left = self.treeToDoublyList(root.left)
+        right = self.treeToDoublyList(root.right)
+        if not left and not right:
+            root.left, root.right = root, root
+            return root
+        if not left and right:
+            right_head, right_tail = right, right.left
+            root.right = right_head
+            right_head.left = root
+            right_tail.right = root
+            root.left = right_tail
+            return root
+        if not right and left:
+            left_head, left_tail = left, left.left
+            left_tail.right = root
+            root.left = left_tail
+            root.right = left_head
+            left_head.left = root
+            return left_head
+        left_head, left_tail = left, left.left
+        right_head, right_tail = right, right.left
+        left_tail.right = root
+        root.left = left_tail
+        root.right = right_head
+        right_head.left = root
+        right_tail.right = left_head
+        left_head.left = right_tail
+        return left_head
 
 

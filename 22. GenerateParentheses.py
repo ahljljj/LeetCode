@@ -62,3 +62,29 @@ public:
 };
 
 '''
+
+
+# 2021/01/31
+
+# Runtime: 68 ms, faster than 8.75% of Python3 online submissions for Generate Parentheses.
+# Memory Usage: 14.5 MB, less than 69.30% of Python3 online submissions for Generate Parentheses.
+
+# 全子集标准模板之层级遍历
+# 用if语句来判断是否将当前括号加入subset中
+
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        ans = []
+        self.dfs(n, 0, 0, ans, [])
+        return ans
+
+    def dfs(self, n, left, right, ans, subset):
+        if len(subset) == 2 * n:
+            ans.append("".join(subset))
+        for ch in "()":
+            subset.append(ch)
+            if ch == "(" and left < n:
+                self.dfs(n, left + 1, right, ans, subset)
+            if ch == ")" and right < left:
+                self.dfs(n, left, right + 1, ans, subset)
+            subset.pop()

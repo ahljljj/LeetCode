@@ -106,3 +106,47 @@ class Solution:
                     ans = max(ans, r - l + 1)
         return ans
 
+
+# 2021/01/30, divide and conquer
+# Runtime: 4180 ms, faster than 5.03% of Python3 online submissions for Longest Substring with At Least K Repeating Characters.
+# Memory Usage: 29.6 MB, less than 16.04% of Python3 online submissions for Longest Substring with At Least K Repeating Characters.
+
+
+# 挺难的，中点的选择很难想到
+
+class Solution:
+    def longestSubstring(self, s: str, k: int) -> int:
+        return self.div_conq(s, 0, len(s) - 1, k)
+
+    def div_conq(self, s, start, end, k):
+        if end - start + 1 < k: return 0
+        count = {}
+        for i in range(start, end + 1):
+            count[s[i]] = count.get(s[i], 0) + 1
+        for m in range(start, end + 1):
+            if count[s[m]] < k:
+                return max(self.div_conq(s, start, m - 1, k), self.div_conq(s, m + 1, end, k))
+        return end - start + 1
+
+# 分治法稍微优化下，提升显著
+# Runtime: 28 ms, faster than 95.86% of Python3 online submissions for Longest Substring with At Least K Repeating Characters.
+# Memory Usage: 14.2 MB, less than 86.22% of Python3 online submissions for Longest Substring with At Least K Repeating Characters.
+
+
+class Solution:
+    def longestSubstring(self, s: str, k: int) -> int:
+        return self.div_conq(s, 0, len(s) - 1, k)
+
+    def div_conq(self, s, start, end, k):
+        if end - start + 1 < k: return 0
+        count = {}
+        for i in range(start, end + 1):
+            count[s[i]] = count.get(s[i], 0) + 1
+        for m in range(start, end + 1):
+            if count[s[m]] < k:
+                # start from m, find the maximal possible split point
+                # save lots of time
+                u = m
+                while u <= end and count[s[u]] < k: u += 1
+                return max(self.div_conq(s, start, m - 1, k), self.div_conq(s, u, end, k))
+        return end - start + 1
