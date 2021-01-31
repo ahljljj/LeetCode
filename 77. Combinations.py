@@ -66,3 +66,24 @@ public:
 };
 
 '''
+
+
+# 2021/01/31
+
+# 全子集标准模板
+# 只有当子集的长度 = k 时，才会append
+
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        ans = []
+        self.dfs(n, k, 1, ans, [])
+        return ans
+
+    def dfs(self, n, k, start, ans, subset):
+        if len(subset) == k:
+            ans.append(subset[:])
+            return
+        for i in range(start, n + 1):
+            subset.append(i)
+            self.dfs(n, k, i + 1, ans, subset)
+            subset.pop()

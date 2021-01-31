@@ -45,3 +45,26 @@ class Solution(object):
             tmp.append(i)
             self.helper(res, tmp, target - i, k - 1, i + 1)
             tmp.pop()
+
+
+# 2021/01/31
+# untime: 52 ms, faster than 8.12% of Python3 online submissions for Combination Sum III.
+# Memory Usage: 14.2 MB, less than 61.29% of Python3 online submissions for Combination Sum III.
+
+# 全子集标准模板，剪枝后得到最终子集
+
+class Solution:
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        ans = []
+        self.dfs(k, n, 1, ans, [])
+        return ans
+
+    def dfs(self, k, n, start, ans, subset):
+        if len(subset) > k or sum(subset) > n: return
+        if len(subset) == k and sum(subset) == n:
+            ans.append(subset[:])
+            return
+        for i in range(start, 10):
+            subset.append(i)
+            self.dfs(k, n, i + 1, ans, subset)
+            subset.pop()
