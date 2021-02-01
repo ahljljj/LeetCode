@@ -62,3 +62,26 @@ class Solution:
                 s = s[:i] + "++" + s[i + 2:]
         self.memo[s] = False
         return False
+
+
+# 2021/01/31
+# backtracking, no memo
+# Runtime: 1108 ms, faster than 18.71% of Python3 online submissions for Flip Game II.
+# Memory Usage: 14.1 MB, less than 93.23% of Python3 online submissions for Flip Game II.
+
+# canWin函数的是这个player能否找到一条必胜策略的可能性。并不意味着player一定能赢。
+
+class Solution:
+    def canWin(self, s: str) -> bool:
+        s = list(s)
+        return self.dfs(s)
+
+    def dfs(self, s):
+        for i in range(len(s) - 1):
+            if s[i] == '+' and s[i + 1] == '+':
+                s[i] = '-';
+                s[i + 1] = '-'
+                if not self.canWin(s): return True
+                s[i] = '+';
+                s[i + 1] = '+'
+        return False
